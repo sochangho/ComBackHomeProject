@@ -1,0 +1,896 @@
+﻿
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+
+public class Slice : MonoBehaviour
+{
+
+    private Material mt;
+    public Vector3 plane_normal;
+   // public GameObject meshSliceTarget;
+    public int idx;
+    public int limit_idx;
+
+    private List<GameObject> pragments = new List<GameObject>();
+    
+    [SerializeField] 
+    private float m_force = 0f;
+
+    [SerializeField] 
+    private Vector3 m_offest = Vector3.zero;
+
+    private bool trigger = true;
+
+    public GameObject Object_property { get; set; }
+
+  
+
+    private void Start()
+    {
+        mt = gameObject.GetComponent<Renderer>().material;
+    }
+
+    private void Update()
+    {
+
+        if(idx == limit_idx && trigger == true)
+        {
+
+            for(int i = 0; i < transform.childCount; i++)
+            {
+                if(transform.GetChild(i).gameObject.activeSelf == true)
+                {
+                    pragments.Add(transform.GetChild(i).gameObject);
+                }
+            }
+
+
+            for(int i = 0; i<pragments.Count; i++)
+            {
+               pragments[i].AddComponent<Rigidbody>().mass = 0.2f;
+                float x = Random.Range(-1, 1);
+                float y = Random.Range(-1, 1);
+                float z = Random.Range(-1, 1);
+
+                m_offest = new Vector3(x, y, z);
+               pragments[i].GetComponent<MeshCollider>().convex = true;
+               pragments[i].GetComponent<MeshCollider>().sharedMesh = pragments[i].GetComponent<MeshFilter>().sharedMesh;
+               pragments[i].GetComponent<Rigidbody>().AddExplosionForce(m_force, transform.position + m_offest, 10f);
+
+            }
+
+            trigger = false;
+         
+        }
+        
+    }
+
+    /// <summary>
+    /// 메쉬 절단
+    /// </summary>
+    /// <param name="target">자를 오브젝트</param>
+    /// <returns></returns>
+    public  void Slicer(GameObject target , Material material , Vector3 contact , int slice_idx , string str)
+    {
+        idx = slice_idx;
+
+        // Debug.Log(contact.x + "," + contact.y + "," + contact.z);
+
+        //object의 mesh 정보를 가져와준다
+
+        Mesh orin_Mesh = target.GetComponent<MeshFilter>().sharedMesh;
+
+        Vector3[] orin_vertics = orin_Mesh.vertices;
+
+        Vector3[] orin_normals = orin_Mesh.normals;
+
+        Vector2[] orin_uvs = orin_Mesh.uv;
+
+        Vector3 slicer_center = Vector3.zero;
+    
+          
+
+        for(int i = 0; i < orin_vertics.Length; i++)
+        {
+            slicer_center += orin_vertics[i];
+
+        }
+
+        slicer_center = slicer_center / orin_vertics.Length;
+
+
+
+
+
+        Vector3 plane_normal = new Vector3(0,0,0);
+
+
+        Vector3 point = slicer_center;
+
+        if (idx == 0)
+        {
+            plane_normal = slicer_center - contact;
+        }
+        else
+        {
+            plane_normal = contact;
+        }
+        Plane random_plane = new Plane(plane_normal.normalized, point );
+
+
+        //기존 정점들을 두 가지로 나누어 저장해둘 곳
+
+        List<Vector3> slide_verticsA = new List<Vector3>();
+        List<Vector3> slide_verticsB = new List<Vector3>();
+
+        List<Vector3> slide_normalsA = new List<Vector3>();
+        List<Vector3> slide_normalsB = new List<Vector3>();
+
+        List<Vector2> slide_uvsA = new List<Vector2>();
+        List<Vector2> slide_uvsB = new List<Vector2>();
+
+        List<int> slide_triA = new List<int>();
+        List<int> slide_triB = new List<int>();
+
+
+
+
+        //새로운 정점 , uv , normal
+
+        List<Vector3> new_vertics = new List<Vector3>();
+        List<Vector3> new_normals = new List<Vector3>();
+        List<Vector2> new_uvs = new List<Vector2>();
+
+        int t_cnt = orin_Mesh.triangles.Length / 3;
+
+        for (int i = 0; i < t_cnt; i++)
+
+        {
+
+            int idx0 = i * 3;
+            int idx1 = idx0 + 1;
+            int idx2 = idx1 + 1;
+
+
+            int vertIdx0 = orin_Mesh.triangles[idx0];
+            int vertIdx1 = orin_Mesh.triangles[idx1];
+            int vertIdx2 = orin_Mesh.triangles[idx2];
+
+            Vector3 vert0 = orin_vertics[vertIdx0];
+            Vector3 vert1 = orin_vertics[vertIdx1];
+            Vector3 vert2 = orin_vertics[vertIdx2];
+
+
+            Vector3 nor0 = orin_normals[vertIdx0];
+            Vector3 nor1 = orin_normals[vertIdx1];
+            Vector3 nor2 = orin_normals[vertIdx2];
+
+            Vector2 uv0 = orin_uvs[vertIdx0];
+            Vector2 uv1 = orin_uvs[vertIdx1];
+            Vector2 uv2 = orin_uvs[vertIdx2];
+
+
+
+
+
+
+
+            //단면 위의 점에서 폴리곤의 세 정점으로 방향과 단면이 바라보고 있는 방향을 내적해
+
+            //세 정점이 단면의 한 방향에 함께 있는지를 확인
+
+            float dot0 = Vector3.Dot(random_plane.normal, vert0 - point);
+            float dot1 = Vector3.Dot(random_plane.normal, vert1 - point);
+            float dot2 = Vector3.Dot(random_plane.normal, vert2 - point);
+
+
+
+
+            if (dot0 < 0 && dot1 < 0 && dot2 < 0)
+
+            {
+
+                slide_verticsA.Add(vert0);
+                slide_verticsA.Add(vert1);
+                slide_verticsA.Add(vert2);
+                slide_normalsA.Add(nor0);
+                slide_normalsA.Add(nor1);
+                slide_normalsA.Add(nor2);
+                slide_uvsA.Add(uv0);
+                slide_uvsA.Add(uv1);
+                slide_uvsA.Add(uv2);
+                slide_triA.Add(slide_triA.Count);
+                slide_triA.Add(slide_triA.Count);
+                slide_triA.Add(slide_triA.Count);
+
+            }
+
+            else if (dot0 >= 0 && dot1 >= 0 && dot2 >= 0)
+
+            {
+
+                slide_verticsB.Add(vert0);
+                slide_verticsB.Add(vert1);
+                slide_verticsB.Add(vert2);
+                slide_normalsB.Add(nor0);
+                slide_normalsB.Add(nor1);
+                slide_normalsB.Add(nor2);
+                slide_uvsB.Add(uv0);
+                slide_uvsB.Add(uv1);
+                slide_uvsB.Add(uv2);
+                slide_triB.Add(slide_triB.Count);
+                slide_triB.Add(slide_triB.Count);
+                slide_triB.Add(slide_triB.Count);
+
+            }
+
+            else
+
+            {
+
+                int aloneVertIdx = Mathf.Sign(dot0) == Mathf.Sign(dot1) ? vertIdx2 : (Mathf.Sign(dot0) == Mathf.Sign(dot2) ? vertIdx1 : vertIdx0);
+
+                int otherVertIdx0 = Mathf.Sign(dot0) == Mathf.Sign(dot1) ? vertIdx0 : (Mathf.Sign(dot0) == Mathf.Sign(dot2) ? vertIdx2 : vertIdx1);
+
+                int otherVertIdx1 = Mathf.Sign(dot0) == Mathf.Sign(dot1) ? vertIdx1 : (Mathf.Sign(dot0) == Mathf.Sign(dot2) ? vertIdx0 : vertIdx2);
+
+
+
+
+                Vector3 aloneVert = orin_vertics[aloneVertIdx];
+                Vector3 otherVert0 = orin_vertics[otherVertIdx0];
+                Vector3 otherVert1 = orin_vertics[otherVertIdx1];
+
+                Vector3 aloneNomal = orin_normals[aloneVertIdx];
+                Vector3 otherNomal0 = orin_normals[otherVertIdx0];
+                Vector3 otherNomal1 = orin_normals[otherVertIdx1];
+
+
+
+
+                Vector3 aloneUV = orin_uvs[aloneVertIdx];
+                Vector3 otherUV0 = orin_uvs[otherVertIdx0];
+                Vector3 otherUV1 = orin_uvs[otherVertIdx1];
+
+
+                float aloneToPlane = Mathf.Abs(random_plane.GetDistanceToPoint(aloneVert));
+                float aloneToOther0 =Mathf.Abs(random_plane.GetDistanceToPoint(otherVert0));
+                float aloneToOther1 =Mathf.Abs(random_plane.GetDistanceToPoint(otherVert1));
+
+
+                float Ratio0 = aloneToPlane / (aloneToPlane + aloneToOther0);
+                float Ratio1 = aloneToPlane / (aloneToPlane + aloneToOther1);
+
+
+
+                Vector3 createdVert0 = Vector3.Lerp(aloneVert, otherVert0, Ratio0);
+                Vector3 createdVert1 = Vector3.Lerp(aloneVert, otherVert1, Ratio1);
+                Vector3 createdNor0 = Vector3.Lerp(aloneNomal, otherNomal0, Ratio0);
+                Vector3 createdNor1 = Vector3.Lerp(aloneNomal, otherNomal1, Ratio1);
+                Vector2 createdUv0 = Vector2.Lerp(aloneUV, otherUV0, Ratio0);
+                Vector2 createdUv1 = Vector2.Lerp(aloneUV, otherUV1, Ratio1);
+
+                new_vertics.Add(createdVert0);
+                new_vertics.Add(createdVert1);
+                new_normals.Add(createdNor0);
+                new_normals.Add(createdNor1);
+                new_uvs.Add(createdUv0);
+                new_uvs.Add(createdUv1);
+
+
+
+
+
+
+
+                float aloneSide = Vector3.Dot(random_plane.normal, aloneVert - point);
+
+
+
+
+                if (aloneSide < 0)
+
+                {
+
+                    //A
+
+                    slide_verticsA.Add(aloneVert);
+                    slide_verticsA.Add(createdVert0);
+                    slide_verticsA.Add(createdVert1);
+
+
+                    slide_normalsA.Add(aloneNomal);
+                    slide_normalsA.Add(createdNor0);
+                    slide_normalsA.Add(createdNor0);
+
+                    slide_uvsA.Add(aloneUV);
+                    slide_uvsA.Add(createdUv0);
+                    slide_uvsA.Add(createdUv1);
+
+                    slide_triA.Add(slide_triA.Count);
+                    slide_triA.Add(slide_triA.Count);
+                    slide_triA.Add(slide_triA.Count);
+
+                    //B
+
+                    slide_verticsB.Add(otherVert0);
+                    slide_verticsB.Add(otherVert1);
+                    slide_verticsB.Add(createdVert0);
+
+                    slide_normalsB.Add(otherNomal0);
+                    slide_normalsB.Add(otherNomal1);
+                    slide_normalsB.Add(createdNor0);
+
+
+                    slide_uvsB.Add(otherUV0);
+                    slide_uvsB.Add(otherUV1);
+                    slide_uvsB.Add(createdUv0);
+
+                    slide_triB.Add(slide_triB.Count);
+                    slide_triB.Add(slide_triB.Count);
+                    slide_triB.Add(slide_triB.Count);
+
+
+
+
+
+
+
+                    slide_verticsB.Add(otherVert1);
+
+                    slide_verticsB.Add(createdVert1);
+
+                    slide_verticsB.Add(createdVert0);
+
+
+
+
+                    slide_normalsB.Add(otherNomal1);
+
+                    slide_normalsB.Add(createdNor1);
+
+                    slide_normalsB.Add(createdNor0);
+
+
+
+
+                    slide_uvsB.Add(otherUV1);
+
+                    slide_uvsB.Add(createdUv1);
+
+                    slide_uvsB.Add(createdUv0);
+
+
+
+
+
+
+
+                    slide_triB.Add(slide_triB.Count);
+
+                    slide_triB.Add(slide_triB.Count);
+
+                    slide_triB.Add(slide_triB.Count);
+
+
+
+
+                }
+
+                else
+
+                {
+
+                    slide_verticsB.Add(aloneVert);
+
+                    slide_verticsB.Add(createdVert0);
+
+                    slide_verticsB.Add(createdVert1);
+
+                    slide_normalsB.Add(aloneNomal);
+
+                    slide_normalsB.Add(createdNor0);
+
+                    slide_normalsB.Add(createdNor1);
+
+                    slide_uvsB.Add(aloneUV);
+
+                    slide_uvsB.Add(createdUv0);
+
+                    slide_uvsB.Add(createdUv1);
+
+                    slide_triB.Add(slide_triB.Count);
+
+                    slide_triB.Add(slide_triB.Count);
+
+                    slide_triB.Add(slide_triB.Count);
+
+
+
+
+                    //A side
+
+                    slide_verticsA.Add(otherVert0);
+
+                    slide_verticsA.Add(otherVert1);
+
+                    slide_verticsA.Add(createdVert0);
+
+                    slide_normalsA.Add(otherNomal0);
+
+                    slide_normalsA.Add(otherNomal1);
+
+                    slide_normalsA.Add(createdNor0);
+
+                    slide_uvsA.Add(otherUV0);
+
+                    slide_uvsA.Add(otherUV1);
+
+                    slide_uvsA.Add(createdUv0);
+
+                    slide_triA.Add(slide_triA.Count);
+
+                    slide_triA.Add(slide_triA.Count);
+
+                    slide_triA.Add(slide_triA.Count);
+
+
+
+
+                    slide_verticsA.Add(otherVert1);
+
+                    slide_verticsA.Add(createdVert1);
+
+                    slide_verticsA.Add(createdVert0);
+
+                    slide_normalsA.Add(otherNomal1);
+
+                    slide_normalsA.Add(createdNor1);
+
+                    slide_normalsA.Add(createdNor0);
+
+                    slide_uvsA.Add(otherUV1);
+
+                    slide_uvsA.Add(createdUv1);
+
+                    slide_uvsA.Add(createdUv0);
+
+                    slide_triA.Add(slide_triA.Count);
+
+                    slide_triA.Add(slide_triA.Count);
+
+                    slide_triA.Add(slide_triA.Count);
+
+
+
+
+                }
+
+
+
+
+            }
+
+        }
+
+
+
+        List<Vector3> sorted_createVerts;
+        SortVertices(new_vertics, out sorted_createVerts);
+
+        List<Vector3> aSideCutVerts;
+        List<Vector3> bSideCutVerts;
+
+        List<Vector3> aSideCutNormals;
+        List<Vector3> bSideCutNormals;
+
+        List<Vector2> aSideCutUVs;
+        List<Vector2> bSideCutUVs;
+
+        List<int> aSideCutT;
+        List<int> bSideCutT;
+
+        Vector3 PlanCenter;
+
+
+        MakeCutSide(random_plane.normal, sorted_createVerts,
+            out aSideCutVerts, out bSideCutVerts, out aSideCutNormals,
+            out bSideCutNormals, out aSideCutUVs, out bSideCutUVs,
+            out aSideCutT , out bSideCutT,out PlanCenter
+            );
+
+        for(int i = 0; i < aSideCutT.Count; i++)
+        {
+            aSideCutT[i] += slide_verticsA.Count;
+        }
+
+        for(int i = 0; i< bSideCutT.Count; i++)
+        {
+            bSideCutT[i] += slide_verticsB.Count;
+
+        }
+
+
+        List<Vector3> final_vertA = new List<Vector3>();
+        List<Vector3> final_vertB = new List<Vector3>();
+        List<Vector3> final_norA = new List<Vector3>();
+        List<Vector3> final_norB = new List<Vector3>();
+        List<Vector2> final_uvA = new List<Vector2>();
+        List<Vector2> final_uvB = new List<Vector2>();
+
+        final_vertA.AddRange(slide_verticsA);
+        final_vertA.AddRange(aSideCutVerts);
+        final_vertB.AddRange(slide_verticsB);
+        final_vertB.AddRange(bSideCutVerts);
+        final_norA.AddRange(slide_normalsA);
+        final_norA.AddRange(aSideCutNormals);
+        final_norB.AddRange(slide_normalsB);
+        final_norB.AddRange(bSideCutNormals);
+        final_uvA.AddRange(slide_uvsA);
+        final_uvA.AddRange(aSideCutUVs);
+        final_uvB.AddRange(slide_uvsB);
+        final_uvB.AddRange(bSideCutUVs);
+
+
+
+
+
+        Mesh aMesh = new Mesh();
+
+        Mesh bMesh = new Mesh();
+
+
+
+
+        aMesh.vertices = final_vertA.ToArray();
+
+        aMesh.normals = final_norA.ToArray();
+
+        aMesh.uv = final_uvA.ToArray();
+        aMesh.subMeshCount = target.GetComponent<MeshRenderer>().sharedMaterials.Length + 1;
+        aMesh.SetTriangles(slide_triA, 0);
+        aMesh.SetTriangles(aSideCutT, target.GetComponent<MeshRenderer>().sharedMaterials.Length);
+
+     
+
+        
+
+
+        bMesh.vertices = final_vertB.ToArray();
+
+        bMesh.normals = final_norB.ToArray();
+
+        bMesh.uv = final_uvB.ToArray();
+        bMesh.subMeshCount = target.GetComponent<MeshRenderer>().sharedMaterials.Length + 1;
+        bMesh.SetTriangles(slide_triB, 0);
+        bMesh.SetTriangles(bSideCutT, target.GetComponent<MeshRenderer>().sharedMaterials.Length);
+      
+
+
+        GameObject aObject = new GameObject(target.name + "_A", typeof(MeshFilter), typeof(MeshRenderer),typeof(MeshCollider));
+        aObject.transform.SetParent(transform.parent);
+        
+
+        GameObject bObject = new GameObject(target.name + "_B", typeof(MeshFilter), typeof(MeshRenderer),typeof(MeshCollider));
+        bObject.transform.SetParent(transform.parent);
+      
+        Material[] mats = new Material[target.GetComponent<MeshRenderer>().sharedMaterials.Length + 1];
+
+
+            for (int i = 0; i < target.GetComponent<MeshRenderer>().sharedMaterials.Length; i++)
+            {
+                mats[i] = target.GetComponent<MeshRenderer>().sharedMaterials[i];
+            }
+            mats[target.GetComponent<MeshRenderer>().sharedMaterials.Length] = material;
+
+
+
+            aObject.GetComponent<MeshFilter>().sharedMesh = aMesh;
+            aObject.GetComponent<MeshRenderer>().sharedMaterials = mats;
+            
+            
+            bObject.GetComponent<MeshFilter>().sharedMesh = bMesh;
+            bObject.GetComponent<MeshRenderer>().sharedMaterials = mats;
+
+            
+            aObject.transform.position = target.transform.position;
+            aObject.transform.rotation = target.transform.rotation;
+            aObject.transform.localScale = target.transform.localScale;
+            bObject.transform.position = target.transform.position;
+            bObject.transform.rotation = target.transform.rotation;
+            bObject.transform.localScale = target.transform.localScale;
+
+        if (str == "Destroy")
+        {
+            if (slice_idx < limit_idx)
+            {
+                var verticalPlanenormal = Vector3.Cross(random_plane.normal, PlanCenter - aSideCutVerts[0]);
+
+                Slicer(aObject, mt, verticalPlanenormal, slice_idx + 1, "Destroy");
+                Slicer(bObject, mt, verticalPlanenormal, slice_idx + 1, "Destroy");
+
+
+
+            }
+            else if (slice_idx == limit_idx)
+            {
+                ExplosionPragment(aObject);
+                ExplosionPragment(bObject);
+
+            }
+        }
+        else if(str == "Slice")
+        {
+
+            TwoObjectCompare(aObject, bObject);
+
+        }
+
+
+
+
+        target.SetActive(false);
+    }
+
+    /// <summary>
+    /// new verts를 정렬
+    /// </summary>
+    /// <param name="verts">new verts </param>
+    /// <param name="result"> 정렬된 결과  </param>
+    public void SortVertices(List<Vector3> verts , out List<Vector3> result)
+    {
+        result = new List<Vector3>();
+        result.Add(verts[0]);
+        result.Add(verts[1]);
+
+        int vertSetCount = verts.Count / 2;
+
+        for (int i = 0; i < vertSetCount - 1; i++)
+        {
+            Vector3 vert0 = verts[i * 2];
+            Vector3 vert1 = verts[i * 2 + 1];
+
+            for (int j = i + 1; j < vertSetCount; j++)
+            {
+                Vector3 cVert0 = verts[j * 2];
+                Vector3 cVert1 = verts[j * 2 + 1];
+
+                if (vert1 == cVert0)
+                {
+                    result.Add(cVert1);
+
+                    SwapTwoIndexSet<Vector3>(ref verts, i * 2 + 2, i * 2 + 3, j * 2, j * 2 + 1);
+                }
+                else if (vert1 == cVert1)
+                {
+
+                    result.Add(cVert0);
+
+                    SwapTwoIndexSet<Vector3>(ref verts, i * 2 + 2, i * 2 + 3, j * 2 + 1, j * 2);
+
+                }
+
+            }
+
+        }
+
+        if (result[0] == result[result.Count - 1])
+        {
+            result.RemoveAt(result.Count - 1);
+        }
+    }
+
+    /// <summary>
+    /// 자르고 난 후에 단면을 만든다 단면의 가운데에 새로운 정점을 만들고 새로운 정점과 잘린 단면의 정점들을 이어준다
+    /// </summary>
+    /// <param name="normal">잘린 단면의 법선 벡터</param>
+    /// <param name="sortedCV">정렬된 벡터</param>
+    /// <param name="aSCV">A새로운 정점의 위치</param>
+    /// <param name="bSCV">B새로운 정점의 위치</param>
+    /// <param name="aSCN">A새로운 점의 법선 벡터</param>
+    /// <param name="bSCN">B새로운 점의 법선</param>
+    /// <param name="aSCU">A새로운 uv</param>
+    /// <param name="bSCU">B새로운 uv</param>
+    /// <param name="aSCT">A의 새로운 폴리곤</param>
+    /// <param name="bSCT">B의 새로운 폴리곤 삼각형</param>
+   void MakeCutSide(Vector3 normal,List<Vector3> sortedCV,
+          out List<Vector3> aSCV,out List<Vector3>  bSCV,out List<Vector3> aSCN,
+          out List<Vector3> bSCN,out List<Vector2> aSCU,out List<Vector2> bSCU,
+          out List<int> aSCT , out List<int> bSCT ,out Vector3 plan_center
+          )
+    {
+        aSCV = new List<Vector3>();
+        bSCV = new List<Vector3>();
+        aSCN = new List<Vector3>();
+        bSCN = new List<Vector3>();
+        aSCU = new List<Vector2>();
+        bSCU = new List<Vector2>();
+        aSCT = new List<int>();
+        bSCT = new List<int>();
+        aSCV.AddRange(sortedCV);
+        bSCV.AddRange(sortedCV);
+        plan_center = new Vector3();
+        if(sortedCV.Count < 2) return;
+
+        Vector3 center = Vector3.zero;
+
+        foreach(Vector3 v in sortedCV)
+        {
+            center += v;
+        }
+
+        center /= sortedCV.Count;
+
+        aSCV.Add(center);
+        bSCV.Add(center);
+
+        plan_center = center;
+
+
+        for(int i =0; i < aSCV.Count; i++)
+        {
+            aSCN.Add(normal);           
+        }
+
+        for(int i = 0; i< bSCV.Count; i++)
+        {
+            bSCN.Add(normal);
+        }
+
+
+        Vector3 forward = Vector3.zero;
+
+        forward.x = normal.y;
+        forward.y = normal.x;
+        forward.z = normal.z;
+
+
+        Vector3 left = Vector3.Cross(forward, normal);
+
+        for(int i = 0; i < sortedCV.Count; i++)
+        {
+            Vector3 dir = sortedCV[i] - center;
+
+            Vector2 relateUV = Vector2.zero;
+
+            relateUV.x = 0.5f + Vector3.Dot(dir, left);
+            relateUV.y = 0.5f + Vector3.Dot(dir, forward);
+
+            aSCU.Add(relateUV);
+            bSCU.Add(relateUV);
+        }
+
+        aSCU.Add(new Vector2(0.5f, 0.5f));
+        bSCU.Add(new Vector2(0.5f, 0.5f));
+
+
+        int centerIdx = aSCV.Count - 1;
+
+        float normalDir = Vector3.Dot(normal, Vector3.Cross(sortedCV[0] - center, sortedCV[1] - sortedCV[0]));
+
+        for(int i = 0; i< aSCV.Count; i++)
+        {
+            int idx0 = i;
+            int idx1 = (i + 1) % (aSCV.Count - 1);
+
+
+            if (normalDir < 0)
+            {
+                aSCT.Add(centerIdx);
+                aSCT.Add(idx1);
+                aSCT.Add(idx0);
+
+                bSCT.Add(centerIdx);
+                bSCT.Add(idx0);
+                bSCT.Add(idx1);
+
+            }
+            else
+            {
+                aSCT.Add(centerIdx);
+                aSCT.Add(idx0);
+                aSCT.Add(idx1);
+
+                bSCT.Add(centerIdx);
+                bSCT.Add(idx1);
+                bSCT.Add(idx0);
+            }
+
+
+
+        }
+
+
+
+    }
+
+    void SwapTwoIndexSet<T>(ref List<T> verts , int index00 , int index01, int index10, int index11 )
+    {
+        T temp0 = verts[index00];
+        T temp1 = verts[index01];
+
+        verts[index00] = verts[index10];
+        verts[index01] = verts[index11];
+
+
+        verts[index10] = temp0;
+        verts[index11] = temp1;
+    }
+
+
+
+    private void ExplosionPragment(GameObject obj)
+    {
+
+        obj.AddComponent<Rigidbody>().mass = 0.2f;
+        float x = Random.Range(-1, 1);
+        float y = Random.Range(-1, 1);
+        float z = Random.Range(-1, 1);
+
+        m_offest = new Vector3(x, y, z);
+        obj.GetComponent<MeshCollider>().convex = true;
+        obj.GetComponent<MeshCollider>().sharedMesh = obj.GetComponent<MeshFilter>().sharedMesh;
+        obj.GetComponent<Rigidbody>().AddExplosionForce(m_force, transform.position + m_offest, 10f);
+
+
+    }
+
+
+
+    private void TwoObjectCompare(GameObject A , GameObject B)
+    {
+        Mesh A_Mesh = A.GetComponent<MeshFilter>().sharedMesh;
+
+        Vector3[] A_vertics = A_Mesh.vertices;
+
+        Mesh B_Mesh = B.GetComponent<MeshFilter>().sharedMesh;
+
+        Vector3[] B_vertics = B_Mesh.vertices;
+
+
+        Vector3 centor_A = Vector3.zero;
+
+        Vector3 centor_B = Vector3.zero;
+
+        
+        for(int i = 0; i<A_vertics.Length; i++)
+        {
+
+            centor_A += A_vertics[i];
+
+        }
+
+        for (int i = 0; i < B_vertics.Length; i++)
+        {
+
+            centor_B += B_vertics[i];
+
+        }
+
+
+        if((centor_A/A_vertics.Length).y > (centor_B / B_vertics.Length).y)
+        {
+
+            Object_property = A;
+
+        }
+        else if ((centor_A / A_vertics.Length).y < (centor_B / B_vertics.Length).y)
+        {
+
+            Object_property = B;
+
+        }
+
+
+
+
+
+
+    }
+
+
+
+}
+

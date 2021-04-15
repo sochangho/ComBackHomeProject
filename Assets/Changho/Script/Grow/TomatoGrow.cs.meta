@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: eb7746952babf8a4eae957d4a17d36dd
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - tomatoStem: {instanceID: 0}
+  - paticle: {instanceID: 0}
+  - camera_pos: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

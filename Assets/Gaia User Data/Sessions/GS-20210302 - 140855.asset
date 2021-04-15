@@ -1,0 +1,202 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e251860fcd970734c9f14ebd98a146c3, type: 3}
+  m_Name: GS-20210302 - 140855
+  m_EditorClassIdentifier: 
+  m_name: Session 20210302-140855
+  m_description: 'Rocking out at Creativity Central!
+
+
+    If you like Gaia please
+    consider rating it :)'
+  m_previewImage: {fileID: 0}
+  m_dateCreated: 2021-03-02 PM 2:08:55
+  m_terrainWidth: 100
+  m_terrainDepth: 100
+  m_terrainHeight: 100
+  m_seaLevel: 2.4414062
+  m_spawnDensity: 0.8
+  m_isLocked: 0
+  m_previewImageBytes: 
+  m_previewImageWidth: 0
+  m_previewImageHeight: 0
+  m_operations:
+  - m_description: RaiseHeight - No Masks
+    m_operationType: 4
+    m_isActive: 1
+    m_affectedTerrainNames: []
+    m_operationDateTime: 2021-03-02 PM 2:13:10
+    scriptableObjectAssetGUID: 1b391f1355efddc49b7234b65307635a
+    m_isFoldedOut: 0
+    sessionPlaybackState: 1
+    m_terrainsFoldedOut: 0
+    m_serializedExternalAction: 
+  - m_description: Spawning - Synty Texture Spawner(Clone)
+    m_operationType: 7
+    m_isActive: 1
+    m_affectedTerrainNames:
+    - Terrain (1)
+    m_operationDateTime: 2021-03-02 PM 2:13:11
+    scriptableObjectAssetGUID: b2c1ac17f75b3d8458ee729062eb345d
+    m_isFoldedOut: 1
+    sessionPlaybackState: 1
+    m_terrainsFoldedOut: 0
+    m_serializedExternalAction: 
+  - m_description: Spawning - Multiple Spawners (4)
+    m_operationType: 7
+    m_isActive: 1
+    m_affectedTerrainNames:
+    - Terrain (1)
+    m_operationDateTime: 2021-03-02 PM 2:14:39
+    scriptableObjectAssetGUID: 6c4e7cfdcf3fe7c488f79852914fb618
+    m_isFoldedOut: 0
+    sessionPlaybackState: 1
+    m_terrainsFoldedOut: 0
+    m_serializedExternalAction: 
+  - m_description: 'Creating World: 1 x 1 tiles, tile size: 1000'
+    m_operationType: 0
+    m_isActive: 1
+    m_affectedTerrainNames: []
+    m_operationDateTime: 2021-03-02 PM 2:15:43
+    scriptableObjectAssetGUID: f7342d9b764305d4ea7a8b91a5a078d5
+    m_isFoldedOut: 0
+    sessionPlaybackState: 1
+    m_terrainsFoldedOut: 0
+    m_serializedExternalAction: 
+  - m_description: Spawning - Multiple Spawners (4)
+    m_operationType: 7
+    m_isActive: 1
+    m_affectedTerrainNames:
+    - Terrain (1)
+    m_operationDateTime: 2021-03-02 PM 2:19:42
+    scriptableObjectAssetGUID: 2d040f1ae462afe4e90a8980208d4a9b
+    m_isFoldedOut: 0
+    sessionPlaybackState: 1
+    m_terrainsFoldedOut: 0
+    m_serializedExternalAction: 
+  - m_description: RaiseHeight - No Masks
+    m_operationType: 4
+    m_isActive: 1
+    m_affectedTerrainNames: []
+    m_operationDateTime: 2021-03-02 PM 2:28:02
+    scriptableObjectAssetGUID: 2264c037fb57df447a83da7ed0fb70b1
+    m_isFoldedOut: 0
+    sessionPlaybackState: 1
+    m_terrainsFoldedOut: 0
+    m_serializedExternalAction: 
+  - m_description: Spawning - Multiple Spawners (4)
+    m_operationType: 7
+    m_isActive: 1
+    m_affectedTerrainNames:
+    - Terrain (1)
+    m_operationDateTime: 2021-03-02 PM 2:28:02
+    scriptableObjectAssetGUID: a97fe757c24c2ac42b902715f0afc2e5
+    m_isFoldedOut: 0
+    sessionPlaybackState: 1
+    m_terrainsFoldedOut: 0
+    m_serializedExternalAction: 
+  - m_description: Clearing - Trees Details GOs SpawnExt Probes, AllTerrains, AnySource
+    m_operationType: 3
+    m_isActive: 1
+    m_affectedTerrainNames:
+    - Terrain (1)
+    m_operationDateTime: 2021-03-02 PM 2:29:06
+    scriptableObjectAssetGUID: 526f1fb2b73640c44b46b03e2ba15302
+    m_isFoldedOut: 0
+    sessionPlaybackState: 1
+    m_terrainsFoldedOut: 0
+    m_serializedExternalAction: 
+  - m_description: 'Spawning - '
+    m_operationType: 7
+    m_isActive: 1
+    m_affectedTerrainNames:
+    - Terrain (1)
+    m_operationDateTime: 2021-03-02 PM 2:29:26
+    scriptableObjectAssetGUID: c66cb80ed87a2e045933a0b2618b2782
+    m_isFoldedOut: 0
+    sessionPlaybackState: 1
+    m_terrainsFoldedOut: 0
+    m_serializedExternalAction: 
+  - m_description: RaiseHeight - No Masks
+    m_operationType: 4
+    m_isActive: 1
+    m_affectedTerrainNames: []
+    m_operationDateTime: 2021-03-02 PM 2:31:23
+    scriptableObjectAssetGUID: 36bb5ba7f9f85a04cb2913fc853a939c
+    m_isFoldedOut: 0
+    sessionPlaybackState: 1
+    m_terrainsFoldedOut: 0
+    m_serializedExternalAction: 
+  - m_description: Spawning - Multiple Spawners (3)
+    m_operationType: 7
+    m_isActive: 1
+    m_affectedTerrainNames:
+    - Terrain (1)
+    m_operationDateTime: 2021-03-02 PM 2:31:24
+    scriptableObjectAssetGUID: 2c75249bc89f81746845e3fba7e4e99d
+    m_isFoldedOut: 0
+    sessionPlaybackState: 1
+    m_terrainsFoldedOut: 0
+    m_serializedExternalAction: 
+  - m_description: Clearing - Trees Details GOs SpawnExt Probes, AllTerrains, AnySource
+    m_operationType: 3
+    m_isActive: 1
+    m_affectedTerrainNames:
+    - Terrain (1)
+    m_operationDateTime: 2021-03-02 PM 2:32:10
+    scriptableObjectAssetGUID: c6dd3ca6b6554e849b342d9a6f758bf2
+    m_isFoldedOut: 0
+    sessionPlaybackState: 1
+    m_terrainsFoldedOut: 0
+    m_serializedExternalAction: 
+  m_terrainMinMaxCache:
+  - guid: 034d2c004b57c2c47a023132fed76d14
+    isWorldmap: 0
+    recalculate: 0
+    min: 0
+    max: 10.000763
+  - guid: 1d63aa3d3b0054644898623ca71b0401
+    isWorldmap: 0
+    recalculate: 0
+    min: 0
+    max: 19.281301
+  - guid: 38f2032a044434247b698a4b85df3775
+    isWorldmap: 1
+    recalculate: 0
+    min: 0
+    max: 9.375143
+  m_bakedMaskCacheEntries:
+  - fileName: Terrain (1)_RadiusTag_Synty Small Farm_50
+    assetPath: Assets/Procedural Worlds/Gaia/TerrainCollisionData/Terrain (1)/Terrain
+      (1)_RadiusTag_Synty Small Farm_50
+    fullPath: C:/Users/NY/Documents/comebackhome/Assets/Procedural Worlds/Gaia/TerrainCollisionData/Terrain
+      (1)/Terrain (1)_RadiusTag_Synty Small Farm_50
+    texture: {fileID: 0}
+  - fileName: Terrain (1)_RadiusTag_Synty Medium Farm_100
+    assetPath: Assets/Procedural Worlds/Gaia/TerrainCollisionData/Terrain (1)/Terrain
+      (1)_RadiusTag_Synty Medium Farm_100
+    fullPath: C:/Users/NY/Documents/comebackhome/Assets/Procedural Worlds/Gaia/TerrainCollisionData/Terrain
+      (1)/Terrain (1)_RadiusTag_Synty Medium Farm_100
+    texture: {fileID: 0}
+  - fileName: Terrain (1)_LayerGameObject_3584_5
+    assetPath: Assets/Procedural Worlds/Gaia/TerrainCollisionData/Terrain (1)/Terrain
+      (1)_LayerGameObject_3584_5
+    fullPath: C:/Users/NY/Documents/comebackhome/Assets/Procedural Worlds/Gaia/TerrainCollisionData/Terrain
+      (1)/Terrain (1)_LayerGameObject_3584_5
+    texture: {fileID: 0}
+  - fileName: Terrain (1)_LayerGameObject_3584_0.5
+    assetPath: Assets/Procedural Worlds/Gaia/TerrainCollisionData/Terrain (1)/Terrain
+      (1)_LayerGameObject_3584_0.5
+    fullPath: C:/Users/NY/Documents/comebackhome/Assets/Procedural Worlds/Gaia/TerrainCollisionData/Terrain
+      (1)/Terrain (1)_LayerGameObject_3584_0.5
+    texture: {fileID: 0}
+  m_worldBiomeMaskSettings: {fileID: 0}
