@@ -30,11 +30,38 @@ public class TrashSystem : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI randomboxTex;
 
+    [SerializeField]
+    private List<TextMeshProUGUI> clock;
 
     [SerializeField]
     private List<CreateTrash> createTrashes;
 
+    [SerializeField]
+    private GameObject rain;
+    [SerializeField]
+    private GameObject sea;
 
+    private Renderer seaColor;
+
+    private Color lightning_color;
+
+    private Color defaul_color;
+
+    private void Awake()
+    {
+        seaColor = sea.GetComponent<Renderer>();
+    }
+    private void Start()
+    {
+
+        defaul_color = seaColor.material.GetColor("DeepWaterColor");
+        lightning_color = new Color(0, 0, 0);
+        StartCoroutine(TrashGameRoutin());
+
+    }
+
+
+   
     public void IncreaseCount(GameObject trash)
     {
 
@@ -69,16 +96,22 @@ public class TrashSystem : MonoBehaviour
                 fkillerTex.text = fkiller_cnt.ToString();
                 fkillerTex.transform.GetComponentInParent<Animator>().SetTrigger("textTrigger");
             }
-            if (trash_type.ItemType() == "RandomBox")
-            {
-                randombox_cnt++;
-                randomboxTex.text = randombox_cnt.ToString();
-                randomboxTex.transform.GetComponentInParent<Animator>().SetTrigger("textTrigger");
-            }
+           
 
         }
 
     }
+
+
+    public void RandomBoxCount()
+    {
+
+        randombox_cnt++;
+        randomboxTex.text = randombox_cnt.ToString();
+        randomboxTex.transform.GetComponentInParent<Animator>().SetTrigger("textTrigger");
+
+    }
+
 
     public void ItemZero()
     {
@@ -105,12 +138,13 @@ public class TrashSystem : MonoBehaviour
     public void WeatherChange(bool weather_bool)
     {
 
-        foreach(var createtrash in createTrashes)
+        rain.SetActive(weather_bool);
+        SeaColorChange(weather_bool);
+
+        foreach (var createtrash in createTrashes)
         {
             createtrash.ChangeList(weather_bool);
         }
-
-
 
         if (weather_bool)
         {
@@ -121,6 +155,24 @@ public class TrashSystem : MonoBehaviour
     }
 
 
+    private void SeaColorChange(bool change)
+    {
+
+        if (change)
+        {
+            seaColor.material.SetColor("DeepWaterColor", lightning_color);
+        }
+        else
+        {
+            seaColor.material.SetColor("DeepWaterColor", defaul_color);
+
+        }
+        
+    }
+
+
+
+    
 
 
     IEnumerator WeatherRoutin()
@@ -140,5 +192,44 @@ public class TrashSystem : MonoBehaviour
         WeatherChange(false);
 
     }
+
+    IEnumerator TrashGameRoutin()
+    {
+
+        float time = 180;
+
+
+
+
+        while(shipHp > 0 && time > 0)
+        {
+            time -= Time.deltaTime;
+
+            clock[0].text = (((int)time / 60) % 60).ToString();
+            clock[1].text = ((int)time % 60).ToString();
+
+            if(time <= 0)
+            {
+
+                time = 0;
+            }
+
+            yield return null;
+        }
+
+        if(shipHp<= 0)
+        {
+            shipHp = 0;
+
+            FindObjectOfType<ShipDestroy>().ShipSlice();
+
+        }
+
+
+     
+    }
+
+
+    
 
 }

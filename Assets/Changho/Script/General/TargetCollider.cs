@@ -41,14 +41,9 @@ public class TargetCollider : MonoBehaviour
                 slice.Slicer(slice.gameObject, slice.GetComponent<Renderer>().material, point, slice.idx = 0 ,"Destroy");
 
             }
-
-
-
             //collision.collider.gameObject.SetActive(false);
             gameObject.GetComponent<BoxCollider>().enabled = false;
         
-
-
     }
 
     

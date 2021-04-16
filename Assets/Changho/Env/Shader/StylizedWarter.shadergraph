@@ -16,7 +16,7 @@
             "typeInfo": {
                 "fullName": "UnityEditor.ShaderGraph.Internal.ColorShaderProperty"
             },
-            "JSONnodeData": "{\n    \"m_Guid\": {\n        \"m_GuidSerialized\": \"4f87af77-21ee-4441-8cf9-830208b0f0c1\"\n    },\n    \"m_Name\": \"DeepWater\",\n    \"m_DefaultReferenceName\": \"Color_839D8644\",\n    \"m_OverrideReferenceName\": \"\",\n    \"m_GeneratePropertyBlock\": true,\n    \"m_Precision\": 0,\n    \"m_GPUInstanced\": false,\n    \"m_Hidden\": false,\n    \"m_Value\": {\n        \"r\": 0.08449621498584748,\n        \"g\": 0.33463239669799807,\n        \"b\": 0.9528301954269409,\n        \"a\": 1.0\n    },\n    \"m_ColorMode\": 0\n}"
+            "JSONnodeData": "{\n    \"m_Guid\": {\n        \"m_GuidSerialized\": \"4f87af77-21ee-4441-8cf9-830208b0f0c1\"\n    },\n    \"m_Name\": \"DeepWater\",\n    \"m_DefaultReferenceName\": \"Color_839D8644\",\n    \"m_OverrideReferenceName\": \"DeepWaterColor\",\n    \"m_GeneratePropertyBlock\": true,\n    \"m_Precision\": 0,\n    \"m_GPUInstanced\": false,\n    \"m_Hidden\": false,\n    \"m_Value\": {\n        \"r\": 0.08449621498584748,\n        \"g\": 0.33463239669799807,\n        \"b\": 0.9528301954269409,\n        \"a\": 1.0\n    },\n    \"m_ColorMode\": 0\n}"
         },
         {
             "typeInfo": {

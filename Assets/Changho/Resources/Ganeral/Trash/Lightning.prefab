@@ -45,8 +45,8 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 1.422924
-  m_Center: {x: -0.1984253, y: -1.309597, z: -0.34183502}
+  m_Radius: 2.3
+  m_Center: {x: -0.5980339, y: 1.724853, z: -0.34183502}
 --- !u!114 &5613778437367541260
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -59,8 +59,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c76629accd5b68649ac3c807ef219d87, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  max: 20
-  min: 37
+  max: 70
+  min: 80
 --- !u!54 &-6812944994064347874
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -104,13 +104,17 @@ PrefabInstance:
       propertyPath: ShapeModule.radius.value
       value: 0.1
       objectReference: {fileID: 0}
+    - target: {fileID: 2768813460990620975, guid: 5f8bb1bb6c7eba94d8e9cffbce8aea2e, type: 3}
+      propertyPath: CollisionModule.enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8211205058667384425, guid: 5f8bb1bb6c7eba94d8e9cffbce8aea2e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8211205058667384425, guid: 5f8bb1bb6c7eba94d8e9cffbce8aea2e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 50.8
+      value: 47.9
       objectReference: {fileID: 0}
     - target: {fileID: 8211205058667384425, guid: 5f8bb1bb6c7eba94d8e9cffbce8aea2e, type: 3}
       propertyPath: m_LocalPosition.z

@@ -19,6 +19,13 @@ public class MoveTrash : MonoBehaviour
         randomSpeed = Random.Range(min, max);
         obj = GetComponentInParent<ObjectPool>();
         StartCoroutine(MoveRoutin());
+
+        if(this.gameObject.tag == "Lightning")
+        {
+
+            transform.position=new Vector3(this.transform.position.x, GameObject.Find("Sea").transform.position.y, this.transform.position.z);
+
+        }
        
     }
 
@@ -75,12 +82,20 @@ public class MoveTrash : MonoBehaviour
             if (other.tag == "ShipLope")
             {
                 var trash_system = FindObjectOfType<TrashSystem>();
-
+                FindObjectOfType<ShipState>().ChangeStart();
                 trash_system.shipHp -= 10;
                 trash_system.ItemZero();
 
+      
             }
-       
+
+            if (other.tag == "Pan")
+            {
+
+                obj.ReturnObject(gameObject);
+
+            }
+
         }
         
     }

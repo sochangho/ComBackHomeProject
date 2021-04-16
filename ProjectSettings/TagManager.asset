@@ -23,6 +23,7 @@ TagManager:
   - Pan
   - ShipLope
   - LightningBoll
+  - Rain
   layers:
   - Default
   - TransparentFX
