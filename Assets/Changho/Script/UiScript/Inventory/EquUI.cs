@@ -16,6 +16,16 @@ public class EquUI : MonoBehaviour
     [SerializeField]
     public GameObject equbutton;
 
+    private PlayerControl _player;
+
+
+    private void Awake()
+    {
+        _player = FindObjectOfType<PlayerControl>();
+    }
+
+
+
     public void ImageChange(EquipmentType eqtype)
     {
         Debug.Log(eqtype.ToString());
@@ -52,13 +62,13 @@ public class EquUI : MonoBehaviour
             equ_Image.GetComponent<Image>().sprite = None_Image.sprite;
         }
 
-        PlayerControl.Instance.PlayerEquStateChange();
+        _player.PlayerEquStateChange();
         equbutton.SetActive(false);
     }
 
     public void OpenEquCancel()
     {
-        if (equbutton.activeSelf == false && PlayerControl.Instance.player_equState == PlayerEquState.Equ) {
+        if (equbutton.activeSelf == false && _player.player_equState == PlayerEquState.Equ) {
             Debug.Log("wewewe");
             equbutton.SetActive(true);
         }

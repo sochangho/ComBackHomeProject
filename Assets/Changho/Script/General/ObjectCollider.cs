@@ -32,7 +32,7 @@ public class ObjectCollider : MonoBehaviour
         while (time < 2f)
         {
             time += Time.deltaTime;
-            rigidbody.AddForce(PlayerControl.Instance.transform.forward * 10f );
+            rigidbody.AddForce(FindObjectOfType<PlayerControl>().transform.forward * 10f );
             yield return null;
         }
        

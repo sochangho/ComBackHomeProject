@@ -96,7 +96,7 @@ public class Inventory : Popup
         {
             item_panel.SetActive(false);
         }
-        PlayerControl.Instance.enabled = true;
+        FindObjectOfType<PlayerControl>().enabled = true;
         Close();
     }
 

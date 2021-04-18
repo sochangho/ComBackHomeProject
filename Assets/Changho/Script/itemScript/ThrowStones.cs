@@ -43,7 +43,7 @@ public class ThrowStones : MonoBehaviour
         var ston = ObjectPoolMgr.Instance.StonPool();
         ston.GetComponent<Rigidbody>().velocity = Vector3.zero;
         ston.transform.position = shootPoint.position;
-        ston.transform.rotation = PlayerControl.Instance.transform.rotation;
+        ston.transform.rotation = FindObjectOfType<PlayerControl>().transform.rotation;
         
        
 
@@ -97,7 +97,7 @@ public class ThrowStones : MonoBehaviour
 
 
 
-        PlayerControl.Instance.player_animator.SetBool("Throw", false);
+        FindObjectOfType<PlayerControl>().player_animator.SetBool("Throw", false);
 
         if (throwTrigger == true)
         {

@@ -11,7 +11,7 @@ public class UIButton : BaseScene
     {
        
         OpenPopup<Inventory>("UI/Popup/InventoryPopup");
-        PlayerControl.Instance.enabled = false;
+        FindObjectOfType<PlayerControl>().enabled = false;
        
     }
 
@@ -19,7 +19,7 @@ public class UIButton : BaseScene
     {
 
         OpenPopup<Quest>("UI/Popup/QuestPopup");
-        PlayerControl.Instance.enabled = false;
+        FindObjectOfType<PlayerControl>().enabled = false;
     }
 
     public void TrashSceneEnd()

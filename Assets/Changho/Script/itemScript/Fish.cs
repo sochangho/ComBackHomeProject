@@ -78,10 +78,12 @@ public class Fish : Items
 
     public override void ItemUse()
     {
-        if(PlayerControl.Instance.player_hungry <= 0)
+        var player = FindObjectOfType<PlayerControl>();
+
+        if(player.player_hungry <= 0)
         {
-            StopCoroutine(PlayerControl.Instance.hpDecrease_coroutin);
-           PlayerControl.Instance.hungryDecrease_coroutin = StartCoroutine(PlayerControl.Instance.HungryDecease());
+            StopCoroutine(player.hpDecrease_coroutin);
+           player.hungryDecrease_coroutin = StartCoroutine(player.HungryDecease());
 
         }
 
@@ -90,18 +92,18 @@ public class Fish : Items
         {
             //HP를 15%회복
 
-            PlayerControl.Instance.player_hungry += 15;
+            player.player_hungry += 15;
 
         }
         else if (fish_type == FishType.Middle)
         {
             //HP를 10%회복
-            PlayerControl.Instance.player_hungry += 10;
+            player.player_hungry += 10;
         }
         else if (fish_type == FishType.Small)
         {
             //HP를 5%회복
-            PlayerControl.Instance.player_hungry += 5;
+            player.player_hungry += 5;
         }
 
 

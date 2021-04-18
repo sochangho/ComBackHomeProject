@@ -43,7 +43,7 @@ public class Quest : Popup
 
     public void OnCloseButtonPress()
     {
-        PlayerControl.Instance.enabled = true;
+        FindObjectOfType<PlayerControl>().enabled = true;
         Close();
 
     }

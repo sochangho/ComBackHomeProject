@@ -81,27 +81,30 @@ public class Crops : Items
 
     public override void ItemUse()
     {
+
+        var player = FindObjectOfType<PlayerControl>();
+
         if (crops_type == CropsType.Corn)
         {
             // 옥수수 생성
-            PlayerControl.Instance.player_hp += 20f;
+            player.player_hp += 20f;
 
         }
         else if (crops_type == CropsType.Cucumber)
         {
             // 오이 생성
-            PlayerControl.Instance.player_hp += 20f; 
+            player.player_hp += 20f; 
         }
         else if (crops_type == CropsType.Riceplant)
         {
             //벼 생성
 
-            PlayerControl.Instance.player_hp += 20f;
+            player.player_hp += 20f;
         }
         else if (crops_type == CropsType.Tomato)
         {
             //토마토 생성
-            PlayerControl.Instance.player_hp += 20f;
+            player.player_hp += 20f;
 
         }
         ItemSystem.Instance.ItemUseRemove(this);

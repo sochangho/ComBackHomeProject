@@ -18,11 +18,9 @@ public class HPbar : MonoBehaviour
 
     private void HpbarUpdate()
     {
-       var hp  = PlayerControl.Instance.player_hp;
+       var hp  = FindObjectOfType<PlayerControl>().player_hp;
 
-        if (PlayerControl.Instance.player_hp > 100) {
-
-            PlayerControl.Instance.player_hp = 100;
+        if (hp > 100) {
             hp = 100;
         } 
        hpfill.fillAmount = hp / 100;

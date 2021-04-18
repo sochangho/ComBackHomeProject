@@ -18,12 +18,11 @@ public class Hungrybar : MonoBehaviour
 
     private void HungrybarUpdate()
     {
-        var hungry = PlayerControl.Instance.player_hungry;
+        var hungry = FindObjectOfType<PlayerControl>().player_hungry;
 
-        if (PlayerControl.Instance.player_hungry > 100)
+        if (hungry > 100)
         {
 
-            PlayerControl.Instance.player_hungry = 100;
             hungry = 100;
         }
         hungryfill.fillAmount = hungry / 100;

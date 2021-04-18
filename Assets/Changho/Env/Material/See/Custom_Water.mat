@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Custom_Water
-  m_Shader: {fileID: 4800000, guid: 10f43c50442a00a42b271309b3fd277c, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: 743b50da8be002d4ea4367a9745198eb, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -80,6 +80,14 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
+    - Vector1_3DDA218E: 100
+    - Vector1_585DC3A6: 0.5
+    - Vector1_74318A57: 2
+    - Vector1_B78CFB9: 1
+    - Vector1_BFD553E: 0
+    - Vector1_C268DE25: 1
+    - Vector1_CE3E72CA: 1
+    - Vector1_D64E9102: 10
     - _BumpScale: 1
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
@@ -106,6 +114,9 @@ Material:
     - _WaveT: 2.7
     - _ZWrite: 1
     m_Colors:
+    - Color_8909E459: {r: 1, g: 0.9566038, b: 0.9566038, a: 1}
+    - Color_C2A03C9E: {r: 0.0365254, g: 0.7169812, b: 0.6474465, a: 1}
+    - DeepWaterColor: {r: 0.08449621, g: 0.3346324, b: 0.9528302, a: 1}
     - WaveSpeed: {r: 19, g: 9, b: -16, a: -7}
     - _BaseScale: {r: 1, g: 1, b: 1, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}

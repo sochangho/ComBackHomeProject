@@ -72,10 +72,12 @@ public class Fruit : Items
 
     public override void ItemUse()
     {
-        if (PlayerControl.Instance.player_hungry <= 0)
+
+        var player = FindObjectOfType<PlayerControl>();
+        if (player.player_hungry <= 0)
         {
-            StopCoroutine(PlayerControl.Instance.hpDecrease_coroutin);
-            PlayerControl.Instance.hungryDecrease_coroutin= StartCoroutine(PlayerControl.Instance.HungryDecease());
+            StopCoroutine(player.hpDecrease_coroutin);
+            player.hungryDecrease_coroutin= StartCoroutine(player.HungryDecease());
 
         }
 
@@ -85,20 +87,20 @@ public class Fruit : Items
         {
             Debug.Log("사과 사용");
             //HP를 5%회복
-            PlayerControl.Instance.player_hungry += 5;
+            player.player_hungry += 5;
         }
         else if (fluit_type == FuritType.Banana)
         {
             Debug.Log("바나나 사용");
             //HP를 5%회복
             //HP를 10%회복
-            PlayerControl.Instance.player_hungry += 10;
+            player.player_hungry += 10;
         }
         else if (fluit_type == FuritType.Coconet)
         {
             Debug.Log("코코넛 사용");            
             //HP를 3%회복
-            PlayerControl.Instance.player_hungry += 3;
+            player.player_hungry += 3;
         }
 
       

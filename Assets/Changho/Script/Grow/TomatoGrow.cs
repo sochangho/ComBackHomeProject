@@ -45,6 +45,8 @@ public class TomatoGrow : MonoBehaviour
 
     private Material stempSet;
 
+    private PlayerControl player_;
+
     private GrowState growstate;
 
     public bool waterTrigger = false;
@@ -65,7 +67,7 @@ public class TomatoGrow : MonoBehaviour
         stempSet = stem_renderer.material;
         croppanel = GameObject.Find("Canvas").transform.Find("cropstart").gameObject;
         maincamera = GameObject.Find("MainCamera");
-        
+        player_ = FindObjectOfType<PlayerControl>();
         camera_pos.SetActive(false);
         
     }
@@ -80,9 +82,9 @@ public class TomatoGrow : MonoBehaviour
         camera_pos.SetActive(true);
         maincamera.SetActive(false);
 
-        int cnt = PlayerControl.Instance.usingitem.GetComponent<BowlWater>().GetWater();
+        int cnt = player_.usingitem.GetComponent<BowlWater>().GetWater();
         cnt--;
-        PlayerControl.Instance.usingitem.GetComponent<BowlWater>().SetWater(cnt);
+        player_.usingitem.GetComponent<BowlWater>().SetWater(cnt);
 
 
         if (growstate == GrowState.Step1)
@@ -195,7 +197,7 @@ public class TomatoGrow : MonoBehaviour
 
     IEnumerator WarterGo()
     {
-        PlayerControl.Instance.usingitem.transform.GetChild(0).GetComponent<ParticleSystem>().Play();
+        player_.usingitem.transform.GetChild(0).GetComponent<ParticleSystem>().Play();
         float time = 0;
         while(time < 1f)
         {
@@ -236,9 +238,9 @@ public class TomatoGrow : MonoBehaviour
         
         
         if(other.tag == "Player" && croppanel.activeSelf == false && growstate != GrowState.Complete 
-            && PlayerControl.Instance.usingitem.GetComponent<Items>().ItemType() == "Bowl" ) // 물 필요
+            && player_.usingitem.GetComponent<Items>().ItemType() == "Bowl" ) // 물 필요
         {
-            int cnt = PlayerControl.Instance.usingitem.GetComponent<BowlWater>().GetWater();
+            int cnt = player_.usingitem.GetComponent<BowlWater>().GetWater();
 
             croppanel.SetActive(true);
             croppanel.transform.GetChild(1).GetComponent<Button>().onClick.RemoveAllListeners();

@@ -130,13 +130,14 @@ public class Equipment : Items
     {
         base.ItemUse();
 
+        var player = FindObjectOfType<PlayerControl>();
 
         if (equipment_type == EquipmentType.Axe)
         {
             //장작 획득과 
             //나무배는 애니메이션
 
-            var player_eq = PlayerControl.Instance.usingitem;
+            var player_eq = player.usingitem;
 
             player_eq.GetComponent<AxeStart>().AxeWield();
 
@@ -176,8 +177,8 @@ public class Equipment : Items
             {
                 if (item.GetComponent<Items>().ItemType() == "DefaultSton")
                 {
-                    PlayerControl.Instance.player_animator.SetBool("Throw", true);                 
-                    PlayerControl.Instance.stons.Shot(item);                   
+                    player.player_animator.SetBool("Throw", true);                 
+                    player.stons.Shot(item);                   
                     cnt_ston++;
                     break;
                 }
@@ -196,7 +197,7 @@ public class Equipment : Items
         {
             //물뿌리는 애니메이션과 인벤토리에서 물이있나없나확인 있으면 물을 뿌려서 식물을 기를 수 있다.
 
-            var use = PlayerControl.Instance.usingitem;
+            var use = player.usingitem;
             int cnt_water = use.GetComponent<BowlWater>().GetWater();
 
             if (cnt_water > 0)
@@ -222,7 +223,7 @@ public class Equipment : Items
             // 장착하는 아이템 
             //사용하면 주변의 벌레때들이 못오게한다.
 
-            var player_eq = PlayerControl.Instance.usingitem;
+            var player_eq = player.usingitem;
 
             player_eq.GetComponent<TorchLlightStart>().Wield();
         }

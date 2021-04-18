@@ -17,6 +17,14 @@ public class ItemPanel : Slot
 
     public Image itemimage;
 
+    private PlayerControl _player;
+
+
+    private void Awake()
+    {
+        _player = FindObjectOfType<PlayerControl>();
+    }
+
 
     public void Start()
     {
@@ -50,7 +58,7 @@ public class ItemPanel : Slot
             if (_equ.equipment_type == EquipmentType.Axe || _equ.equipment_type == EquipmentType.Bowl
                 || _equ.equipment_type == EquipmentType.Fishing || _equ.equipment_type == EquipmentType.TorchLight)
             {
-                PlayerControl.Instance.PlayerEqu(_equ.equipment_type);
+                _player.PlayerEqu(_equ.equipment_type);
                
             }
             else

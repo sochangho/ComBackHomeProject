@@ -13,7 +13,7 @@ public class ItemSystem : MonoBehaviour
 
     public bool warterTrigger = false;
 
-    private Dictionary<string, int> 
+   
 
     private static ItemSystem _instance;
     // 인스턴스에 접근하기 위한 프로퍼티
@@ -52,7 +52,7 @@ public class ItemSystem : MonoBehaviour
     private void Start()
     {
 
-       var player_equ =  PlayerControl.Instance.equipitem;
+       var player_equ =  FindObjectOfType<PlayerControl>().equipitem;
        
        for(int i= 0; i < player_equ.transform.childCount; i++)
         {
@@ -314,7 +314,7 @@ public class ItemSystem : MonoBehaviour
         {
 
             var go = (GameObject)Instantiate(Resources.Load("Ganeral/Eqi/TorchLight"));
-            go.transform.SetParent(PlayerControl.Instance.equipitem.transform);
+            go.transform.SetParent(FindObjectOfType<PlayerControl>().equipitem.transform);
             go.SetActive(false);
             items.Add(go);
 
