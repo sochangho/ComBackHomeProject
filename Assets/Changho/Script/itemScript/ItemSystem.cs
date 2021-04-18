@@ -13,6 +13,8 @@ public class ItemSystem : MonoBehaviour
 
     public bool warterTrigger = false;
 
+    private Dictionary<string, int> 
+
     private static ItemSystem _instance;
     // 인스턴스에 접근하기 위한 프로퍼티
     public static ItemSystem Instance

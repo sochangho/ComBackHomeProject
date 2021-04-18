@@ -25,7 +25,7 @@ public class ShipHP : MonoBehaviour
         if (hp > 100)
         {
 
-            PlayerControl.Instance.player_hp = 100;
+
             hp = 100;
         }
 

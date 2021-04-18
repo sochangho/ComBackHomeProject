@@ -11,6 +11,10 @@ public class RandomBox : MonoBehaviour
     private Material[] explo_mat;
 
     [SerializeField]
+    private Material[] remedy_mat;
+
+
+    [SerializeField]
     private MeshRenderer mr;
 
     [SerializeField]
@@ -22,13 +26,21 @@ public class RandomBox : MonoBehaviour
  
     private void OnEnable()
     {
-        number = Random.Range(0, 2);
+        number = Random.Range(0, 3);
 
-        if(number == 0)
+        if (number == 0)
         {
             mr.materials = explo_mat;
             trash.min = 90;
             trash.max = 100;
+
+        }
+        else if(number == 1)
+        {
+            mr.materials = remedy_mat;
+            trash.min = 40;
+            trash.max = 50;
+
 
         }
         else
@@ -71,6 +83,11 @@ public class RandomBox : MonoBehaviour
             ship.ShipExplosion();
             trash_system.shipHp -= 5;
             trash_system.ItemZero();
+
+        }
+        else if(number == 1)
+        {
+            trash_system.shipHp += 5;
 
         }
         else

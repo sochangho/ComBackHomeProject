@@ -48,6 +48,8 @@ MonoBehaviour:
   - {fileID: 2100000, guid: d04624ee5c239e74e91951449eedcbac, type: 2}
   explo_mat:
   - {fileID: 2100000, guid: e718f151641ac42469576a2bb9c2c272, type: 2}
+  remedy_mat:
+  - {fileID: 8290782892783832528, guid: 74e318ad563ede244b38120cd5f45587, type: 3}
   mr: {fileID: 4560454382821220051}
   trash: {fileID: 8158268947618701929}
 --- !u!1 &8093288476452650563

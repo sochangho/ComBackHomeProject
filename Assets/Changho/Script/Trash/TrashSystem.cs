@@ -41,6 +41,9 @@ public class TrashSystem : MonoBehaviour
     [SerializeField]
     private GameObject sea;
 
+    [SerializeField]
+    private UIButton popupSystem;
+    
     private Renderer seaColor;
 
     private Color lightning_color;
@@ -222,6 +225,9 @@ public class TrashSystem : MonoBehaviour
             shipHp = 0;
 
             FindObjectOfType<ShipDestroy>().ShipSlice();
+            FindObjectOfType<MoveShip>().enabled = false;
+            StartCoroutine(TrashEndPopupRoutin());
+
 
         }
 
@@ -229,7 +235,19 @@ public class TrashSystem : MonoBehaviour
      
     }
 
+    IEnumerator TrashEndPopupRoutin()
+    {
+        float time = 0;
 
+        while (time < 0.5f)
+        {
+            time += Time.deltaTime;
+
+            yield return null;
+        }
+
+        popupSystem.TrashSceneEnd();
+    }
     
 
 }

@@ -22,7 +22,13 @@ public class UIButton : BaseScene
         PlayerControl.Instance.enabled = false;
     }
 
-    
+    public void TrashSceneEnd()
+    {
+        OpenPopup<TrashEnd>("UI/Popup/EndGamePopup");
  
+
+    }
+
+
 
 }
