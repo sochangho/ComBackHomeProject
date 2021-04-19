@@ -29,6 +29,11 @@ public class UIButton : BaseScene
 
     }
 
+    public void GoChoice()
+    {
 
+        OpenPopup<SeaGoChoice>("UI/Popup/SeaGo_Choice");
+
+    }
 
 }

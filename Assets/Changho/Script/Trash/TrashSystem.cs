@@ -61,6 +61,18 @@ public class TrashSystem : MonoBehaviour
         lightning_color = new Color(0, 0, 0);
         StartCoroutine(TrashGameRoutin());
 
+
+        var items = ItemSystem.Instance.items;
+
+        foreach( var item in items)
+        {
+
+            Debug.Log(item.ToString());
+        }
+
+
+
+
     }
 
 
