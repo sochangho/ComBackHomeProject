@@ -55,20 +55,20 @@ public class AxeStart : MonoBehaviour
                 if(trees.Tree_type == TreeType.AppleTree)
                 {
                     fruit.AddComponent<Fruit>().fluit_type = FuritType.Apple;
-                    ItemSystem.Instance.items.Add(fruit);
+                    ItemSystem.Instance.items.Add(fruit.GetComponent<Fruit>());
                     fruit.SetActive(false);
 
                 }
                 if (trees.Tree_type == TreeType.BananaTree)
                 {
                     fruit.AddComponent<Fruit>().fluit_type = FuritType.Banana;
-                    ItemSystem.Instance.items.Add(fruit);
+                    ItemSystem.Instance.items.Add(fruit.GetComponent<Fruit>());
                     fruit.SetActive(false);
                 }
                 if (trees.Tree_type == TreeType.CoconutTree)
                 {
                     fruit.AddComponent<Fruit>().fluit_type = FuritType.Coconet;
-                    ItemSystem.Instance.items.Add(fruit);
+                    ItemSystem.Instance.items.Add(fruit.GetComponent<Fruit>());
                     fruit.SetActive(false);
                 }
 

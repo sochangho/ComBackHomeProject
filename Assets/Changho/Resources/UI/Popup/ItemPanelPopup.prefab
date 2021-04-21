@@ -247,10 +247,10 @@ RectTransform:
   m_Father: {fileID: 2007014068672877562}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 25, y: -15}
-  m_SizeDelta: {x: 50, y: 30}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2777212041668684847
 CanvasRenderer:
@@ -382,7 +382,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -0.000029534, y: -80.345}
-  m_SizeDelta: {x: 140, y: 32.948593}
+  m_SizeDelta: {x: 0, y: 32.948593}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &7590402751491861303
 MonoBehaviour:
@@ -574,7 +574,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &5559438487273619346
 RectTransform:
   m_ObjectHideFlags: 0
@@ -648,11 +648,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1697521e72692b42bc415c6dd7dc1aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cnt: 0
-  nametex: {fileID: 8816789827163264746}
-  subscripttex: {fileID: 2522016296127478858}
-  use_button: {fileID: 0}
-  cancel_button: {fileID: 0}
+  item: {fileID: 0}
+  item_name: {fileID: 0}
+  item_subscript: {fileID: 0}
+  panelitem_cnt: 0
 --- !u!1 &7025632979212153480
 GameObject:
   m_ObjectHideFlags: 0
@@ -762,10 +761,10 @@ RectTransform:
   m_Father: {fileID: 2007014068672877562}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 115, y: -15}
-  m_SizeDelta: {x: 50, y: 30}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2338596742383618622
 CanvasRenderer:

@@ -16,7 +16,7 @@ public class Fruit : Items
     public Fruit(FuritType ft)
     {
         fluit_type = ft;
-
+        itemInfoSet();
     }
 
     private void Awake()

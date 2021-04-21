@@ -20,6 +20,7 @@ public class Crops : Items
     {
 
         crops_type = type;
+        itemInfoSet();
     }
 
 

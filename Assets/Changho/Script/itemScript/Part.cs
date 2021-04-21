@@ -26,7 +26,7 @@ public class Part : Items
     {
 
         part_type = type;
-
+        itemInfoSet();
     }
 
 

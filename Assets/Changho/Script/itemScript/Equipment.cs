@@ -27,7 +27,7 @@ public class Equipment : Items
     public Equipment( EquipmentType type)
     {
         equipment_type = type;
-        
+        itemInfoSet();
     }
 
 
@@ -178,7 +178,7 @@ public class Equipment : Items
                 if (item.GetComponent<Items>().ItemType() == "DefaultSton")
                 {
                     player.player_animator.SetBool("Throw", true);                 
-                    player.stons.Shot(item);                   
+                    //player.stons.Shot(item);                   
                     cnt_ston++;
                     break;
                 }

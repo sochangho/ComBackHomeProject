@@ -6,8 +6,8 @@ using UnityEngine;
 public enum SeedType
 {
 
-    CucumberSeed,
-    RiceplantSeed,
+    ChilliSeed,
+    EggplantSeed,
     TomatoSeed,
     CornSeed
 }
@@ -19,6 +19,7 @@ public class Seed : Items
     public Seed(SeedType st)
     {
         seed_type = st;
+        itemInfoSet();
     }
 
 
@@ -29,15 +30,15 @@ public class Seed : Items
             itemname = "옥수수 씨앗";
             subscript = "옥수수 농작물";
         }
-       if(seed_type == SeedType.CucumberSeed)
+       if(seed_type == SeedType.ChilliSeed)
        {
-            itemname = "오이 씨앗";
-            subscript ="오이 농작물";
+            itemname = "오이고추 씨앗";
+            subscript ="오이고추 농작물";
         }
-       if(seed_type == SeedType.RiceplantSeed)
+       if(seed_type == SeedType.EggplantSeed)
        {
-            itemname = "벼 씨앗";
-            subscript = "벼 농작물";
+            itemname = "가지 씨앗";
+            subscript = "가지 농작물";
         }
        if(seed_type == SeedType.TomatoSeed)
         {
@@ -50,21 +51,20 @@ public class Seed : Items
     public override void itemInfoSet()
     {
         base.itemInfoSet();
-
         if (seed_type == SeedType.CornSeed)
         {
             itemname = "옥수수 씨앗";
             subscript = "옥수수 농작물";
         }
-        if (seed_type == SeedType.CucumberSeed)
+        if (seed_type == SeedType.ChilliSeed)
         {
-            itemname = "오이 씨앗";
-            subscript = "오이 농작물";
+            itemname = "오이고추 씨앗";
+            subscript = "오이고추 농작물";
         }
-        if (seed_type == SeedType.RiceplantSeed)
+        if (seed_type == SeedType.EggplantSeed)
         {
-            itemname = "벼 씨앗";
-            subscript = "벼 농작물";
+            itemname = "가지 씨앗";
+            subscript = "가지 농작물";
         }
         if (seed_type == SeedType.TomatoSeed)
         {
@@ -73,25 +73,24 @@ public class Seed : Items
         }
 
 
-
     }
     public override void ItemUse()
     {
         if (seed_type == SeedType.CornSeed)
         {
-            // 옥수수 생성
+            
         }
-        else if (seed_type == SeedType.CucumberSeed)
+        if (seed_type == SeedType.ChilliSeed)
         {
-            // 오이 생성
+          
         }
-        else if (seed_type == SeedType.RiceplantSeed)
+        if (seed_type == SeedType.EggplantSeed)
         {
-            //벼 생성
+          
         }
-        else if (seed_type == SeedType.TomatoSeed)
+        if (seed_type == SeedType.TomatoSeed)
         {
-            //토마토 생성
+            
         }
         ItemSystem.Instance.ItemUseRemove(this);
 

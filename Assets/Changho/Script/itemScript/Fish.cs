@@ -28,6 +28,7 @@ public class Fish : Items
     {
 
         fish_type = type;
+        itemInfoSet();
     }
 
     // Start is called before the first frame update

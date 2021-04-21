@@ -49,9 +49,14 @@ public class EquUI : MonoBehaviour
             equ_Image.GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprite/TorchLight") as Sprite;
 
         }
+        if (eqtype == EquipmentType.Fkiller)
+        {
+
+            equ_Image.GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprite/Fkiller") as Sprite;
+
+        }
 
 
-        
     }
 
     public void ImageNone()

@@ -1686,11 +1686,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0fc4688aea090e748ae41422359b70d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slots_temp:
-  - {fileID: 1208092379}
-  - {fileID: 1713245611}
-  - {fileID: 895687831}
-  - {fileID: 825456718}
+  useitems:
+  - {fileID: 1208092384}
+  - {fileID: 1713245613}
+  - {fileID: 895687833}
+  - {fileID: 825456720}
 --- !u!1 &447091011
 GameObject:
   m_ObjectHideFlags: 0
@@ -2605,7 +2605,33 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   items: []
-  ItemSlot: {fileID: 441977592}
+  randomboxAdd: 0
+  trashAddPopup: 0
+  prefebitems:
+  - {fileID: -6052919473415858196, guid: 9304742f56a2e0a48ad20f6603b1a3fa, type: 3}
+  - {fileID: 3999587641021871941, guid: 73516be6fd5deea40b47fec38411c26f, type: 3}
+  - {fileID: 5010763872754544890, guid: ea37ac6e256e19148af3a10595924d07, type: 3}
+  - {fileID: 3750274995323819835, guid: 7627c502b1cac9b42a65fa20ab2a2ca9, type: 3}
+  - {fileID: -678014230349387776, guid: 8d850be867feeb049843a5008377dbba, type: 3}
+  - {fileID: 5454662909722972218, guid: dddb68264d89c5a48beaab0d63420e76, type: 3}
+  - {fileID: 808241947286855031, guid: d2455fb91ed9e544ea72cb7a7d28c61e, type: 3}
+  - {fileID: 4417788563138709649, guid: 0874939ba212f1d48889e3c17642d7bd, type: 3}
+  - {fileID: -3520296762377612294, guid: f882991d23abb8d45a55641e967bd49b, type: 3}
+  - {fileID: 3234750371013242412, guid: 433647b4c86079241a42c335be611ea1, type: 3}
+  - {fileID: 6961862640223757152, guid: 794f16bc08c7d274e963e42e24327616, type: 3}
+  - {fileID: 7632150498468223406, guid: 404ab4a60f80db74783c5c26780f709a, type: 3}
+  - {fileID: 8343685855183575342, guid: 5231b1d0fbbd17f4f9400516da4371a3, type: 3}
+  - {fileID: -3274052874013765260, guid: 7c8c1daf02d6b3046a1a54201d2af0d4, type: 3}
+  - {fileID: 6666883652971659153, guid: 6a45c9cb04e60d74593532dadf96d94d, type: 3}
+  - {fileID: 4169811589652410596, guid: 183ed9eac2cd55f44a4f5c65d681f793, type: 3}
+  - {fileID: 7122964160899221110, guid: fd63128e756845741b08ad8f6f1275c2, type: 3}
+  - {fileID: 8493072153129766898, guid: 6eadb4525e96e214e8604413d36a4a2c, type: 3}
+  - {fileID: 3674951419358358487, guid: d43ed3438b7e5304699fad2a66cc0c5b, type: 3}
+  - {fileID: 569257398538861970, guid: 032e205d6955dc24294b3b7d1f68737a, type: 3}
+  - {fileID: 3785932911216241313, guid: c5fd330110e5cc745a231c7f5d30a009, type: 3}
+  - {fileID: 3525689467098152916, guid: c8852b65cc1c73d479e93307a0690afe, type: 3}
+  - {fileID: 7632487429152097491, guid: 563180edf25915c4e8e69deac2ea6e1f, type: 3}
+  - {fileID: 2524963985638430337, guid: 00bcf743969622242ad3a81203f7225d, type: 3}
   warterTrigger: 0
 --- !u!4 &598071531
 Transform:
@@ -5588,6 +5614,50 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1004729996}
   m_CullTransparentMesh: 0
+--- !u!1 &1025107592
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1025107593}
+  - component: {fileID: 1025107594}
+  m_Layer: 0
+  m_Name: RetrunGround
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1025107593
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1025107592}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 583.38824, y: 46.483284, z: 135.45093}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 27
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1025107594
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1025107592}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40811fd1442a46f4d8f36328df44991f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canvas: {fileID: 1725610357}
 --- !u!1 &1065100026
 GameObject:
   m_ObjectHideFlags: 0

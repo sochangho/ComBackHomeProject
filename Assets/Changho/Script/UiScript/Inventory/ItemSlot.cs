@@ -1,16 +1,18 @@
-﻿
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class ItemSlot : MonoBehaviour
 {
-    [HideInInspector]
-    public Dictionary<Items,ItemInfo> slot_items = new Dictionary<Items, ItemInfo>();
 
-    public List<GameObject> slots_temp = new List<GameObject>();
+    public List<Itemelement> useitems;
 
-  
+
+    private bool z_trigger = false;
+    private bool x_trigger = false;
+    private bool c_trigger = false;
+    private bool v_trigger = false;
 
 
     /// <summary>
@@ -18,14 +20,12 @@ public class ItemSlot : MonoBehaviour
     /// </summary>
     public void ItemUseZ()
     {
-
-        if(slot_items.Count < 1)
+        if (!z_trigger)
         {
-            return;
+            useitems[0].SlotUse();
+            z_trigger = true;
+            StartCoroutine(ZRoutin());
         }
-
-        FindItemType(0);
-
     }
 
 
@@ -34,14 +34,13 @@ public class ItemSlot : MonoBehaviour
     /// </summary>
     public void ItemUseX()
     {
-
-        if (slot_items.Count < 2)
+        if (!x_trigger)
         {
-            return;
+            useitems[1].SlotUse();
+            x_trigger = true;
+            StartCoroutine(XRoutin());
         }
-
-        FindItemType(1);
-
+       
     }
 
 
@@ -52,133 +51,150 @@ public class ItemSlot : MonoBehaviour
     public void ItemUseC()
     {
 
-        if (slot_items.Count < 3)
+        if (!c_trigger)
         {
-            return;
+            useitems[2].SlotUse();
+            c_trigger = true;
+            StartCoroutine(CRoutin());
         }
 
-        FindItemType(2);
+       
     }
     /// <summary>
     /// V입력
     /// </summary>
     public void ItemUseV()
     {
-        if (slot_items.Count < 4)
+
+        if (!v_trigger)
         {
-            return;
+            useitems[3].SlotUse();
+            v_trigger = true;
+            StartCoroutine(VRoutin());
         }
 
-
-        FindItemType(3);
     }
 
 
-    /// <summary>
-    /// 아이템 사용 키값으로 개수 감소
-    /// </summary>
-    /// <typeparam name="T">Items에 상속받은 아이템타입만 매개변수로 받는다</typeparam>
-    /// <param name="type">변수 이름 </param>
-    private void FindKey<T>(T type) where T: Items
+
+    public void itemslotAdd(Items item ,int itemcnt)
     {
-        var keyList = new List<Items>(slot_items.Keys);
-                
-         type.ItemUse();
-    
-        foreach (var keylist in keyList)
+        var cnt = 0;
+        foreach(var useitem in useitems)
         {
-
-            if (keylist.GetComponent<T>() == (T)type)
+            if (useitem.GetItemelement() == null)
             {
-                var k = (T)keylist;
-                slot_items[k].cnt--;
-
-                if (slot_items[k].cnt == 0)
-                {
-                    slot_items.Remove(k);
-                }
-                SetItemWindow();
+                useitem.SetItemelement(item, itemcnt);
+                cnt++;
                 break;
             }
+            else if(useitem.GetItemelement()== item.ItemType())
+            {
+                ItemSystem.Instance.ItemInfoUI("이미 사용중인 아이템 입니다!", Color.red);
+                break;
+            }
+
         }
+
+     
+
 
     }
 
-    /// <summary>
-    /// 아이템 타입비교
-    /// </summary>
-    /// <param name="num">슬롯 번호</param>
-    private void FindItemType(int num)
+
+    IEnumerator ZRoutin()
     {
-        var itemlist = new List<Items>(slot_items.Keys);
 
-        if (itemlist[num].GetComponent<Fish>() != null)
-        {
-            FindKey(itemlist[num].GetComponent<Fish>());
-        }
-        if (itemlist[num].GetComponent<Equipment>() != null)
-        {
-            var eqi = itemlist[num].GetComponent<Equipment>();
+        float time = 0;
 
-            if (eqi.equipment_type != EquipmentType.Axe)
-            {
-                FindKey(itemlist[num].GetComponent<Equipment>());
-            }
-        }
-        if (itemlist[num].GetComponent<Part>() != null)
+
+        while (time < 0.3f)
         {
-            FindKey(itemlist[num].GetComponent<Part>());
+
+            time += Time.deltaTime;
+
+            yield return null;
+
         }
-        if (itemlist[num].GetComponent<Fruit>() != null)
+
+        if (z_trigger)
         {
-            FindKey(itemlist[num].GetComponent<Fruit>());
+
+            z_trigger = false;
         }
-        if (itemlist[num].GetComponent<Seed>() != null)
-        {
-            FindKey(itemlist[num].GetComponent<Seed>());
-        }
-        if (itemlist[num].GetComponent<Crops>() != null)
-        {
-            FindKey(itemlist[num].GetComponent<Crops>());
-        }
+
+
     }
 
-
-    public void SetItemWindow()
+    IEnumerator CRoutin()
     {
-        var listitem = new List<ItemInfo>(slot_items.Values);
 
-        int i;
+        float time = 0;
 
-        for(i = 0; i < listitem.Count; i++)
+
+        while (time < 0.3f)
         {
-            slots_temp[i].GetComponent<Itemelement>().cnt_text.text = listitem[i].cnt.ToString();
-            slots_temp[i].GetComponent<Itemelement>().img.sprite = listitem[i].info_image.sprite;
 
-            if (slots_temp[i].GetComponent<Itemelement>().img.sprite != null)
-            {
-                Color color = slots_temp[i].GetComponent<Itemelement>().img.color;
-                color.a = 1;
-                slots_temp[i].GetComponent<Itemelement>().img.color = color;
-            }
+            time += Time.deltaTime;
+
+            yield return null;
 
         }
 
-
-        for(int j = i; j < slots_temp.Count; j++)
+        if (c_trigger)
         {
-            slots_temp[i].GetComponent<Itemelement>().cnt_text.text = "";
-            slots_temp[i].GetComponent<Itemelement>().img.sprite = null;
+
+            c_trigger = false;
+        }
 
 
-            if (slots_temp[i].GetComponent<Itemelement>().img.sprite == null)
-            {
-                Color color = slots_temp[i].GetComponent<Itemelement>().img.color;
-                color.a = 0;
-                slots_temp[i].GetComponent<Itemelement>().img.color = color;
-            }
+    }
+
+    IEnumerator XRoutin()
+    {
+
+        float time = 0;
+
+
+        while (time < 0.3f)
+        {
+
+            time += Time.deltaTime;
+
+            yield return null;
 
         }
+
+        if (x_trigger)
+        {
+
+            x_trigger = false;
+        }
+
+
+    }
+
+    IEnumerator VRoutin()
+    {
+
+        float time = 0;
+
+
+        while (time < 0.3f)
+        {
+
+            time += Time.deltaTime;
+
+            yield return null;
+
+        }
+
+        if (v_trigger)
+        {
+
+            v_trigger = false;
+        }
+
 
     }
 

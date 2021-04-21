@@ -185,9 +185,42 @@ public class TrashSystem : MonoBehaviour
         
     }
 
+    public void EndGameItemAdd()
+    {
+        var itemsystem = ItemSystem.Instance;
+
+        if (nail_cnt > 0) 
+        {
+            itemsystem.trashs.Add("Nail", nail_cnt);
+          
+        
+        }
+        if(fkiller_cnt > 0)
+        {
+            itemsystem.trashs.Add("FKiller", fkiller_cnt);
+        }
+        if (rope_cnt > 0)
+        {
+            itemsystem.trashs.Add("Rope", rope_cnt);
+
+        }
+        if(watercan_cnt > 0)
+        {
+            itemsystem.trashs.Add("Bowl", watercan_cnt);
+        }
+        if(randombox_cnt > 0)
+        {
+            itemsystem.trashs.Add("RandomBox", randombox_cnt);
+        }
+        
+        if((nail_cnt > 0) || (fkiller_cnt > 0) || (rope_cnt > 0) || (watercan_cnt > 0))
+        {
+            Debug.Log("dkdkskdwewewewewewewew");
+            itemsystem.trashAddPopup = true;
+        }
+    }
 
 
-    
 
 
     IEnumerator WeatherRoutin()
@@ -211,7 +244,7 @@ public class TrashSystem : MonoBehaviour
     IEnumerator TrashGameRoutin()
     {
 
-        float time = 180;
+        float time = 30;
 
 
 
@@ -223,29 +256,30 @@ public class TrashSystem : MonoBehaviour
             clock[0].text = (((int)time / 60) % 60).ToString();
             clock[1].text = ((int)time % 60).ToString();
 
-            if(time <= 0)
-            {
-
-                time = 0;
-            }
 
             yield return null;
         }
 
-        if(shipHp<= 0)
+        if(shipHp<= 0 )
         {
             shipHp = 0;
-
             FindObjectOfType<ShipDestroy>().ShipSlice();
-            FindObjectOfType<MoveShip>().enabled = false;
-            StartCoroutine(TrashEndPopupRoutin());
-
 
         }
 
+        if (time <= 0)
+        {
+           
+            time = 0;
+        }
+       
+        FindObjectOfType<MoveShip>().enabled = false;
+        StartCoroutine(TrashEndPopupRoutin());
 
-     
     }
+
+
+    
 
     IEnumerator TrashEndPopupRoutin()
     {
@@ -259,6 +293,7 @@ public class TrashSystem : MonoBehaviour
         }
 
         popupSystem.TrashSceneEnd();
+        EndGameItemAdd();
     }
     
 
