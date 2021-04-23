@@ -20,12 +20,12 @@ public class ThrowStones : MonoBehaviour
     private bool throwTrigger = false;
 
     private bool shotTrigger = false;
-    public void Shot(GameObject item)
+    public void Shot()
     {
 
         if (throwTrigger == false)
         {
-            ItemSystem.Instance.ItemUseRemove(item.GetComponent<Items>());
+            ItemSystem.Instance.ItemUseRemove(new Part(PartType.DefaultSton));
             throwTrigger = true;
             StartCoroutine(ThrowRoutin());
         }
@@ -74,14 +74,14 @@ public class ThrowStones : MonoBehaviour
 
     IEnumerator ThrowRoutin()
     {
-        float time = 0; 
-
-        while (time < 4.2f)
+        float time = 0;
+        FindObjectOfType<PlayerControl>().player_animator.SetBool("Throw", true);
+        while (time < 2.23f)
         {
             time += Time.deltaTime;
 
 
-            if(time > 2.1f  && shotTrigger == false)
+            if(time > 1.04f  && shotTrigger == false)
             {
 
                 Throw();

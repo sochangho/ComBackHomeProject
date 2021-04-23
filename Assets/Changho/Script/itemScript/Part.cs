@@ -12,7 +12,8 @@ public enum PartType
     Water,
     Branch,
     Raft,
-    DefaultSton
+    DefaultSton,
+    RandomBox
 
 }
 
@@ -90,6 +91,12 @@ public class Part : Items
             subscript = "나무를 맞춰 과일을 떨어뜨리거나 벌레때들을 맞춰서 공격할 수 있다.";
 
         }
+        else if(part_type == PartType.RandomBox)
+        {
+            itemname = "박스";
+            subscript = "바다 쓰레기 아이템을 랜덤으로 뽑을 수 있다. 빈 상자가 나올 수 있다.";
+
+        }
     }
 
 
@@ -153,7 +160,12 @@ public class Part : Items
             subscript = "나무를 맞춰 과일을 떨어뜨리거나 벌레때들을 맞춰서 공격할 수 있다.";
 
         }
+        else if (part_type == PartType.RandomBox)
+        {
+            itemname = "박스";
+            subscript = "바다 쓰레기 아이템을 랜덤으로 뽑을 수 있다. 빈 상자가 나올 수 있다.";
 
+        }
 
     }
 

@@ -65,7 +65,17 @@ public class ItemSystem : MonoBehaviour
 
 
         ItemCreate("Axe");
+        ItemCreate(new Equipment(EquipmentType.Fkiller).ItemType());
+        ItemCreate(new Part(PartType.FireWood).ItemType());
+        ItemCreate(new Part(PartType.FireWood).ItemType());
+        ItemCreate(new Part(PartType.FireWood).ItemType());
+        ItemCreate(new Part(PartType.FireWood).ItemType());
+        ItemCreate(new Part(PartType.FireWood).ItemType());
+        ItemCreate(new Part(PartType.FireWood).ItemType());
+        ItemCreate(new Part(PartType.Firestone).ItemType());
+        ItemCreate(new Part(PartType.Firestone).ItemType());
        
+        
     }
 
 
@@ -193,7 +203,7 @@ public class ItemSystem : MonoBehaviour
 
     //            Destroy(item);
 
-             
+
     //        }
     //        else if(item.GetComponent<Fish>() != null)
     //        {
@@ -215,306 +225,304 @@ public class ItemSystem : MonoBehaviour
     //    {
     //        return;
     //    }
-       
+
 
 
     //}
 
 
-    //public void BonfireAdd() // 모닥불 생성
-    //{
-    //    float fw_cnt = 0;
-    //    float st_cnt = 0;
+    public void BonfireAdd() // 모닥불 생성
+    {
+        float fw_cnt = 0;
+        float st_cnt = 0;
 
 
-    //    foreach (var item in items)
-    //    {
-    //        if (item.GetComponent<Items>() != null)
-    //        {
-    //            if (item.GetComponent<Part>() != null)
-    //            {
-    //                var item_part = item.GetComponent<Part>();
+        foreach (var item in items)
+        {
+           
 
-    //                if (item_part.part_type == PartType.FireWood)
-    //                {
-    //                    fw_cnt++;
-    //                }
+            if(item.ItemType() == new Part(PartType.FireWood).ItemType())
+            {
+                fw_cnt++;
 
-    //                if(item_part.part_type == PartType.Firestone)
-    //                {
-    //                    st_cnt++;
+            }
+            if (item.ItemType() == new Part(PartType.Firestone).ItemType())
+            {
+                st_cnt++;
 
-    //                }
-
-    //            }
-          
-    //        }
+            }
 
 
 
-    //    }
+        }
+
+
+        if ((fw_cnt >= 5) && (st_cnt >= 1))
+        {
+           
+            for(int i =0; i < 5; i++)
+            {
+                foreach(var item in items)
+                {
+                    if(item.ItemType() == new Part(PartType.FireWood).ItemType())
+                    {
+                        ItemUseRemove(item);
+                        break;
+                    }
+
+                }
+
+            }
+
+            for (int i = 0; i < 1; i++)
+            {
+                foreach (var item in items)
+                {
+                    if (item.ItemType() == new Part(PartType.Firestone).ItemType())
+                    {
+                        ItemUseRemove(item);
+                        break;
+                    }
+
+                }
+
+            }
 
 
 
-    
+
+            ItemCreate(new Equipment(EquipmentType.Bonfire).ItemType());
+            ItemInfoUI("모닥불 생성 ", Color.blue);
+        }
+        else
+        {
+
+            ItemInfoUI("모닥불을 만들기에는 아이템 부족......", Color.red);
+
+            return;
+        }
 
 
-    //    if ((fw_cnt >= 5) && (st_cnt >= 1))
-    //    {
-    //        items.Add(new Equipment(EquipmentType.Bonfire).gameObject);
+    }
 
-    //        for(int i = 0; i < fw_cnt; i++)
-    //        {
-    //            for(int j = 0; j < items.Count; j++)
-    //            {
-                  
-    //                if(items[j].GetComponent<Part>() != null)
-    //                {
-    //                    if(items[j].GetComponent<Part>().part_type == PartType.FireWood)
-    //                    {
-
-    //                        items.RemoveAt(j);
-    //                        break;
-    //                    }
-    //                }
+    public void TorchLightAdd()
+    {
+        int oil_cnt = 0;
+        int branch_cnt = 0;
+        int cloth_cnt = 0;
 
 
-    //            }
+        foreach (var item in items)
+        {
+           
+            if(item.ItemType() == new Part(PartType.Oil).ItemType())
+            {
+                
+                oil_cnt++;
+            }
+            if (item.ItemType() == new Part(PartType.Branch).ItemType())
+            {
 
+                branch_cnt++;
+            }
+            if (item.ItemType() == new Part(PartType.Cloth).ItemType())
+            {
+
+                cloth_cnt++;
+            }
+
+
+        }
+
+
+
+        if (oil_cnt >= 1 && cloth_cnt >= 1 && branch_cnt >= 1)
+        {
+
+            foreach (var item in items)
+            {
+                if (item.ItemType() == new Part(PartType.Oil).ItemType())
+                {
+                    ItemUseRemove(item);
+                    break;
+                }
+
+            }
+
+            foreach (var item in items)
+            {
+                if (item.ItemType() == new Part(PartType.Cloth).ItemType())
+                {
+                    ItemUseRemove(item);
+                    break;
+                }
+
+            }
+
+            foreach (var item in items)
+            {
+                if (item.ItemType() == new Part(PartType.Branch).ItemType())
+                {
+                    ItemUseRemove(item);
+                    break;
+                }
+
+            }
+
+
+
+            ItemCreate(new Equipment(EquipmentType.TorchLight).ItemType());
+            ItemInfoUI("횃불 생성 ", Color.blue);
+        }
+        else
+        {
+            ItemInfoUI("횃불을 만들기에는 아이템 부족....", Color.red);
+            return;
+
+        }
+
+
+    }
+
+
+    public void RaftAdd()
+    {
+        int fw_cnt = 0;
+
+
+
+        foreach (var item in items)
+        {
+           
+            if(item.ItemType() == new Part(PartType.FireWood).ItemType())
+            {
+                fw_cnt++;
+
+            }
+
+        }
+
+
+
+        if (fw_cnt >= 3)
+        {
             
-    //        }
+            for(int i = 0; i < 3; i++)
+            {
+                foreach(var item in items)
+                {
+                    
+                    if(item.ItemType() == new Part(PartType.FireWood).ItemType())
+                    {
 
-    //        for (int i = 0; i < st_cnt; i++)
-    //        {
-    //            for (int j = 0; j < items.Count; j++)
-    //            {
+                        ItemUseRemove(item);
+                        break;
+                    }
 
-    //                if (items[j].GetComponent<Part>() != null)
-    //                {
-    //                    if (items[j].GetComponent<Part>().part_type == PartType.Firestone)
-    //                    {
 
-    //                        items.RemoveAt(j);
-    //                        break;
-    //                    }
-    //                }
+                }
 
 
-    //            }
 
 
-    //        }
+            }
 
-    //        var inventory = FindObjectOfType<Inventory>();
 
-    //        inventory.invetoryUpdate();
-                 
 
 
 
-    //    }
-    //    else
-    //    {
+            ItemInfoUI("뗏목 생성 ", Color.blue);
+            ItemCreate(new Part(PartType.Raft).ItemType());
 
-    //        ItemInfoUI("모닥불을 만들기에는 아이템 부족......", Color.red);
+        }
+        else
+        {
+            ItemInfoUI("뗏목을 만들기에는 아이템 부족......", Color.red);
+            return;
+        }
 
-    //        return;
-    //    }
 
+    }
 
-    //}
 
-    //public void TorchLightAdd()
-    //{
-    //    int oil_cnt = 0;
-    //    int branch_cnt = 0;
-    //    int cloth_cnt = 0;
 
 
-    //    foreach (var item in items)
-    //    {
-    //        if (item.GetComponent<Items>() != null)
-    //        {
-    //            if (item.GetComponent<Part>() != null)
-    //            {
-    //                var item_part = item.GetComponent<Part>();
 
-    //                if (item_part.part_type == PartType.Oil)
-    //                {
-    //                    oil_cnt++;
-    //                }
+    public void OpenBox()
+    {
+        List<string> trashitemnames = new List<string>();
+        var itemsystem = ItemSystem.Instance;
+        int randombox_cnt = 0;
+        int ran = Random.Range(0, 10);
 
-    //                if (item_part.part_type == PartType.Cloth)
-    //                {
-    //                    cloth_cnt++;
+        trashitemnames.Add("Nail");
+        trashitemnames.Add("Fkiller");
+        trashitemnames.Add("Bowl");
+        trashitemnames.Add("Rope");
 
-    //                }
-    //                if (item_part.part_type == PartType.Branch)
-    //                {
-    //                    branch_cnt++;
 
-    //                }
+        foreach(var item in items)
+        {
 
-    //            }
+            if(item.ItemType() == "RandomBox")
+            {
+                randombox_cnt++;
+                ItemUseRemove(item);
+                
+                break;
+            }
+            
+        }
 
-    //        }
 
-    //    }
+        if(randombox_cnt == 0)
+        {
+            ItemInfoUI("인벤토리 창에 랜덤 박스가 없습니다", Color.yellow);
+            return;
+        }
 
 
 
-    //    if(oil_cnt >= 1 && cloth_cnt>= 1 && branch_cnt >= 1)
-    //    {
 
-    //        var go = (GameObject)Instantiate(Resources.Load("Ganeral/Eqi/TorchLight"));
-    //        go.transform.SetParent(FindObjectOfType<PlayerControl>().equipitem.transform);
-    //        go.SetActive(false);
-    //        items.Add(go);
 
+        if (ran == 0)
+        {
+            int item_rancnt = Random.Range(0, trashitemnames.Count);
+            var item_ranstr = trashitemnames[item_rancnt];
+           
+            foreach (var item in prefebitems)
+            {
+                if (item.ItemType() == item_ranstr)
+                {
+                    ItemCreate(item.ItemType());
+                    ItemInfoUI(item.GetItemName() + "을 획득했습니다!!!", Color.blue);
 
-    //        for (int i = 0; i <oil_cnt; i++)
-    //        {
-    //            for (int j = 0; j < items.Count; j++)
-    //            {
 
-    //                if (items[j].GetComponent<Part>() != null)
-    //                {
-    //                    if (items[j].GetComponent<Part>().part_type == PartType.Oil)
 
-    //                    {
+                    break;
+                }
 
-    //                        items.RemoveAt(j);
-    //                        break;
-    //                    }
-    //                }
+            }
 
 
-    //            }
 
+        }
+        else
+        {
 
-    //        }
+            itemsystem.ItemInfoUI("빈 상자 입니다..", Color.yellow);
 
-    //        for (int i = 0; i < cloth_cnt; i++)
-    //        {
-    //            for (int j = 0; j < items.Count; j++)
-    //            {
 
-    //                if (items[j].GetComponent<Part>() != null)
-    //                {
-    //                    if (items[j].GetComponent<Part>().part_type == PartType.Cloth)
-    //                    {
 
-    //                        items.RemoveAt(j);
-    //                        break;
-    //                    }
-    //                }
+        }
 
+        
+      
+    }
 
-    //            }
 
 
-    //        }
-    //        for (int i = 0; i < branch_cnt; i++)
-    //        {
-    //            for (int j = 0; j < items.Count; j++)
-    //            {
 
-    //                if (items[j].GetComponent<Part>() != null)
-    //                {
-    //                    if (items[j].GetComponent<Part>().part_type == PartType.Branch)
-    //                    {
-
-    //                        items.RemoveAt(j);
-    //                        break;
-    //                    }
-    //                }
-
-
-    //            }
-
-
-    //        }
-
-    //        var inventory = FindObjectOfType<Inventory>();
-
-    //        inventory.invetoryUpdate();
-
-
-    //    }
-    //    else
-    //    {
-    //        ItemInfoUI("횃불을 만들기에는 아이템 부족...." , Color.red);
-    //        return;
-
-    //    }
-
-
-    //}
-
-
-    //public void RaftAdd()
-    //{
-    //    int fw_cnt = 0;
-
-
-
-    //    foreach (var item in items)
-    //    {
-    //        if (item.GetComponent<Items>() != null)
-    //        {
-    //            if (item.GetComponent<Part>() != null)
-    //            {
-    //                var item_part = item.GetComponent<Part>();
-
-    //                if (item_part.part_type == PartType.FireWood)
-    //                {
-    //                    fw_cnt++;
-    //                }
-
-
-    //            }
-    //        }
-
-    //    }
-
-
-
-    //    if(fw_cnt >= 3)
-    //    {
-    //        items.Add(new Part(PartType.Raft).gameObject);
-
-
-    //        for(int i = 0; i < fw_cnt; i++)
-    //        {
-    //            for (int j = 0; j < items.Count; j++)
-    //            {
-
-    //                if (items[j].GetComponent<Part>() != null)
-    //                {
-    //                    if (items[j].GetComponent<Part>().part_type == PartType.FireWood)
-
-    //                    {
-
-    //                        items.RemoveAt(j);
-    //                        break;
-    //                    }
-    //                }
-
-
-    //            }
-
-    //        }
-
-
-    //    }
-    //    else
-    //    {
-    //        ItemInfoUI("뗏목을 만들기에는 아이템 부족......" , Color.red);
-    //        return;
-    //    }
-
-
-    //}
     /// <summary>
     /// 아이템을 사용할 경우 회복아이템과 장비에서 모닥불 아이템, 돌은 사용할 경우 개수를 감소킵니다.
     /// </summary>

@@ -213,9 +213,8 @@ public class TrashSystem : MonoBehaviour
             itemsystem.trashs.Add("RandomBox", randombox_cnt);
         }
         
-        if((nail_cnt > 0) || (fkiller_cnt > 0) || (rope_cnt > 0) || (watercan_cnt > 0))
-        {
-            Debug.Log("dkdkskdwewewewewewewew");
+        if((nail_cnt > 0) || (fkiller_cnt > 0) || (rope_cnt > 0) || (watercan_cnt > 0) || (randombox_cnt > 0))
+        {           
             itemsystem.trashAddPopup = true;
         }
     }
@@ -264,6 +263,19 @@ public class TrashSystem : MonoBehaviour
         {
             shipHp = 0;
             FindObjectOfType<ShipDestroy>().ShipSlice();
+
+
+            foreach(var item in ItemSystem.Instance.items)
+            {
+
+                if(item.ItemType() == new Part(PartType.Raft).ItemType())
+                {
+                    ItemSystem.Instance.ItemUseRemove(item);
+
+                }
+
+            }
+
 
         }
 

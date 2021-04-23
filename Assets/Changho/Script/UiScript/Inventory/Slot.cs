@@ -55,7 +55,7 @@ public class Slot:MonoBehaviour
 
         if (item != null)
         {
-
+            FindObjectOfType<Inventory>().SlotClickDefanse(item.ItemType());
             var panel = FindObjectOfType<Inventory>().item_panel;
             panel.GetComponent<ItemPanel>().item = item;
             panel.GetComponent<ItemPanel>().panelitem_cnt = item_cnt;
@@ -67,12 +67,61 @@ public class Slot:MonoBehaviour
 
             }
 
+
+
+            if(item is Part)
+            {
+
+                if (panel.GetComponent<ItemPanel>().usebutton_obj.activeSelf)
+                {
+                    panel.GetComponent<ItemPanel>().usebutton_obj.SetActive(false);
+                }
+
+                panel.GetComponent<ItemPanel>().layoutGroup.padding.left = 75;
+                panel.GetComponent<ItemPanel>().layoutGroup.padding.right = 0;
+                panel.GetComponent<ItemPanel>().layoutGroup.padding.top = 5;
+                panel.GetComponent<ItemPanel>().layoutGroup.padding.bottom = 0;
+                panel.GetComponent<ItemPanel>().layoutGroup.spacing = new Vector2(25f, 0f);
+
+
+
+
+            }
+            else
+            {
+                if (!panel.GetComponent<ItemPanel>().usebutton_obj.activeSelf)
+                {
+                    panel.GetComponent<ItemPanel>().usebutton_obj.SetActive(true);
+                }
+
+                panel.GetComponent<ItemPanel>().layoutGroup.padding.left = 20;
+                panel.GetComponent<ItemPanel>().layoutGroup.padding.right = 0;
+                panel.GetComponent<ItemPanel>().layoutGroup.padding.top = 5;
+                panel.GetComponent<ItemPanel>().layoutGroup.padding.bottom = 0;
+                panel.GetComponent<ItemPanel>().layoutGroup.spacing = new Vector2(25f, 0f);
+
+
+
+
+            }
+
         }
+
+
+
+
 
     }
 
 
+    public void SlotNullSet()
+    {
 
+        item = null;
+        item_cnt = 0;
+        slot_image.sprite = Resources.Load<Sprite>("Sprite/Rectangle") as Sprite;
+        itemcntText.text = "";
+    }
 
 
 

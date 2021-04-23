@@ -74,7 +74,7 @@ public class EquUI : MonoBehaviour
     public void OpenEquCancel()
     {
         if (equbutton.activeSelf == false && _player.player_equState == PlayerEquState.Equ) {
-            Debug.Log("wewewe");
+            
             equbutton.SetActive(true);
         }
         else if(equbutton.activeSelf == true)

@@ -92,40 +92,88 @@ public class Inventory : Popup
 
     }
 
+    public void InventoryUpdate()
+    {
+        foreach(var slot in slots)
+        {
+
+            if (slot.GetComponent<Slot>().SlotGet() != null)
+            {
+                slot.GetComponent<Slot>().SlotNullSet();
+            }
+        }
+
+        SetItem();
+    }
+
+
+    public void OpenBoxButton()
+    {
+        ItemSystem.Instance.OpenBox();
+
+        InventoryUpdate();
+
+    }
+
+    public void ClickBornfireCreate()
+    {
+        ItemSystem.Instance.BonfireAdd();
+        InventoryUpdate();
+    }
+
+
+    public void ClickTorchLightCreate()
+    {
+        ItemSystem.Instance.TorchLightAdd();
+        InventoryUpdate();
+
+    }
+
+    public void ClickRaftCreate()
+    {
+        
+
+        ItemSystem.Instance.RaftAdd();
+        InventoryUpdate();
+    }
+
+
+    public void SlotClickDefanse(string itemtype)
+    {
+
+
+        foreach(var slot in slots)
+        {
+            if(slot.GetComponent<Slot>().SlotGet().ItemType() != itemtype)
+            {
+
+                slot.GetComponent<Button>().interactable = false;
+
+            }
+        }
+    }
 
 
 
-    //public void ClickBornfireCreate()
-    //{
-    //    ItemSystem.Instance.BonfireAdd();    
-    //}
+    public void SlotClickOK()
+    {
 
+        foreach (var slot in slots)
+        {
 
-    //public void ClickTorchLightCreate()
-    //{
-    //    ItemSystem.Instance.TorchLightAdd();
+            if (!slot.GetComponent<Button>().interactable)
+            {
+                slot.GetComponent<Button>().interactable = true;
 
-    //}
-
-    //public void ClickRaftCreate()
-    //{
-    //    var its = ItemSystem.Instance.items;
-
-    //    foreach(var it in its)
-    //    {
-    //        if(it.GetComponent<Part>() != null && it.GetComponent<Part>().part_type == PartType.Raft)
-    //        {
-    //            ItemSystem.Instance.ItemInfoUI("이미 뗏목을 만들었습니다!!!", Color.yellow);
-    //            return;
-
-    //        }
-
-
-    //    }
+            }
+        }
 
 
 
-    //    ItemSystem.Instance.RaftAdd();
-    //}
+    }
+
+
+
+
 
 }

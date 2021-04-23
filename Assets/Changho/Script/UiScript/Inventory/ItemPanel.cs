@@ -12,6 +12,9 @@ public class ItemPanel : MonoBehaviour
 
     public int panelitem_cnt;
 
+    public GameObject usebutton_obj;
+
+    public GridLayoutGroup layoutGroup;
   
     public void PanelSet()
     {
@@ -40,7 +43,7 @@ public class ItemPanel : MonoBehaviour
     public void CencelClick()
     {
         gameObject.SetActive(false);
-
+        FindObjectOfType<Inventory>().SlotClickOK();
     }
 
 

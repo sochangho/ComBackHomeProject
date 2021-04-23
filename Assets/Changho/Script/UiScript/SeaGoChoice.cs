@@ -9,8 +9,32 @@ public class SeaGoChoice :Popup
     /// </summary>
     public void GoTrash()
     {
+        bool ok = false;
+        var itemsystem = ItemSystem.Instance;
 
-        SceneManager.LoadScene("TrashScene");
+        foreach(var item in itemsystem.items)
+        {
+
+            if(item.ItemType() == new Part(PartType.Raft).ItemType())
+            {
+                ok = true;
+                break;
+            }
+        }
+
+
+        if (ok)
+        {
+            SceneManager.LoadScene("TrashScene");
+
+        }
+        else
+        {
+            itemsystem.ItemInfoUI("뗏목이 없습니다!", Color.blue);
+        }
+
+
+        
 
     }
 

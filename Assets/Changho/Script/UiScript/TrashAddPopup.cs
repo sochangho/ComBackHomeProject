@@ -6,8 +6,7 @@ public class TrashAddPopup : Popup
 {
 
     public List<TrashItemInfo> trashItemInfos;
-
-
+  
     private void OnEnable()
     {
         var _trashs = ItemSystem.Instance.trashs;
@@ -37,6 +36,16 @@ public class TrashAddPopup : Popup
                 transhItemInfo.additem_img.sprite = Resources.Load<Sprite>("Sprite/" + itemtype) as Sprite;
                 transhItemInfo.additem_cnt.text = cnt.ToString();
 
+                 foreach(var item in ItemSystem.Instance.prefebitems)
+                {
+                    if(itemtype == item.ItemType())
+                    {
+                        transhItemInfo.additem_name.text = itemtype;
+                        break;
+                    }
+
+                }
+
 
                 break;
             }
@@ -49,5 +58,10 @@ public class TrashAddPopup : Popup
         Close();
 
     }
+
+
+    
+
+
 
 }

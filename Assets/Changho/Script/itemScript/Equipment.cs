@@ -171,27 +171,10 @@ public class Equipment : Items
         }
         else if (equipment_type == EquipmentType.Ston)
         {
-            int cnt_ston = 0;
-
-            foreach (var item in ItemSystem.Instance.items)
-            {
-                if (item.GetComponent<Items>().ItemType() == "DefaultSton")
-                {
-                    player.player_animator.SetBool("Throw", true);                 
-                    //player.stons.Shot(item);                   
-                    cnt_ston++;
-                    break;
-                }
-            }
-
-
-            if (cnt_ston == 0)
-            {
-                ItemSystem.Instance.ItemInfoUI("인벤토리 창에 돌이 없습니다....", Color.red);
-
-            }
-
-
+                         
+                    player.stons.Shot();                   
+                   
+         
         }
         else if (equipment_type == EquipmentType.Bowl)
         {
