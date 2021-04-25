@@ -36,4 +36,9 @@ public class Items : MonoBehaviour
     {
         return itemtype;
     }
+
+
+
+
+
 }

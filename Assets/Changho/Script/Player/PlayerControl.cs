@@ -9,14 +9,10 @@ public class PlayerControl : MonoBehaviour
 {
     public PlayerEquState player_equState;
 
-    public PlayerMotionState player_motion = PlayerMotionState.Walk;
-
     public ThrowStones stons;
 
     public GameObject player_positionFix;
     
-    public Animator player_animator;
-
     [SerializeField]
     private Camera player_camera;
 
@@ -82,8 +78,13 @@ public class PlayerControl : MonoBehaviour
 
     public float hungry_wait = 20f;
 
+    private bool routinA_bool = false;
 
-    
+    private bool clickitem_bool = false;
+
+    private GameObject clickitemobj;
+
+    private PlayerAnimaterMgr player_anim;
 
     private void Start()
     {
@@ -93,8 +94,8 @@ public class PlayerControl : MonoBehaviour
        hpDecrease_coroutin = StartCoroutine(HungryDecease());
        distanceY = Mathf.Abs(transform.position.y - player_camera.transform.position.y);       
        player_equ = new Equipment(EquipmentType.Ston);
-       
-      
+
+        player_anim = FindObjectOfType<PlayerAnimaterMgr>();
     }
 
 
@@ -130,8 +131,12 @@ public class PlayerControl : MonoBehaviour
                         }
                         else
                         {
-                            GameObject item = hit.collider.gameObject;
-                            ItemSystem.Instance.ItemClickAdd(item);
+
+
+                            StartRun(hit.point);
+                            player_anim.playerMotion = PlayerMotionState.Lifting;
+                            clickitemobj = hit.collider.gameObject;
+                            
                         }
                     }
 
@@ -168,19 +173,16 @@ public class PlayerControl : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.A))
         {
-            player_equ.ItemUse();
-            StopRun();
+            if (routinA_bool == false)
+            {
+                player_equ.ItemUse();
+                StopRun();
+                routinA_bool = true;
+                StartCoroutine(RoutinAkey());
+            }
         }
-        if (Input.GetKeyDown(KeyCode.LeftShift))
-        {
-
-            player_motion = PlayerMotionState.Run;
-        }
-        if (Input.GetKeyUp(KeyCode.LeftShift))
-        {
-
-            player_motion = PlayerMotionState.Walk;
-        }
+      
+ 
 
 
         if (Input.GetKeyDown(KeyCode.I))
@@ -239,6 +241,8 @@ public class PlayerControl : MonoBehaviour
 
  
 
+
+    
         if (distance >= targetToplayer )
         {
           
@@ -247,6 +251,19 @@ public class PlayerControl : MonoBehaviour
           
             return true;
         }
+
+
+        if(FindObjectOfType<PlayerAnimaterMgr>().playerMotion == PlayerMotionState.Lifting)
+        {
+            if(distance < targetToplayer && !clickitem_bool)
+            {                
+                StartCoroutine(LiftingAnimationRoutin());
+                clickitem_bool = true;
+            }
+
+
+        }
+
    
 
 
@@ -291,24 +308,10 @@ public class PlayerControl : MonoBehaviour
 
     private void StartRun(Vector3 run_pointer)
     {
-        if ( player_motion == PlayerMotionState.Walk)
-        {
+      
 
-            player_animator.SetBool("Run", false);
-            player_animator.SetBool("Walk", true);
+            player_anim.WalkAnimation(true);
 
-
-        }
-
-        if (player_motion == PlayerMotionState.Run)
-        {
-            player_animator.SetBool("Walk", false);
-            player_animator.SetBool("Run", true);
-          
-
-        }
-
-        
 
         target = run_pointer;
 
@@ -317,18 +320,8 @@ public class PlayerControl : MonoBehaviour
 
     private void StopRun()
     {
-        if (player_animator.GetBool("Walk") == true)
-        {
-            player_animator.SetBool("Walk", false);
-          
-        }
 
-        if(player_animator.GetBool("Run") == true)
-        {
-            player_animator.SetBool("Run", false);
-
-        }
-
+        player_anim.WalkAnimation(false);
 
 
         target = transform.position;
@@ -374,6 +367,66 @@ public class PlayerControl : MonoBehaviour
         }
     }
 
+    public IEnumerator LiftingAnimationRoutin()
+    {
+        float time = 0;
+        bool lifingbool = false;
+
+        player_anim.LiftingAnimation(true);
+        while (time < 1.8f)
+        {
+            time += Time.deltaTime;
+
+            if(time > 1.19f && !lifingbool)
+            {
+                ItemSystem.Instance.ItemClickAdd(clickitemobj);
+                
+                if(usingitem == null)
+                {
+                    EquAnimationChange(EquipmentType.Ston);
+                }
+                else
+                {
+                    EquAnimationChange(usingitem.GetComponent<Equipment>().equipment_type);
+                }
+
+
+                clickitemobj = null;
+                lifingbool = true;
+
+            }
+            yield return null;
+        }
+
+        player_anim.LiftingAnimation(false);
+        clickitem_bool = false;
+
+    }
+
+
+
+    private void EquAnimationChange(EquipmentType eq)
+    {
+
+
+
+        if(eq == EquipmentType.TorchLight)
+        {
+            if(player_anim.playerMotion != PlayerMotionState.TorchWalk)
+            {
+                player_anim.playerMotion = PlayerMotionState.TorchWalk;
+            }
+
+        }
+        else
+        {
+            if (player_anim.playerMotion != PlayerMotionState.Walk)
+            {
+                player_anim.playerMotion = PlayerMotionState.Walk;
+            }
+
+        }
+    }
 
     /// <summary>
     ///  아이템 장착
@@ -424,7 +477,9 @@ public class PlayerControl : MonoBehaviour
             }
 
             equUI.ImageChange(et);
-            
+            EquAnimationChange(et);
+
+
         }
     }
 
@@ -456,12 +511,38 @@ public class PlayerControl : MonoBehaviour
             }
 
             player_equ.equipment_type = EquipmentType.Ston;
+            EquAnimationChange(EquipmentType.Ston);
             usingitem = null;
         }
 
 
 
     }
+
+
+    IEnumerator RoutinAkey()
+    {
+        float time = 0;
+
+        while (time < 0.3f)
+        {
+
+            time += Time.deltaTime;
+
+            yield return null;
+
+        }
+
+        if(routinA_bool == true)
+        {
+
+            routinA_bool = false;
+        }
+
+
+    }
+
+
 
 }
 
@@ -473,10 +554,3 @@ public enum PlayerEquState
 }
 
 
-public enum PlayerMotionState
-{
-    Walk,
-    Run
-
-
-}

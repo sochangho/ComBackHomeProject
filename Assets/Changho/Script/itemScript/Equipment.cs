@@ -158,8 +158,9 @@ public class Equipment : Items
 
             if (Physics.Raycast(p.transform.position, Vector3.down, out raycastHit, 10f))
             {
+                Vector3 tarrein_uppoint = new Vector3(raycastHit.point.x, raycastHit.point.y + 1.5f, raycastHit.point.z);
 
-                Instantiate(Resources.Load("Ganeral/Bornfire"), raycastHit.point, Quaternion.identity);
+                Instantiate(Resources.Load<GameObject>("Ganeral/Eqi/Bornfire") as GameObject, tarrein_uppoint, Quaternion.identity);
                 ItemSystem.Instance.ItemUseRemove(this);
             }
             else
@@ -170,11 +171,8 @@ public class Equipment : Items
 
         }
         else if (equipment_type == EquipmentType.Ston)
-        {
-                         
-                    player.stons.Shot();                   
-                   
-         
+        {                         
+          player.stons.Shot();                            
         }
         else if (equipment_type == EquipmentType.Bowl)
         {
@@ -186,6 +184,7 @@ public class Equipment : Items
             if (cnt_water > 0)
             {
                 use.transform.GetChild(0).GetComponent<ParticleSystem>().Play();
+                use.GetComponent<BowlWater>().WateringAnimation();
                 cnt_water--;
                 use.GetComponent<BowlWater>().SetWater(cnt_water);
 
@@ -219,6 +218,11 @@ public class Equipment : Items
 
         Debug.Log("아이템 총개수" + ItemSystem.Instance.items.Count);
     }
+
+
+
+
+
     public override string GetItemName()
     {
         return itemname;

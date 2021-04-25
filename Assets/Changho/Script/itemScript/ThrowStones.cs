@@ -22,13 +22,36 @@ public class ThrowStones : MonoBehaviour
     private bool shotTrigger = false;
     public void Shot()
     {
+        bool stoncheck = false;
 
-        if (throwTrigger == false)
+        foreach(var item in ItemSystem.Instance.items)
         {
-            ItemSystem.Instance.ItemUseRemove(new Part(PartType.DefaultSton));
-            throwTrigger = true;
-            StartCoroutine(ThrowRoutin());
+
+            if(item.ItemType() == new Part(PartType.DefaultSton).ItemType())
+            {
+                if (throwTrigger == false)
+                {
+                    FindObjectOfType<PlayerAnimaterMgr>().ThrowAnimation(true);
+                    ItemSystem.Instance.ItemUseRemove(item);
+                    throwTrigger = true;
+                    stoncheck = true;
+                    StartCoroutine(ThrowRoutin());
+                    break;
+                }
+
+            }
+
         }
+
+
+
+        if (!stoncheck)
+        {
+            ItemSystem.Instance.ItemInfoUI("인벤토리 창에 돌이 없습니다.", Color.red);
+
+        }
+
+
 
     }
 
@@ -50,32 +73,10 @@ public class ThrowStones : MonoBehaviour
     }
 
 
-    private Vector3 CalculateVelocity(Vector3 target, Vector3 origin, float time)
-    {
-        var dst = target - origin;
-        var dstXZ = dst;
-        dstXZ.y = 0f;
-
-        float Sy = dst.y;
-        float Sxz = dstXZ.magnitude;
-
-
-        float Vxz = Sxz / time;
-        float Vy = Sy / time + 0.5f * Mathf.Abs(Physics.gravity.y) * time;
-
-
-        Vector3 result = dstXZ.normalized;
-        result *= Vxz;
-        result.y = Vy;
-
-        return result;
-
-    }
-
     IEnumerator ThrowRoutin()
     {
         float time = 0;
-        FindObjectOfType<PlayerControl>().player_animator.SetBool("Throw", true);
+        
         while (time < 2.23f)
         {
             time += Time.deltaTime;
@@ -97,7 +98,7 @@ public class ThrowStones : MonoBehaviour
 
 
 
-        FindObjectOfType<PlayerControl>().player_animator.SetBool("Throw", false);
+        FindObjectOfType<PlayerAnimaterMgr>().ThrowAnimation(false);
 
         if (throwTrigger == true)
         {

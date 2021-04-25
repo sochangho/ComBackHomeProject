@@ -29,14 +29,26 @@ public class ItemPanel : MonoBehaviour
 
         if (item is Equipment)
         {
-            var equ = (Equipment)item;
-            FindObjectOfType<PlayerControl>().PlayerEqu(equ.equipment_type);
+            if (item.ItemType() == new Equipment(EquipmentType.Bonfire).ItemType())
+            {
+                FindObjectOfType<ItemSlot>().itemslotAdd(item, panelitem_cnt);
+            }
+            else
+            {
+                var equ = (Equipment)item;
+                FindObjectOfType<PlayerControl>().PlayerEqu(equ.equipment_type);
+            }
         }
         else
         {
 
             FindObjectOfType<ItemSlot>().itemslotAdd(item, panelitem_cnt);
         }
+
+
+
+
+
     }
     
 
@@ -46,8 +58,8 @@ public class ItemPanel : MonoBehaviour
         FindObjectOfType<Inventory>().SlotClickOK();
     }
 
-
-
+      
+    
 
 
 }

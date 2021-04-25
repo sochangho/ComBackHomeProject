@@ -9,7 +9,7 @@ public class BowlWater:MonoBehaviour
 
     public void SetWater(int cnt)
     {
-
+        
         warter_cnt = cnt;
     }
 
@@ -17,6 +17,29 @@ public class BowlWater:MonoBehaviour
     {
         return warter_cnt;
 
+    }
+
+    public void WateringAnimation()
+    {
+
+        StartCoroutine(WateringRoutin());
+    }
+
+
+
+    IEnumerator WateringRoutin()
+    {
+        float time = 0;
+        var player = FindObjectOfType<PlayerControl>();
+        FindObjectOfType<PlayerAnimaterMgr>().WateringAnimation(true);
+      
+        while (time < 5.17f)
+        {
+            time += Time.deltaTime;
+            yield return null;
+
+        }
+        FindObjectOfType<PlayerAnimaterMgr>().WateringAnimation(false);
     }
 
 

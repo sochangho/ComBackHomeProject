@@ -64,17 +64,9 @@ public class ItemSystem : MonoBehaviour
        var player_equ =  FindObjectOfType<PlayerControl>().equipitem;
 
 
-        ItemCreate("Axe");
-        ItemCreate(new Equipment(EquipmentType.Fkiller).ItemType());
-        ItemCreate(new Part(PartType.FireWood).ItemType());
-        ItemCreate(new Part(PartType.FireWood).ItemType());
-        ItemCreate(new Part(PartType.FireWood).ItemType());
-        ItemCreate(new Part(PartType.FireWood).ItemType());
-        ItemCreate(new Part(PartType.FireWood).ItemType());
-        ItemCreate(new Part(PartType.FireWood).ItemType());
-        ItemCreate(new Part(PartType.Firestone).ItemType());
-        ItemCreate(new Part(PartType.Firestone).ItemType());
-       
+        ItemCreate(new Equipment(EquipmentType.Bowl).ItemType());
+        ItemCreate(new Equipment(EquipmentType.TorchLight).ItemType());
+        ItemCreate(new Equipment(EquipmentType.Axe).ItemType());
         
     }
 
@@ -159,12 +151,12 @@ public class ItemSystem : MonoBehaviour
         foreach(var item in items)
         {
            
-          if(item.GetComponent<Items>().ItemType() == "Bowl")
+          if(item.ItemType() == "Bowl")
           {
-                cnt_bowl++;
-                var water_cnt = item.GetComponent<BowlWater>().GetWater();
-                water_cnt++;
-                item.GetComponent<BowlWater>().SetWater(water_cnt);
+
+                var bowlWater = FindObjectOfType<PlayerControl>().usingitem.GetComponent<BowlWater>();
+                cnt_bowl = bowlWater.GetWater() + 1;
+                bowlWater.SetWater(cnt_bowl);
                 ItemInfoUI("물 획득!!", Color.blue);
                 break;
                 

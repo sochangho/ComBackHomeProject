@@ -10,7 +10,9 @@ public class TorchLlightStart : MonoBehaviour
    
     private bool use_triger = false;
 
-    public float Th_limit = 0.5f;
+    private bool collider_triger = false;
+
+    public float Th_limit = 2f;
    
     private void Start()
     {
@@ -22,14 +24,11 @@ public class TorchLlightStart : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.tag == "Zombi" && use_triger == true)
-        {
-          
-            var enemy = other.GetComponentInParent<Enemy>();
-           
-
+        if (other.tag == "Zombi" && collider_triger == true)
+        {          
+            var enemy = other.GetComponentInParent<Enemy>();          
             enemy.LifeRoutinStop();
-
+           
         }
 
     }
@@ -37,10 +36,11 @@ public class TorchLlightStart : MonoBehaviour
 
     public void Wield()
     {
-        if(use_triger == false)
+
+        if (!use_triger)
         {
-            use_triger= true;
             StartCoroutine(WieldRoutin());
+            use_triger = true;
         }
     }
 
@@ -49,7 +49,10 @@ public class TorchLlightStart : MonoBehaviour
     {
         float time = 0;
 
-        while(time < Th_limit)
+        FindObjectOfType<PlayerAnimaterMgr>().WieldAnimation(true);
+        
+
+        while (time < Th_limit)
         {
 
             time += Time.deltaTime;
@@ -58,10 +61,41 @@ public class TorchLlightStart : MonoBehaviour
             yield return null;
         }
 
-        if (use_triger == true)
+        if (use_triger)
         {
-            use_triger = false ;
+            use_triger = false;
         }
+
+        FindObjectOfType<PlayerAnimaterMgr>().WieldAnimation(false);
+        StartCoroutine(ColliderRoutin());
+
+    }
+
+
+    IEnumerator ColliderRoutin()
+    {
+        float time = 0;
+
+        if(collider_triger == false)
+        {
+
+            collider_triger = true;
+        }
+
+
+        while (time < 0.3f)
+        {
+            time += Time.deltaTime;
+            yield return null;
+
+        }
+
+        if (collider_triger == true)
+        {
+
+            collider_triger = false;
+        }
+
 
 
     }

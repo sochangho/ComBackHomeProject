@@ -5,7 +5,7 @@ using UnityEngine;
 public class AxeStart : MonoBehaviour
 {
 
-    public float limit_time;
+    public float limit_time = 2f;
     private bool use_trigger = false;
     
     public void AxeWield()
@@ -24,6 +24,8 @@ public class AxeStart : MonoBehaviour
     {
         if( use_trigger&& other.tag == "Tree")
         {
+
+          
 
             var slices =  other.GetComponent<TargetCollider>().Slice;
             var trees = other.GetComponent<Trees>();
@@ -90,6 +92,8 @@ public class AxeStart : MonoBehaviour
     {
         float time = 0;
 
+        FindObjectOfType<PlayerAnimaterMgr>().WieldAnimation(true);
+
         while(time < limit_time)
         {
             time += Time.deltaTime;
@@ -97,10 +101,12 @@ public class AxeStart : MonoBehaviour
         }
 
 
-        if(use_trigger == true)
+        if (use_trigger == true)
         {
             use_trigger = false;
         }
+        FindObjectOfType<PlayerAnimaterMgr>().WieldAnimation(false);
+        
 
     }
 
