@@ -4,45 +4,43 @@ using UnityEngine;
 
 public class TargetCollider : MonoBehaviour
 {
-    [SerializeField]
-    private List<Slice> slices;
 
-    public List<Slice> Slice
-    {
-        get
-        {
-            return slices;
-        }
-        set
-        {
-            slices = value;
-        }
+    private Slice slice;
 
-    }
-
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.collider.tag == "Lightning")
-        {
-
-            TreeSlice(collision.contacts[0].point);
-        }
-
-        gameObject.GetComponent<BoxCollider>().enabled = false;
-    }
+    public List<GameObject> leafs;
 
     public void TreeSlice(Vector3 point)
     {
-       
-            foreach (var slice in slices)
-            {
 
-                slice.Slicer(slice.gameObject, slice.GetComponent<Renderer>().material, point, slice.idx = 0 ,"Destroy");
 
-            }
-            //collision.collider.gameObject.SetActive(false);
-            gameObject.GetComponent<BoxCollider>().enabled = false;
+             for(int i = 0; i < transform.childCount; i++)
+             {
+
+                   if(transform.GetChild(i).tag == "Stem")
+                   {
+
+                slice = transform.GetChild(i).GetComponent<Slice>();
+                slice.limit_idx = 0;
+
+                if (gameObject.GetComponent<Trees>().Tree_type == TreeType.AppleTree)
+                {
+                                                          
+                    slice.Slicer(slice.gameObject, slice.GetComponent<Renderer>().material,point , slice.idx = 0, "Apple");
+                }
+                else
+                {
+
+                    slice.Slicer(slice.gameObject, slice.GetComponent<Renderer>().material, point, slice.idx = 0, "");
+                }
+                gameObject.GetComponent<BoxCollider>().enabled = false;
+
+                break;
+
+                   }   
+
+             }
+
+           
         
     }
 

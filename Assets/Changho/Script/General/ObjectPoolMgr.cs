@@ -98,37 +98,21 @@ public class ObjectPoolMgr : MonoBehaviour
         objpool[3].ReturnObject(obj);
     }
 
-    public GameObject BigFishPool()
+
+    public GameObject DustParticlePool()
     {
+
         return objpool[4].GetObject();
-
     }
 
-    public void BigFishReturn(GameObject obj)
+    public void DustParticleReturn(GameObject obj)
     {
+
         objpool[4].ReturnObject(obj);
-    }
-
-
-    public GameObject MiddleFishPool()
-    {
-        return objpool[5].GetObject();
-
-    }
-
-    public void MiddleFishReturn(GameObject obj)
-    {
-        objpool[5].ReturnObject(obj);
-    }
-
-    public GameObject SmallFishPool()
-    {
-        return objpool[6].GetObject();
-
     }
 
 
     // 바다 아이템
     //
- 
+
 }

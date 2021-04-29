@@ -216,6 +216,7 @@ MonoBehaviour:
   crop_temp: 0.08
   paticle: {fileID: 0}
   camera_pos: {fileID: 1646579690}
+  waterTrigger: 0
 --- !u!135 &119426313
 SphereCollider:
   m_ObjectHideFlags: 0

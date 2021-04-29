@@ -243,7 +243,7 @@ public class TrashSystem : MonoBehaviour
     IEnumerator TrashGameRoutin()
     {
 
-        float time = 30;
+        float time = 120;
 
 
 

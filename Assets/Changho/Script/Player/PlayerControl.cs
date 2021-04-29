@@ -78,6 +78,8 @@ public class PlayerControl : MonoBehaviour
 
     public float hungry_wait = 20f;
 
+    public float player_force = 100;
+
     private bool routinA_bool = false;
 
     private bool clickitem_bool = false;

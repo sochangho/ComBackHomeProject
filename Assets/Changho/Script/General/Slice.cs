@@ -32,40 +32,74 @@ public class Slice : MonoBehaviour
         mt = gameObject.GetComponent<Renderer>().material;
     }
 
-    private void Update()
-    {
+    //private void Update()
+    //{
 
-        if(idx == limit_idx && trigger == true)
-        {
+    //    if(idx == limit_idx && trigger == true)
+    //    {
 
-            for(int i = 0; i < transform.childCount; i++)
-            {
-                if(transform.GetChild(i).gameObject.activeSelf == true)
-                {
-                    pragments.Add(transform.GetChild(i).gameObject);
-                }
-            }
+    //        for(int i = 0; i < transform.childCount; i++)
+    //        {
+    //            if(transform.GetChild(i).gameObject.activeSelf == true)
+    //            {
+    //                pragments.Add(transform.GetChild(i).gameObject);
+    //            }
+    //        }
 
 
-            for(int i = 0; i<pragments.Count; i++)
-            {
-               pragments[i].AddComponent<Rigidbody>().mass = 0.2f;
-                float x = Random.Range(-1, 1);
-                float y = Random.Range(-1, 1);
-                float z = Random.Range(-1, 1);
+    //        for(int i = 0; i<pragments.Count; i++)
+    //        {
+    //           pragments[i].AddComponent<Rigidbody>().mass = 0.2f;
+    //            float x = Random.Range(-1, 1);
+    //            float y = Random.Range(-1, 1);
+    //            float z = Random.Range(-1, 1);
 
-                m_offest = new Vector3(x, y, z);
-               pragments[i].GetComponent<MeshCollider>().convex = true;
-               pragments[i].GetComponent<MeshCollider>().sharedMesh = pragments[i].GetComponent<MeshFilter>().sharedMesh;
-               pragments[i].GetComponent<Rigidbody>().AddExplosionForce(m_force, transform.position + m_offest, 10f);
+    //            m_offest = new Vector3(x, y, z);
+    //           pragments[i].GetComponent<MeshCollider>().convex = true;
+    //           pragments[i].GetComponent<MeshCollider>().sharedMesh = pragments[i].GetComponent<MeshFilter>().sharedMesh;
+    //           pragments[i].GetComponent<Rigidbody>().AddExplosionForce(m_force, transform.position + m_offest, 10f);
+               
+    //        }
 
-            }
-
-            trigger = false;
+    //        trigger = false;
          
-        }
+    //    }
         
-    }
+    //}
+
+
+    //private void PragmentExplotion()
+    //{
+
+       
+    //    for (int i = 0; i < transform.childCount; i++)
+    //    {
+    //        if (transform.GetChild(i).gameObject.activeSelf == true)
+    //        {
+    //            pragments.Add(transform.GetChild(i).gameObject);
+    //        }
+    //    }
+
+
+    //    for (int i = 0; i < pragments.Count; i++)
+    //    {
+    //        pragments[i].AddComponent<Rigidbody>().mass = 0.2f;
+    //        float x = Random.Range(-1, 1);
+    //        float y = Random.Range(-1, 1);
+    //        float z = Random.Range(-1, 1);
+
+    //        m_offest = new Vector3(x, y, z);
+    //        pragments[i].GetComponent<MeshCollider>().convex = true;
+    //        pragments[i].GetComponent<MeshCollider>().sharedMesh = pragments[i].GetComponent<MeshFilter>().sharedMesh;
+    //        pragments[i].GetComponent<Rigidbody>().AddExplosionForce(m_force, transform.position + m_offest, 10f);
+
+    //    }
+
+
+
+    //}
+
+
 
     /// <summary>
     /// 메쉬 절단
@@ -108,16 +142,48 @@ public class Slice : MonoBehaviour
 
 
         Vector3 point = slicer_center;
+        Plane random_plane;
 
-        if (idx == 0)
+
+        if (str == "Destroy")
         {
-            plane_normal = slicer_center - contact;
+            if (idx == 0)
+            {
+                plane_normal = slicer_center - contact;
+            }
+            else
+            {
+                plane_normal = contact;
+            }
+           random_plane = new Plane(plane_normal.normalized, point);
+        }
+        else if(str =="Apple")
+        {
+            Debug.Log("나무배기");
+            var player = FindObjectOfType<PlayerControl>();
+            
+            plane_normal = new Vector3(0,1,0);
+
+            for(int i=0; i < transform.childCount; i++)
+            {
+                if(transform.GetChild(i).name == "point")
+                {
+                    contact = transform.GetChild(i).position;
+                    break;
+                }
+                        
+            }
+            random_plane = new Plane(plane_normal.normalized, contact);
         }
         else
         {
-            plane_normal = contact;
+            var player = FindObjectOfType<PlayerControl>();
+            plane_normal = new Vector3(0, 0, 1);
+            random_plane = new Plane(plane_normal.normalized, contact);
         }
-        Plane random_plane = new Plane(plane_normal.normalized, point );
+
+
+        
 
 
         //기존 정점들을 두 가지로 나누어 저장해둘 곳
@@ -513,6 +579,8 @@ public class Slice : MonoBehaviour
         }
 
 
+ 
+
         List<Vector3> final_vertA = new List<Vector3>();
         List<Vector3> final_vertB = new List<Vector3>();
         List<Vector3> final_norA = new List<Vector3>();
@@ -618,10 +686,9 @@ public class Slice : MonoBehaviour
             {
                 ExplosionPragment(aObject);
                 ExplosionPragment(bObject);
-
             }
         }
-        else if(str == "Slice")
+        else 
         {
 
             TwoObjectCompare(aObject, bObject);
@@ -834,7 +901,7 @@ public class Slice : MonoBehaviour
         obj.GetComponent<MeshCollider>().sharedMesh = obj.GetComponent<MeshFilter>().sharedMesh;
         obj.GetComponent<Rigidbody>().AddExplosionForce(m_force, transform.position + m_offest, 10f);
 
-
+       
     }
 
 
@@ -854,8 +921,8 @@ public class Slice : MonoBehaviour
 
         Vector3 centor_B = Vector3.zero;
 
-        
-        for(int i = 0; i<A_vertics.Length; i++)
+
+        for (int i = 0; i < A_vertics.Length; i++)
         {
 
             centor_A += A_vertics[i];
@@ -870,25 +937,58 @@ public class Slice : MonoBehaviour
         }
 
 
-        if((centor_A/A_vertics.Length).y > (centor_B / B_vertics.Length).y)
+        if ((centor_A / A_vertics.Length).y > (centor_B / B_vertics.Length).y)
         {
 
             Object_property = A;
+            Debug.Log(A.name);
 
         }
         else if ((centor_A / A_vertics.Length).y < (centor_B / B_vertics.Length).y)
         {
 
             Object_property = B;
+            Debug.Log(B.name);
 
         }
 
 
 
 
+        var leafs = transform.parent.GetComponent<TargetCollider>().leafs;
 
+        foreach(var leaf in leafs)
+        {
+            leaf.transform.SetParent(Object_property.transform);
+        }
+        ExplosionPragment(Object_property);
+        //StartCoroutine(PragmentRoutin(Object_property));
 
     }
+
+
+
+
+
+
+
+    IEnumerator PragmentRoutin(GameObject obj)
+    {
+        float time = 0;
+      
+        while(time < 1f)
+        {
+
+            time += Time.deltaTime;
+            
+            yield return null;
+        }
+        
+        obj.gameObject.SetActive(false);
+
+       
+    }
+
 
 
 

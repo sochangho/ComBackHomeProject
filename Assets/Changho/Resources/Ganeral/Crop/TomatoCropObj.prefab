@@ -1,0 +1,194 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4939185091807823153
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5013730955116261667}
+  m_Layer: 0
+  m_Name: TomatoCropObj
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5013730955116261667
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4939185091807823153}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 584.83, y: 35.41, z: 197.04}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 8423258358188279261}
+  - {fileID: 6995108162478294216}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &2144564068210982348
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 5013730955116261667}
+    m_Modifications:
+    - target: {fileID: 1125569788, guid: d536c47ec71ba514b9eebd8af05f17b5, type: 3}
+      propertyPath: temp
+      value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 1125569788, guid: d536c47ec71ba514b9eebd8af05f17b5, type: 3}
+      propertyPath: crop_temp
+      value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 1125569788, guid: d536c47ec71ba514b9eebd8af05f17b5, type: 3}
+      propertyPath: paticle
+      value: 
+      objectReference: {fileID: 7401968591956283591, guid: 602956787e730e640ab403889e44d039, type: 3}
+    - target: {fileID: 1646579690, guid: d536c47ec71ba514b9eebd8af05f17b5, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1646579693, guid: d536c47ec71ba514b9eebd8af05f17b5, type: 3}
+      propertyPath: field of view
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 1646579693, guid: d536c47ec71ba514b9eebd8af05f17b5, type: 3}
+      propertyPath: m_CullingMask.m_Bits
+      value: 93975
+      objectReference: {fileID: 0}
+    - target: {fileID: 1899192793922742867, guid: d536c47ec71ba514b9eebd8af05f17b5, type: 3}
+      propertyPath: m_Layer
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 3272240879121538244, guid: d536c47ec71ba514b9eebd8af05f17b5, type: 3}
+      propertyPath: m_Layer
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 3381612804204149734, guid: d536c47ec71ba514b9eebd8af05f17b5, type: 3}
+      propertyPath: m_Layer
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 4131043791100283834, guid: d536c47ec71ba514b9eebd8af05f17b5, type: 3}
+      propertyPath: m_Name
+      value: TomatoCrop
+      objectReference: {fileID: 0}
+    - target: {fileID: 8993856027199568132, guid: d536c47ec71ba514b9eebd8af05f17b5, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8993856027199568132, guid: d536c47ec71ba514b9eebd8af05f17b5, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.099998474
+      objectReference: {fileID: 0}
+    - target: {fileID: 8993856027199568132, guid: d536c47ec71ba514b9eebd8af05f17b5, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8993856027199568132, guid: d536c47ec71ba514b9eebd8af05f17b5, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8993856027199568132, guid: d536c47ec71ba514b9eebd8af05f17b5, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8993856027199568132, guid: d536c47ec71ba514b9eebd8af05f17b5, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8993856027199568132, guid: d536c47ec71ba514b9eebd8af05f17b5, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8993856027199568132, guid: d536c47ec71ba514b9eebd8af05f17b5, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8993856027199568132, guid: d536c47ec71ba514b9eebd8af05f17b5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8993856027199568132, guid: d536c47ec71ba514b9eebd8af05f17b5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8993856027199568132, guid: d536c47ec71ba514b9eebd8af05f17b5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: d536c47ec71ba514b9eebd8af05f17b5, type: 3}
+--- !u!4 &6995108162478294216 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8993856027199568132, guid: d536c47ec71ba514b9eebd8af05f17b5, type: 3}
+  m_PrefabInstance: {fileID: 2144564068210982348}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &8964653189711717585
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 5013730955116261667}
+    m_Modifications:
+    - target: {fileID: 272015748837260214, guid: ace16cd1994fd0645880571b6354aa65, type: 3}
+      propertyPath: m_Name
+      value: CropTerrain
+      objectReference: {fileID: 0}
+    - target: {fileID: 616346968845836556, guid: ace16cd1994fd0645880571b6354aa65, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 616346968845836556, guid: ace16cd1994fd0645880571b6354aa65, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 616346968845836556, guid: ace16cd1994fd0645880571b6354aa65, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 616346968845836556, guid: ace16cd1994fd0645880571b6354aa65, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 616346968845836556, guid: ace16cd1994fd0645880571b6354aa65, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 616346968845836556, guid: ace16cd1994fd0645880571b6354aa65, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 616346968845836556, guid: ace16cd1994fd0645880571b6354aa65, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 616346968845836556, guid: ace16cd1994fd0645880571b6354aa65, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 616346968845836556, guid: ace16cd1994fd0645880571b6354aa65, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 616346968845836556, guid: ace16cd1994fd0645880571b6354aa65, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 616346968845836556, guid: ace16cd1994fd0645880571b6354aa65, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: ace16cd1994fd0645880571b6354aa65, type: 3}
+--- !u!4 &8423258358188279261 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 616346968845836556, guid: ace16cd1994fd0645880571b6354aa65, type: 3}
+  m_PrefabInstance: {fileID: 8964653189711717585}
+  m_PrefabAsset: {fileID: 0}

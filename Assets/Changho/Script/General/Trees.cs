@@ -23,11 +23,19 @@ public class Trees : MonoBehaviour
     [SerializeField]
     private List<GameObject> fruits;
 
+
+    private TreeUI treeUI;
+
+    public int tree_hp = 100;
+
+    
+
+
     public List<GameObject> Fruits
     {
         get
         {
-            return Fruits;
+            return fruits;
         }
         set
         {
@@ -44,7 +52,39 @@ public class Trees : MonoBehaviour
             return tree_type;
         }
     }
-    
+
+
+    private void Start()
+    {
+        treeUI = FindObjectOfType<UISystem>().ui_tree;
+        Debug.Log(treeUI);
+    }
+
+
+    public void TreeNameSet()
+    {
+         
+        if(tree_type == TreeType.AppleTree)
+        {
+            treeUI.TreeName("사과 나무");
+
+        }
+        else if(tree_type == TreeType.BananaTree)
+        {
+            treeUI.TreeName("바나나 나무");
+        }
+        else if(tree_type == TreeType.CoconutTree)
+        {
+            treeUI.TreeName("코코넛 나무");
+
+        }
+
+    }
+
+    public void TreeHpSet()
+    {
+        treeUI.ImageFill(tree_hp);
+    }
 
     private void Gravityfruits(FuritType type)
     {
