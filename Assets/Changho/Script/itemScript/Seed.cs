@@ -16,6 +16,9 @@ public class Seed : Items
 {
     public SeedType seed_type;
 
+
+    private LayerMask layer;
+
     public Seed(SeedType st)
     {
         seed_type = st;
@@ -76,22 +79,7 @@ public class Seed : Items
     }
     public override void ItemUse()
     {
-        if (seed_type == SeedType.CornSeed)
-        {
-            
-        }
-        if (seed_type == SeedType.ChilliSeed)
-        {
-          
-        }
-        if (seed_type == SeedType.EggplantSeed)
-        {
-          
-        }
-        if (seed_type == SeedType.TomatoSeed)
-        {
-            
-        }
+        SeedSprinkle();
         ItemSystem.Instance.ItemUseRemove(this);
 
     }
@@ -114,4 +102,30 @@ public class Seed : Items
         return itemtype;
     }
 
+
+
+    private void SeedSprinkle()
+    {
+        var sp = FindObjectOfType<PlayerControl>().spwan_point;
+
+        RaycastHit ray;
+
+        if (Physics.Raycast(sp.transform.position, Vector3.down, out ray, 10f, layer))
+        {
+
+            var seedobj = Resources.Load<GameObject>("Seed/" + seed_type.ToString()) as GameObject;
+            var go = Instantiate(seedobj);
+            go.AddComponent<Rigidbody>().useGravity = true;
+            go.AddComponent<SeedCollider>();
+            go.transform.position = sp.transform.position;
+                        
+            
+        }
+        else
+        {
+            ItemSystem.Instance.ItemInfoUI("이 곳에는 농장물을 기를 수 없습니다 .", Color.red);
+        }
+
+
+    }
 }
