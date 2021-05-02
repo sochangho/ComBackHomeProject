@@ -33,8 +33,29 @@ public class TorchLlightStart : MonoBehaviour
 
     }
 
+    private void PlayerRadiusEnemyCheck()
+    {
+        Collider[] colliders = Physics.OverlapSphere(FindObjectOfType<PlayerControl>().transform.position, 3f);
 
-    public void Wield()
+
+        foreach(var collider in colliders)
+        {
+            if(collider.gameObject.tag == "Zombi")
+            {
+
+                var enemy = collider.gameObject.GetComponentInParent<Enemy>();
+                enemy.LifeRoutinStop();
+                enemy.enemy_HP -= 10f;
+                enemy.enemyBar.EnemyHP(enemy.enemy_HP);
+            } 
+        }
+
+
+    }
+
+
+
+        public void Wield()
     {
 
         if (!use_triger)
@@ -48,7 +69,7 @@ public class TorchLlightStart : MonoBehaviour
     IEnumerator WieldRoutin()
     {
         float time = 0;
-
+        bool torchlight_trigger = false;
         FindObjectOfType<PlayerAnimaterMgr>().WieldAnimation(true);
         
 
@@ -57,6 +78,13 @@ public class TorchLlightStart : MonoBehaviour
 
             time += Time.deltaTime;
 
+
+
+            if ((time > 0.3f) && torchlight_trigger == false)
+            {
+                PlayerRadiusEnemyCheck();
+                torchlight_trigger = true;
+            }
 
             yield return null;
         }
@@ -67,7 +95,7 @@ public class TorchLlightStart : MonoBehaviour
         }
 
         FindObjectOfType<PlayerAnimaterMgr>().WieldAnimation(false);
-        StartCoroutine(ColliderRoutin());
+       // StartCoroutine(ColliderRoutin());
 
     }
 

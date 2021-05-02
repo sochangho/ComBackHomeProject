@@ -212,6 +212,9 @@ public class Equipment : Items
         else if(equipment_type == EquipmentType.Fkiller)
         {
 
+            var player_eq = player.usingitem;
+
+            player_eq.GetComponent<Spray>().SprayUse();
 
         }
 

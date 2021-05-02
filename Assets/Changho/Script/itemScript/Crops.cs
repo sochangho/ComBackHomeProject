@@ -5,8 +5,8 @@ using UnityEngine;
 
 public enum CropsType
 {
-    Cucumber,
-    Riceplant,
+    Chilli,
+    Eggplant,
     Tomato,
     Corn
 }
@@ -31,14 +31,14 @@ public class Crops : Items
             itemname = "옥수수";
             subscript = " ";
         }
-        if (crops_type == CropsType.Cucumber)
+        if (crops_type == CropsType.Chilli)
         {
-            itemname = "오이";
+            itemname = "오이고추";
             subscript = " ";
         }
-        if (crops_type == CropsType.Riceplant)
+        if (crops_type == CropsType.Eggplant)
         {
-            itemname = "벼";
+            itemname = "가지";
             subscript = " ";
         }
         if (crops_type == CropsType.Tomato)
@@ -60,14 +60,14 @@ public class Crops : Items
             itemname = "옥수수";
             subscript = " ";
         }
-        if (crops_type == CropsType.Cucumber)
+        if (crops_type == CropsType.Chilli)
         {
-            itemname = "오이";
+            itemname = "오이고추";
             subscript = " ";
         }
-        if (crops_type == CropsType.Riceplant)
+        if (crops_type == CropsType.Eggplant)
         {
-            itemname = "벼";
+            itemname = "가지";
             subscript = " ";
         }
         if (crops_type == CropsType.Tomato)
@@ -75,7 +75,6 @@ public class Crops : Items
             itemname = "토마토";
             subscript = " ";
         }
-
 
 
     }
@@ -91,12 +90,12 @@ public class Crops : Items
             player.player_hp += 20f;
 
         }
-        else if (crops_type == CropsType.Cucumber)
+        else if (crops_type == CropsType.Chilli)
         {
             // 오이 생성
             player.player_hp += 20f; 
         }
-        else if (crops_type == CropsType.Riceplant)
+        else if (crops_type == CropsType.Eggplant)
         {
             //벼 생성
 

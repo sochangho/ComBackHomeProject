@@ -57,7 +57,7 @@ public class Trees : MonoBehaviour
     private void Start()
     {
         treeUI = FindObjectOfType<UISystem>().ui_tree;
-        Debug.Log(treeUI);
+
     }
 
 

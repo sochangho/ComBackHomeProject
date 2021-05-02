@@ -40,6 +40,13 @@ public class Enemy : MonoBehaviour
     public Vector3 dir_back;
 
 
+    public EnemyBar enemyBar;
+
+    public float enemy_HP = 100;
+
+
+
+    
     public EnemyState State
     {
         get
@@ -76,7 +83,7 @@ public class Enemy : MonoBehaviour
         _state = EnemyState.Idle;
       lifeCoroutin = StartCoroutine(LifeRoutin());
     }
-
+     
 
     public void LifeRoutinStop()
     {
@@ -148,14 +155,20 @@ public class Enemy : MonoBehaviour
                 }
 
 
-                if (searchTrigger == true)
-                {
-
-                    Debug.Log("검색");
-                    PlayerSearch();
-                }
+                PlayerSearch();
+                
 
             }
+
+
+            if(enemy_HP <= 0)
+            {
+                enemy_HP = 0;
+                gameObject.SetActive(false);
+                _state = EnemyState.Dead;
+                
+            }
+
   
         
 
@@ -168,10 +181,14 @@ public class Enemy : MonoBehaviour
 
     private void PlayerSearch()
     {
-      
 
-        var dot = Vector3.Dot(transform.forward,
-                  (_player.transform.position - start_point.position).normalized);
+
+        var playerToenmeyDir = _player.transform.position - start_point.position;
+
+        var playerToenemyDirXZ = new Vector3(playerToenmeyDir.x, 0, playerToenmeyDir.z).normalized;
+
+        var dot = Vector3.Dot(transform.forward,playerToenemyDirXZ);
+
         var dir = (_player.transform.position - start_point.position).normalized;
         if (dot > sightLevel)
         {
@@ -194,6 +211,10 @@ public class Enemy : MonoBehaviour
                 }
     
             }
+
+            
+
+
         }
 
 
@@ -213,7 +234,7 @@ public class Enemy : MonoBehaviour
         transform.rotation = Quaternion.LookRotation(dirXZ);
 
 
-        while (time < 0.1f)
+        while (time < 0.3f)
         {
             time += Time.deltaTime;
 
@@ -224,6 +245,8 @@ public class Enemy : MonoBehaviour
         }
 
         LifeRoutinStart();
+
+        _state = EnemyState.Idle;
 
     }
 

@@ -67,7 +67,12 @@ public class ItemSystem : MonoBehaviour
         ItemCreate(new Equipment(EquipmentType.Bowl).ItemType());
         ItemCreate(new Equipment(EquipmentType.TorchLight).ItemType());
         ItemCreate(new Equipment(EquipmentType.Axe).ItemType());
-        
+        ItemCreate(new Seed(SeedType.TomatoSeed).ItemType());
+        ItemCreate(new Seed(SeedType.CornSeed).ItemType());
+        ItemCreate(new Seed(SeedType.ChilliSeed).ItemType());
+        ItemCreate(new Seed(SeedType.EggplantSeed).ItemType());
+        ItemCreate(new Equipment(EquipmentType.Fkiller).ItemType());
+
     }
 
 

@@ -22,6 +22,9 @@ public class TomatoGrow : MonoBehaviour
     private Renderer stem_renderer;
 
     [SerializeField]
+    private Material fadeout_material;
+
+    [SerializeField]
     private float wait = 0.1f;
 
     [SerializeField]
@@ -45,6 +48,8 @@ public class TomatoGrow : MonoBehaviour
 
     private Material stempSet;
 
+   
+
     private PlayerControl player_;
 
     private GrowState growstate;
@@ -56,7 +61,7 @@ public class TomatoGrow : MonoBehaviour
     {
 
         stem_renderer.material.SetTexture("_MainTex", temp_tex);
-
+       
         foreach(var crop in crops_renderer)
         {
 
@@ -179,12 +184,6 @@ public class TomatoGrow : MonoBehaviour
         }
 
 
-        foreach (var crop in crops_renderer)
-        {
-
-            crop.gameObject.AddComponent<Crops>().crops_type = CropsType.Tomato;
-           
-        }
 
 
 
@@ -195,12 +194,20 @@ public class TomatoGrow : MonoBehaviour
     }
 
 
-    IEnumerator WarterGo()
+
+    IEnumerator PlayerWarterRotation()
     {
-        player_.usingitem.transform.GetChild(0).GetComponent<ParticleSystem>().Play();
+        FindObjectOfType<PlayerControl>().enabled = false;
+        var playertransform = FindObjectOfType<PlayerControl>().transform;
+        var dir = gameObject.transform.position - playertransform.position;
+        var dirXZ = new Vector3(dir.x, 0, dir.z);
+
         float time = 0;
         while(time < 1f)
         {
+
+            var targetRt = Quaternion.LookRotation(dirXZ);
+            playertransform.rotation = Quaternion.Slerp(playertransform.rotation, targetRt, Time.deltaTime * 10f);
 
             time += Time.deltaTime;
 
@@ -208,18 +215,71 @@ public class TomatoGrow : MonoBehaviour
 
         }
 
+        StartCoroutine(WarterGo());
+    }
 
+
+    IEnumerator WarterGo()
+    {
+
+        FindObjectOfType<PlayerControl>().Anim.WalkAnimation(false);
+        FindObjectOfType<PlayerControl>().Anim.WateringAnimation(true);
+        FindObjectOfType<PlayerControl>().usingitem.transform.GetChild(0).GetComponent<ParticleSystem>().Play();
+        float time = 0;
+        while(time < 5f)
+        {
+
+            time += Time.deltaTime;
+
+            yield return null;
+
+        }
+        FindObjectOfType<PlayerControl>().Anim.WateringAnimation(false);
+        FindObjectOfType<PlayerControl>().enabled = true;
         Grow();
 
 
     }
+
+
+    IEnumerator StemFadeRoutin()
+    {
+        WaitForSeconds waitForSeconds = new WaitForSeconds(0.4f);
+
+
+        stem_renderer.material = fadeout_material;
+
+        stem_renderer.material.SetTexture("_MainTex", temp_tex);
+        stem_renderer.material.SetFloat("_StemAlpha", 1);
+
+
+
+        var fadevalue = stem_renderer.material.GetFloat("_StemAlpha");
+
+        while (fadevalue > 0)
+        {
+
+            fadevalue -= 0.1f;
+
+            stem_renderer.material.SetFloat("_StemAlpha", fadevalue);
+
+            yield return waitForSeconds;
+
+        }
+
+        transform.parent.gameObject.SetActive(false);
+        
+
+
+    }
+
 
     
     public void GrowStart()
     {
 
 
-        StartCoroutine(WarterGo());
+        StartCoroutine(PlayerWarterRotation());
 
     }
 
@@ -233,28 +293,94 @@ public class TomatoGrow : MonoBehaviour
     }
 
 
+    private void TextChangeCrop()
+    {
+
+        if (gameObject.name == "TomatoCrop")
+        {
+            croppanel.GetComponent<PanelActive>().croppanel_text.text = "토마토를 키우시겠습니까?";
+        }
+        else if (gameObject.name == "CornCrop")
+        {
+            croppanel.GetComponent<PanelActive>().croppanel_text.text = "옥수수를 키우시겠습니까?";
+
+        }
+        else if (gameObject.name == "ChilliplantCrop")
+        {
+
+            croppanel.GetComponent<PanelActive>().croppanel_text.text = "오이고추를 키우시겠습니까?";
+        }
+        else if (gameObject.name == "EggplantCrop")
+        {
+
+            croppanel.GetComponent<PanelActive>().croppanel_text.text = "가지를 키우시겠습니까?";
+        }
+
+
+
+
+    }
+
+    private void Harvest()
+    {
+
+
+        foreach (var crop in crops_renderer)
+        {
+
+            ItemSystem.Instance.ItemCreate(crop.GetComponent<Items>().ItemType());
+            crop.gameObject.SetActive(false);
+        }
+
+        StartCoroutine(StemFadeRoutin());
+    }
+
+
+
+
+
     private void OnTriggerEnter(Collider other)
     {
-        
-        
-        if(other.tag == "Player" && croppanel.activeSelf == false && growstate != GrowState.Complete 
-            && player_.usingitem.GetComponent<Items>().ItemType() == "Bowl" ) // 물 필요
+
+
+        if (other.tag == "Player" && croppanel.activeSelf == false && growstate != GrowState.Complete
+            && player_.usingitem.GetComponent<Items>().ItemType() == "Bowl") // 물 필요
         {
             int cnt = player_.usingitem.GetComponent<BowlWater>().GetWater();
 
             croppanel.SetActive(true);
+            TextChangeCrop();
             croppanel.transform.GetChild(1).GetComponent<Button>().onClick.RemoveAllListeners();
             if (cnt > 0)
             {
-                croppanel.transform.GetChild(1).GetComponent<Button>().onClick.AddListener(GrowStart);
                 
+                croppanel.transform.GetChild(1).GetComponent<Button>().onClick.AddListener(GrowStart);
+               
             }
             else
             {
                 croppanel.transform.GetChild(1).GetComponent<Button>().onClick.AddListener(NoGrow);
             }
-            
-            
+
+
+        }
+        else if (other.tag == "Player" && croppanel.activeSelf == false && growstate == GrowState.Complete)
+        {
+
+           if(crops_renderer[0].gameObject.activeSelf == false)
+            {
+                return;
+            }
+
+
+
+
+            croppanel.SetActive(true);
+            croppanel.transform.GetChild(1).GetComponent<Button>().onClick.RemoveAllListeners();
+            croppanel.GetComponent<PanelActive>().croppanel_text.text = "수확할 수 있습니다. 수확할까요?";
+            croppanel.transform.GetChild(1).GetComponent<Button>().onClick.AddListener(Harvest);
+
+
         }
 
 

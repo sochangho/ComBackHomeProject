@@ -88,6 +88,17 @@ public class PlayerControl : MonoBehaviour
 
     private PlayerAnimaterMgr player_anim;
 
+
+    public PlayerAnimaterMgr Anim
+    {
+
+
+        get
+        {
+            return player_anim;
+        }
+    }
+
     private void Start()
     {
         //rigid = GetComponent<Rigidbody>();
