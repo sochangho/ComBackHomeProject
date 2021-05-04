@@ -21,6 +21,8 @@ public class BornfireStart : MonoBehaviour
 
     private bool fireTrigger = true;
 
+
+
     private void Start()
     {
         _player = FindObjectOfType<PlayerControl>();

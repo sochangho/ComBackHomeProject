@@ -2,6 +2,8 @@
 public enum DayType 
 {
     Morning,
-    Night
+    Night,
+    MorningGo,
+    NightGo,
     
 }
