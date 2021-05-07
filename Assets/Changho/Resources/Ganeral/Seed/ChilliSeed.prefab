@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 4551718272904813339}
   - component: {fileID: 3785932911216241313}
   m_Layer: 0
-  m_Name: Chilliseed
+  m_Name: ChilliSeed
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -126,3 +126,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   seed_type: 0
+  layer:
+    serializedVersion: 2
+    m_Bits: 2097152

@@ -40,41 +40,9 @@ PrefabInstance:
     m_TransformParent: {fileID: 5013730955116261667}
     m_Modifications:
     - target: {fileID: 1125569788, guid: d536c47ec71ba514b9eebd8af05f17b5, type: 3}
-      propertyPath: temp
-      value: 0.01
-      objectReference: {fileID: 0}
-    - target: {fileID: 1125569788, guid: d536c47ec71ba514b9eebd8af05f17b5, type: 3}
-      propertyPath: crop_temp
-      value: 0.05
-      objectReference: {fileID: 0}
-    - target: {fileID: 1125569788, guid: d536c47ec71ba514b9eebd8af05f17b5, type: 3}
-      propertyPath: paticle
+      propertyPath: fadeout_material
       value: 
-      objectReference: {fileID: 7401968591956283591, guid: 602956787e730e640ab403889e44d039, type: 3}
-    - target: {fileID: 1646579690, guid: d536c47ec71ba514b9eebd8af05f17b5, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1646579693, guid: d536c47ec71ba514b9eebd8af05f17b5, type: 3}
-      propertyPath: field of view
-      value: 60
-      objectReference: {fileID: 0}
-    - target: {fileID: 1646579693, guid: d536c47ec71ba514b9eebd8af05f17b5, type: 3}
-      propertyPath: m_CullingMask.m_Bits
-      value: 93975
-      objectReference: {fileID: 0}
-    - target: {fileID: 1899192793922742867, guid: d536c47ec71ba514b9eebd8af05f17b5, type: 3}
-      propertyPath: m_Layer
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 3272240879121538244, guid: d536c47ec71ba514b9eebd8af05f17b5, type: 3}
-      propertyPath: m_Layer
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 3381612804204149734, guid: d536c47ec71ba514b9eebd8af05f17b5, type: 3}
-      propertyPath: m_Layer
-      value: 15
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2100000, guid: 9c7387a0ac565a94dadf005ae2e4461b, type: 2}
     - target: {fileID: 4131043791100283834, guid: d536c47ec71ba514b9eebd8af05f17b5, type: 3}
       propertyPath: m_Name
       value: TomatoCrop

@@ -5,42 +5,52 @@ using UnityEngine;
 public class SeedCollider : MonoBehaviour
 {
 
-    
-    public GameObject[] crop_objs;
-
 
     private void OnCollisionEnter(Collision collision)
     {
         
-        if(collision.gameObject.tag == "CropPlace")
+        if(collision.gameObject.tag == "Terrain")
         {
 
             var getSeedType = GetComponent<Seed>().seed_type;
 
-            GameObject crop_created = new GameObject();
+           
 
             if(getSeedType == SeedType.TomatoSeed)
             {
-                crop_created = Instantiate(crop_objs[0]);
+               var crop_created = Instantiate(Resources.Load<GameObject>("Ganeral/Crop/TomatoCropObj") as GameObject);
+                crop_created.transform.position = collision.contacts[0].point;
+
+                crop_created.transform.SetParent(FindObjectOfType<Terrain>().transform);
+
             }
             else if (getSeedType == SeedType.CornSeed)
             {
 
-                crop_created = Instantiate(crop_objs[1]);
+               var crop_created = Instantiate(Resources.Load<GameObject>("Ganeral/Crop/CornCropObj") as GameObject);
+                crop_created.transform.position = collision.contacts[0].point;
+
+                crop_created.transform.SetParent(FindObjectOfType<Terrain>().transform);
             }
             else if (getSeedType == SeedType.EggplantSeed)
             {
 
-                crop_created = Instantiate(crop_objs[2]);
+              var  crop_created = Instantiate(Resources.Load<GameObject>("Ganeral/Crop/EggplantCropObj") as GameObject);
+                crop_created.transform.position = collision.contacts[0].point;
+
+                crop_created.transform.SetParent(FindObjectOfType<Terrain>().transform);
             }
             else if (getSeedType == SeedType.ChilliSeed)
             {
-                crop_created = Instantiate(crop_objs[3]);
+              var  crop_created = Instantiate(Resources.Load<GameObject>("Ganeral/Crop/ChilliCropObj") as GameObject);
+                crop_created.transform.position = collision.contacts[0].point;
 
+                crop_created.transform.SetParent(FindObjectOfType<Terrain>().transform);
             }
-            crop_created.transform.position = collision.transform.position;
-            //파티클 생성 
             
+            gameObject.SetActive(false);
+            //파티클 생성 
+
         }
 
 

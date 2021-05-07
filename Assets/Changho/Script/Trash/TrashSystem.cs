@@ -248,7 +248,7 @@ public class TrashSystem : MonoBehaviour
 
 
 
-        while(shipHp > 0 && time > 0)
+        while(shipHp >= 0 && time >= 0)
         {
             time -= Time.deltaTime;
 
@@ -265,17 +265,15 @@ public class TrashSystem : MonoBehaviour
             FindObjectOfType<ShipDestroy>().ShipSlice();
 
 
-            foreach(var item in ItemSystem.Instance.items)
+            var item = ItemSystem.Instance.items;
+            for (int i =0; i < item.Count; i++)
             {
-
-                if(item.ItemType() == new Part(PartType.Raft).ItemType())
+                if (item[i].ItemType() == new Part(PartType.Raft).ItemType())
                 {
-                    ItemSystem.Instance.ItemUseRemove(item);
+                    ItemSystem.Instance.ItemUseRemove(item[i]);
 
                 }
-
             }
-
 
         }
 
@@ -283,18 +281,23 @@ public class TrashSystem : MonoBehaviour
         {
            
             time = 0;
+
+           
+
         }
-       
+
         FindObjectOfType<MoveShip>().enabled = false;
         StartCoroutine(TrashEndPopupRoutin());
+
 
     }
 
 
-    
+
 
     IEnumerator TrashEndPopupRoutin()
     {
+        Debug.Log("게임 종료");
         float time = 0;
 
         while (time < 0.5f)

@@ -57,7 +57,7 @@ public class PlayerControl : MonoBehaviour
     public float distanceZ;   // 캐릭터z와 - 카메라z의 위치
     
     
-    private float distanceY;
+    private float distanceY = 11f;
 
     [HideInInspector]
     public Coroutine hpDecrease_coroutin;
@@ -84,17 +84,29 @@ public class PlayerControl : MonoBehaviour
 
     private bool clickitem_bool = false;
 
+    public bool gameover_bool = false;
+
     private GameObject clickitemobj;
 
     private PlayerAnimaterMgr player_anim;
+
+
+    public PlayerAnimaterMgr Anim
+    {
+
+
+        get
+        {
+            return player_anim;
+        }
+    }
 
     private void Start()
     {
         //rigid = GetComponent<Rigidbody>();
         //character_rigid = Character.GetComponent<Rigidbody>();
 
-       hpDecrease_coroutin = StartCoroutine(HungryDecease());
-       distanceY = Mathf.Abs(transform.position.y - player_camera.transform.position.y);       
+       hpDecrease_coroutin = StartCoroutine(HungryDecease());      
        player_equ = new Equipment(EquipmentType.Ston);
 
         player_anim = FindObjectOfType<PlayerAnimaterMgr>();
@@ -104,7 +116,7 @@ public class PlayerControl : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-
+        
         player_positionFix.transform.localPosition = new Vector3(0, 0, 0);
 
 
@@ -213,10 +225,20 @@ public class PlayerControl : MonoBehaviour
             }
         }
 
-        if (player_hp == 0f)
+        if (player_hp <= 0f)
         {
             //애니메이션
-            //플레이어 죽음
+            //플레이어 죽음 
+            player_hp = 0;
+
+
+            if (gameover_bool == false)
+            {
+                gameover_bool = true;
+                Debug.Log("게임 오버");
+                FindObjectOfType<UIButton>().GameOverPopup();
+            }
+
         }
 
 
@@ -404,6 +426,7 @@ public class PlayerControl : MonoBehaviour
         clickitem_bool = false;
 
     }
+
 
 
 

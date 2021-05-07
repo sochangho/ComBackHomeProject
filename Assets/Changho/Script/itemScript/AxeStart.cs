@@ -49,6 +49,7 @@ public class AxeStart : MonoBehaviour
         {
             if(collider.tag == "Tree")
             {
+                TreeUIStart();
                 collider.GetComponent<Trees>().TreeNameSet();
                 collider.GetComponent<Trees>().tree_hp -= 5;
                 collider.GetComponent<Trees>().TreeHpSet();
@@ -59,7 +60,7 @@ public class AxeStart : MonoBehaviour
                     ActionAxe(collider);
                 }
 
-                TreeUIStart();
+               
                 var dust = ObjectPoolMgr.Instance.DustParticlePool();
                 dust.transform.position = transform.position;
                 StartCoroutine(DustParticleRoutin(dust));
@@ -91,36 +92,36 @@ public class AxeStart : MonoBehaviour
 
                 if (other.GetComponent<Trees>().Tree_type == TreeType.AppleTree)
                 {
-                    fruitname = new Fruit(FuritType.Apple).GetItemName();
+                    
                     foreach (var add_fruit in add_fruits)
                     {
-                        ItemSystem.Instance.ItemCreate(new Fruit(FuritType.Apple).ItemType());
+                    ItemSystem.Instance.TreeItemCreate(other.transform.position, new Fruit(FuritType.Apple));
                     }
-                    ItemSystem.Instance.ItemInfoUI(fruitname + " " + add_fruits.Count + "개" + namoo + " 1개 얻었습니다!!", Color.blue);
+                    
                 }
                 else if (other.GetComponent<Trees>().Tree_type == TreeType.BananaTree)
                 {
-                    fruitname = new Fruit(FuritType.Banana).GetItemName();
+                   
                     foreach (var add_fruit in add_fruits)
                     {
-                        ItemSystem.Instance.ItemCreate(new Fruit(FuritType.Banana).ItemType());
-                    }
-                    ItemSystem.Instance.ItemInfoUI(fruitname + " " + add_fruits.Count + "개" + namoo + " 1개 얻었습니다!!", Color.blue);
+                    ItemSystem.Instance.TreeItemCreate(other.transform.position, new Fruit(FuritType.Banana));
+                     }
+                    
                 }
                 else if (other.GetComponent<Trees>().Tree_type == TreeType.CoconutTree)
                 {
-                    fruitname = new Fruit(FuritType.Coconet).GetItemName();
+                    
                     foreach (var add_fruit in add_fruits)
                     {
-                        ItemSystem.Instance.ItemCreate(new Fruit(FuritType.Coconet).ItemType());
+                    ItemSystem.Instance.TreeItemCreate(other.transform.position, new Fruit(FuritType.Coconet));
                     }
-                    ItemSystem.Instance.ItemInfoUI(fruitname + " " + add_fruits.Count + "개" + namoo + " 1개 얻었습니다!!", Color.blue);
+                    
                 }
 
 
-                ItemSystem.Instance.ItemCreate(new Part(PartType.FireWood).ItemType());
-                //메쉬슬라이싱
-                other.GetComponent<TargetCollider>().TreeSlice(other.transform.position);
+            ItemSystem.Instance.TreeItemCreate(other.transform.position, new Part(PartType.FireWood));
+            //메쉬슬라이싱
+            other.GetComponent<TargetCollider>().TreeSlice(other.transform.position);
             }
 
 
@@ -169,14 +170,8 @@ public class AxeStart : MonoBehaviour
     IEnumerator TreeUIRoutin()
     {
         float time = 0;
-        var treeui = FindObjectOfType<UISystem>().ui_tree;
+        var treeui =  FindObjectOfType<UISystem>().TreeUICreate();
 
-        if(treeui.gameObject.activeSelf == false)
-        {
-
-            treeui.gameObject.SetActive(true);
-
-        }
         while (time < 5f)
         {
             time += Time.deltaTime;
@@ -184,13 +179,7 @@ public class AxeStart : MonoBehaviour
             yield return null;
         }
 
-        if (treeui.gameObject.activeSelf == true)
-        {
-
-            treeui.gameObject.SetActive(false);
-
-        }
-
+        Destroy(treeui);
 
 
         if(treeuistart_trigger == true)

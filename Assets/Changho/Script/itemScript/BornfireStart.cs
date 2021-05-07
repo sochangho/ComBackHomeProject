@@ -1,6 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
-
+using UnityEngine.AI;
 
 public class BornfireStart : MonoBehaviour
 {
@@ -14,6 +14,35 @@ public class BornfireStart : MonoBehaviour
     [SerializeField]
     private GameObject paticleobj;
 
+    [SerializeField]
+    private GameObject smoke_paticleobj;
+
+    [SerializeField]
+    private Light bonfire_light;
+
+
+
+
+    public GameObject Fire
+    {
+
+        get
+        {
+            return paticleobj;
+        }
+
+    }
+
+
+    public GameObject Smoke
+    {
+        get
+        {
+            return smoke_paticleobj;
+        }
+
+    }
+
    
     private PlayerControl _player;
 
@@ -21,7 +50,7 @@ public class BornfireStart : MonoBehaviour
 
     private bool fireTrigger = true;
 
-
+    public FireState bonfire_state = FireState.Firing;
 
     private void Start()
     {
@@ -31,6 +60,16 @@ public class BornfireStart : MonoBehaviour
 
     }
 
+
+
+    public void BonfireEnd()
+    {
+
+
+        GetComponent<NavMeshObstacle>().enabled = false;
+        StopCoroutine(bornfire_coroutin);
+        fireTrigger = false;
+    }
 
     IEnumerator BornfireCorutin()
     {

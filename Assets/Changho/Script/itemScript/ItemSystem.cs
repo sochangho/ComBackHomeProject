@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class ItemSystem : MonoBehaviour
@@ -67,7 +68,24 @@ public class ItemSystem : MonoBehaviour
         ItemCreate(new Equipment(EquipmentType.Bowl).ItemType());
         ItemCreate(new Equipment(EquipmentType.TorchLight).ItemType());
         ItemCreate(new Equipment(EquipmentType.Axe).ItemType());
-        
+        ItemCreate(new Seed(SeedType.TomatoSeed).ItemType());
+        ItemCreate(new Seed(SeedType.CornSeed).ItemType());
+        ItemCreate(new Seed(SeedType.ChilliSeed).ItemType());
+        ItemCreate(new Seed(SeedType.EggplantSeed).ItemType());
+        ItemCreate(new Equipment(EquipmentType.Fkiller).ItemType());
+        ItemCreate(new Part(PartType.Oil).ItemType());
+        ItemCreate(new Part(PartType.Cloth).ItemType());
+        ItemCreate(new Part(PartType.Branch).ItemType());
+        ItemCreate(new Part(PartType.FireWood).ItemType());
+        ItemCreate(new Part(PartType.FireWood).ItemType());
+        ItemCreate(new Part(PartType.FireWood).ItemType());
+        ItemCreate(new Part(PartType.FireWood).ItemType());
+        ItemCreate(new Part(PartType.FireWood).ItemType());
+        ItemCreate(new Part(PartType.Firestone).ItemType());
+
+
+
+
     }
 
 
@@ -587,6 +605,64 @@ public class ItemSystem : MonoBehaviour
         find_information.GetComponent<UIFade>().FadeStart();
 
     }
+
+    public void TreeItemCreate<T>(Vector3 pos , T item ) where T : Items
+    {
+
+         var particle = ObjectPoolMgr.Instance.ParticlePool();
+        particle.transform.position = pos;
+        StartCoroutine(ItemCreateparticleRoutin(particle));
+
+        foreach(var prefabitem in prefebitems)
+        {
+            if(prefabitem.ItemType() == item.ItemType())
+            {
+                var go = Instantiate(prefabitem);
+                go.gameObject.AddComponent<ItemTreeCollider>();
+                go.transform.position = pos;
+                go.gameObject.AddComponent<Rigidbody>().useGravity = true;
+                go.gameObject.AddComponent<BoxCollider>();
+
+                float x = Random.Range(-1, 1);
+                float y = Random.Range(-1, 1);
+                float z = Random.Range(-1, 1);
+
+                var offest = new Vector3(x, y, z);
+                
+                go.GetComponent<Rigidbody>().AddExplosionForce(60f, transform.position + offest, 10f);
+
+                go.transform.parent = FindObjectOfType<Terrain>().transform;
+
+                break;
+            }
+
+
+        }
+
+
+
+
+    }
+
+    IEnumerator ItemCreateparticleRoutin(GameObject obj)
+    {
+        float time = 0;
+        
+        while(time < 1f)
+        {
+            time += Time.deltaTime;
+
+            yield return null;
+
+        }
+
+
+        ObjectPoolMgr.Instance.ParticleReturn(obj);
+
+
+    }
+
+
 }
 
 

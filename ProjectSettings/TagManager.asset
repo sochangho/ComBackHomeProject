@@ -24,6 +24,7 @@ TagManager:
   - ShipLope
   - LightningBoll
   - Rain
+  - CropPlace
   layers:
   - Default
   - TransparentFX
@@ -46,7 +47,7 @@ TagManager:
   - Shader
   - Tree
   - SeedPlace
-  - 
+  - CropPlace
   - 
   - 
   - 

@@ -10,10 +10,7 @@ public class CamaraShake : MonoBehaviour
     public float _amount;
     public float _duration;
 
-    void Start()
-    {
-        originPos = transform.localPosition;
-    }
+ 
 
 
     public void CamaraShakeStart()
@@ -22,6 +19,7 @@ public class CamaraShake : MonoBehaviour
     }
      IEnumerator Shake()
     {
+        originPos = transform.localPosition;
         float timer = 0;
         while (timer <= _duration)
         {

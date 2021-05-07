@@ -36,6 +36,7 @@ public class ForceUI : MonoBehaviour
                 player.usingitem.GetComponent<AxeStart>().use_go_trigger = false;
             }
 
+            
         }
 
 
@@ -44,7 +45,7 @@ public class ForceUI : MonoBehaviour
 
     IEnumerator ForceBarRoutin()
     {
-        WaitForSeconds waitForSeconds = new WaitForSeconds(40f);
+        WaitForSeconds waitForSeconds = new WaitForSeconds(3f);
 
 
         while (true)
@@ -59,7 +60,7 @@ public class ForceUI : MonoBehaviour
                 }
 
 
-                player.player_force += 20;
+                player.player_force += 1;
                 fill_image.fillAmount = player.player_force / 100;
             }
           

@@ -10,7 +10,7 @@ public class ReturnGround : BaseScene
     void Start()
     {
         var itemsystem = ItemSystem.Instance;
-
+        var daysystem = DaySystem.Instance;
 
         if(itemsystem.trashAddPopup == true)
         {
@@ -19,6 +19,14 @@ public class ReturnGround : BaseScene
             itemsystem.trashAddPopup = false;
 
         }
+
+        if(daysystem.day_trigger == true)
+        {
+            daysystem.RestartDaySystem();
+            daysystem.day_trigger = false;
+            
+        }
+
     }
 
    

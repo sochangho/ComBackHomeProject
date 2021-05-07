@@ -16,7 +16,7 @@ public class Seed : Items
 {
     public SeedType seed_type;
 
-
+    [SerializeField]
     private LayerMask layer;
 
     public Seed(SeedType st)
@@ -80,7 +80,7 @@ public class Seed : Items
     public override void ItemUse()
     {
         SeedSprinkle();
-        ItemSystem.Instance.ItemUseRemove(this);
+     
 
     }
 
@@ -113,12 +113,14 @@ public class Seed : Items
         if (Physics.Raycast(sp.transform.position, Vector3.down, out ray, 10f, layer))
         {
 
-            var seedobj = Resources.Load<GameObject>("Seed/" + seed_type.ToString()) as GameObject;
+            var seedobj = Resources.Load<GameObject>("Ganeral/Seed/" + seed_type.ToString()) as GameObject;
             var go = Instantiate(seedobj);
-            go.AddComponent<Rigidbody>().useGravity = true;
             go.AddComponent<SeedCollider>();
             go.transform.position = sp.transform.position;
-                        
+
+            
+
+            ItemSystem.Instance.ItemUseRemove(this);
             
         }
         else

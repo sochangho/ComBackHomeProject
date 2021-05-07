@@ -129,6 +129,18 @@ public class PlayerAnimaterMgr : MonoBehaviour
         }
     }
 
- 
+    
+    public void SprayAnimation(bool state)
+    {
+
+
+        if (player_animator.GetBool("Spray") != state)
+        {
+            player_animator.SetBool("Spray", state);
+        }
+
+    }
+
+
 
 }

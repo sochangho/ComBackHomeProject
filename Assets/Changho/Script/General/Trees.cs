@@ -54,17 +54,12 @@ public class Trees : MonoBehaviour
     }
 
 
-    private void Start()
-    {
-        treeUI = FindObjectOfType<UISystem>().ui_tree;
-        Debug.Log(treeUI);
-    }
 
 
     public void TreeNameSet()
     {
-         
-        if(tree_type == TreeType.AppleTree)
+        treeUI = FindObjectOfType<UISystem>().ui_tree;
+        if (tree_type == TreeType.AppleTree)
         {
             treeUI.TreeName("사과 나무");
 
@@ -83,6 +78,7 @@ public class Trees : MonoBehaviour
 
     public void TreeHpSet()
     {
+        treeUI = FindObjectOfType<UISystem>().ui_tree;
         treeUI.ImageFill(tree_hp);
     }
 

@@ -36,4 +36,11 @@ public class UIButton : BaseScene
 
     }
 
+    public void GameOverPopup()
+    {
+
+        OpenPopup<GameOverPopup>("UI/Popup/GameOverPopup");
+
+    }
+
 }

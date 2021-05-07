@@ -160,8 +160,10 @@ public class Equipment : Items
             {
                 Vector3 tarrein_uppoint = new Vector3(raycastHit.point.x, raycastHit.point.y + 1.5f, raycastHit.point.z);
 
-                Instantiate(Resources.Load<GameObject>("Ganeral/Eqi/Bornfire") as GameObject, tarrein_uppoint, Quaternion.identity);
+                var bonfire = Instantiate(Resources.Load<GameObject>("Ganeral/Eqi/Bornfire") as GameObject, tarrein_uppoint, Quaternion.identity);
+                bonfire.transform.parent = FindObjectOfType<Terrain>().transform;
                 ItemSystem.Instance.ItemUseRemove(this);
+
             }
             else
             {
@@ -212,6 +214,9 @@ public class Equipment : Items
         else if(equipment_type == EquipmentType.Fkiller)
         {
 
+            var player_eq = player.usingitem;
+
+            player_eq.GetComponent<Spray>().SprayUse();
 
         }
 

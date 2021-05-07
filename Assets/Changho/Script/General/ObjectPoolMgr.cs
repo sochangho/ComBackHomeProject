@@ -112,6 +112,21 @@ public class ObjectPoolMgr : MonoBehaviour
     }
 
 
+    public GameObject DieParticlePool()
+    {
+
+
+        return objpool[5].GetObject();
+    }
+
+
+    public void DieParticlePoolReturn(GameObject obj)
+    {
+       
+        objpool[5].ReturnObject(obj);
+    }
+
+
     // 바다 아이템
     //
 

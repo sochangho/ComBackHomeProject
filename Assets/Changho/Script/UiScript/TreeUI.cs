@@ -23,7 +23,8 @@ public class TreeUI : MonoBehaviour
 
     public void ImageFill(float tree_fill)
     {
-
+        
+      
         if(tree_fill >= 20)
         {
 

@@ -12,8 +12,25 @@ public class TorchLlightStart : MonoBehaviour
 
     private bool collider_triger = false;
 
+    private bool fire_endTrigger = false;
+
     public float Th_limit = 2f;
-   
+
+    [SerializeField]
+    private GameObject fire_particle;
+
+    public GameObject Fire
+    {
+        get
+        {
+           return fire_particle;
+        }
+    }
+
+    public FireState torchfire_state = FireState.Firing;
+
+
+
     private void Start()
     {
         player_transform = GetComponentInParent<Transform>();
@@ -33,9 +50,42 @@ public class TorchLlightStart : MonoBehaviour
 
     }
 
-
-    public void Wield()
+    private void PlayerRadiusEnemyCheck()
     {
+        Collider[] colliders = Physics.OverlapSphere(FindObjectOfType<PlayerControl>().transform.position, 3f);
+
+
+        foreach(var collider in colliders)
+        {
+            if(collider.gameObject.tag == "Zombi")
+            {
+
+                var enemy = collider.gameObject.GetComponentInParent<Enemy>();
+                enemy.LifeRoutinStop();
+                enemy.enemy_HP -= 10f;
+                enemy.enemyBar.EnemyHP(enemy.enemy_HP);
+            } 
+        }
+
+
+    }
+
+    public void TorchLightEnd()
+    {
+        fire_endTrigger = true;
+
+    }
+
+
+     public void Wield()
+    {
+        if (fire_endTrigger)
+        {
+            ItemSystem.Instance.ItemInfoUI("횃불을 사용할 수 없습니다.", Color.red);
+            return;
+            
+        }
+        
 
         if (!use_triger)
         {
@@ -48,7 +98,7 @@ public class TorchLlightStart : MonoBehaviour
     IEnumerator WieldRoutin()
     {
         float time = 0;
-
+        bool torchlight_trigger = false;
         FindObjectOfType<PlayerAnimaterMgr>().WieldAnimation(true);
         
 
@@ -57,6 +107,13 @@ public class TorchLlightStart : MonoBehaviour
 
             time += Time.deltaTime;
 
+
+
+            if ((time > 0.3f) && torchlight_trigger == false)
+            {
+                PlayerRadiusEnemyCheck();
+                torchlight_trigger = true;
+            }
 
             yield return null;
         }
@@ -67,7 +124,7 @@ public class TorchLlightStart : MonoBehaviour
         }
 
         FindObjectOfType<PlayerAnimaterMgr>().WieldAnimation(false);
-        StartCoroutine(ColliderRoutin());
+       // StartCoroutine(ColliderRoutin());
 
     }
 

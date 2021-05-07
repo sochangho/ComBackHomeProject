@@ -29,7 +29,7 @@ Material:
     - Vector1_F4972894: 0.1
     - Vector1_F64A714: 5
     m_Colors:
-    - Color_4A25B274: {r: 8.47419, g: 2.9282541, b: 1.4641271, a: 0}
+    - Color_4A25B274: {r: 8.80529, g: 3.001386, b: 0.53163964, a: 0}
     - Vector2_A05A09B2: {r: -0.1, g: -0.5, b: 0, a: 0}
     - Vector2_F73B3B33: {r: 0, g: -0.2, b: 0, a: 0}
   m_BuildTextureStacks: []

@@ -10,10 +10,11 @@ public class TrashEnd : Popup
     /// </summary>
     public void GoGroundScene()
     {
+
+        DaySystem.Instance.day_trigger = true;
         SceneManager.LoadScene("GroundScene");
-
-
-
+       
+     
     }
 
 

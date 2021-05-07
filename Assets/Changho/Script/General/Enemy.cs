@@ -22,10 +22,14 @@ public class Enemy : MonoBehaviour
     [SerializeField]
     private Transform start_home;
 
-
+    [SerializeField]
+    private GameObject particleDie_obj;
 
     [SerializeField]
     private GameObject searchImage;
+
+    [SerializeField]
+    private ParticleSystem fly;
 
     private NavMeshAgent _agent;
 
@@ -40,6 +44,13 @@ public class Enemy : MonoBehaviour
     public Vector3 dir_back;
 
 
+    public EnemyBar enemyBar;
+
+    public float enemy_HP = 100;
+
+    public bool enemydie_trigger = false;
+
+    
     public EnemyState State
     {
         get
@@ -62,21 +73,55 @@ public class Enemy : MonoBehaviour
         _agent = GetComponent<NavMeshAgent>();
         _player = FindObjectOfType<PlayerControl>();
         
+
     }
 
     private void OnEnable()
     {
         LifeRoutinStart();
-        
+        FlyColorSet();
     }
 
+
+    private void FlyColorSet()
+    {
+        int random = Random.Range(0, 3);
+
+
+        if(random == 0)
+        {
+
+            fly.startColor = Color.red;
+        }
+        else if(random == 1)
+        {
+            fly.startColor = Color.yellow;
+        }
+        else if (random == 2)
+        {
+            fly.startColor = Color.blue;
+        }
+
+
+       
+
+    }
+
+
+    public void PlayerSet()
+    {
+        if (_player == null)
+        {
+            _player = FindObjectOfType<PlayerControl>();
+        }
+    }
 
     public void LifeRoutinStart()
     {
         _state = EnemyState.Idle;
       lifeCoroutin = StartCoroutine(LifeRoutin());
     }
-
+     
 
     public void LifeRoutinStop()
     {
@@ -148,14 +193,22 @@ public class Enemy : MonoBehaviour
                 }
 
 
-                if (searchTrigger == true)
-                {
-
-                    Debug.Log("검색");
-                    PlayerSearch();
-                }
+                PlayerSearch();
+                
 
             }
+
+
+            if(enemy_HP <= 0 && enemydie_trigger == false)
+            {
+
+                enemydie_trigger = true;
+                enemy_HP = 0;
+                _state = EnemyState.Dead;               
+                StartCoroutine(ParticleDieroutin());
+               
+            }
+
   
         
 
@@ -163,40 +216,31 @@ public class Enemy : MonoBehaviour
         }
 
     }
-   
+    
+
+
+
 
 
     private void PlayerSearch()
     {
-      
-
-        var dot = Vector3.Dot(transform.forward,
-                  (_player.transform.position - start_point.position).normalized);
-        var dir = (_player.transform.position - start_point.position).normalized;
-        if (dot > sightLevel)
+       if(_player == null)
         {
 
-            RaycastHit raycastHit;
 
-            if (Physics.Raycast(start_point.position, dir, out raycastHit, sightLength, layerToCast))
-            {
-
-                var hitobject = raycastHit.collider.gameObject;
-
-                if (hitobject.CompareTag("Player"))
-                {
-
-
-                    _state = EnemyState.Chase;
-
-
-
-                }
-    
-            }
+            _player = FindObjectOfType<PlayerControl>();
         }
+    
 
+        var distancePlayer = Vector3.Distance(_player.transform.position, start_point.position);
 
+       
+        if (distancePlayer < sightLength)
+        {
+           
+               _state = EnemyState.Chase;
+
+        }
 
 
     }
@@ -207,13 +251,15 @@ public class Enemy : MonoBehaviour
     {
         float time = 0;
 
+  
+
         var dir = _player.transform.position - transform.position;
         var dirXZ = new Vector3(dir.x, 0f, dir.z);
 
         transform.rotation = Quaternion.LookRotation(dirXZ);
 
 
-        while (time < 0.1f)
+        while (time < 0.3f)
         {
             time += Time.deltaTime;
 
@@ -225,7 +271,31 @@ public class Enemy : MonoBehaviour
 
         LifeRoutinStart();
 
+        _state = EnemyState.Idle;
+
     }
 
+
+    IEnumerator ParticleDieroutin()
+    {
+        
+        var pardie = ObjectPoolMgr.Instance.DieParticlePool();
+        pardie.transform.position = new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z);
+
+        float time = 0;
+        while (time < 1f)
+        {
+
+
+            time += Time.deltaTime;
+
+
+            yield return null;
+        }
+
+        ObjectPoolMgr.Instance.DieParticlePoolReturn(pardie);
+        gameObject.SetActive(false);
+
+    }
 
 }
