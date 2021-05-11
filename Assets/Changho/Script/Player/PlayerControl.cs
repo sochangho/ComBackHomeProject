@@ -12,8 +12,10 @@ public class PlayerControl : MonoBehaviour
     public ThrowStones stons;
 
     public GameObject player_positionFix;
-    
+
     [SerializeField]
+    private GameObject camera;
+
     private Camera player_camera;
 
     [SerializeField]
@@ -99,6 +101,16 @@ public class PlayerControl : MonoBehaviour
         {
             return player_anim;
         }
+    }
+
+    private void Awake()
+    {
+
+        var go = Instantiate(camera);
+
+        player_camera = go.GetComponent<Camera>();
+         
+
     }
 
     private void Start()
@@ -256,6 +268,7 @@ public class PlayerControl : MonoBehaviour
        
 
         FollowCamera();
+        player_camera.transform.LookAt(this.transform);
     }
 
     //플레이어 이동

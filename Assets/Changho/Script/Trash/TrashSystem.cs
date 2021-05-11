@@ -11,6 +11,9 @@ public class TrashSystem : MonoBehaviour
     private int fkiller_cnt = 0;
     private int randombox_cnt = 0;
 
+    [SerializeField]
+    private Animator ship_animater;
+
 
     public float shipHp = 100;
 
@@ -262,6 +265,7 @@ public class TrashSystem : MonoBehaviour
         if(shipHp<= 0 )
         {
             shipHp = 0;
+            StartCoroutine(ShipAnimationRoutin());
             FindObjectOfType<ShipDestroy>().ShipSlice();
 
 
@@ -274,6 +278,8 @@ public class TrashSystem : MonoBehaviour
 
                 }
             }
+
+            
 
         }
 
@@ -311,5 +317,22 @@ public class TrashSystem : MonoBehaviour
         EndGameItemAdd();
     }
     
+    IEnumerator ShipAnimationRoutin()
+    {
+        float time = 0;
+
+        ship_animater.SetBool("die", true);
+
+        while(time < 1f)
+        {
+            time += Time.deltaTime;
+
+
+            yield return null;
+        }
+
+        ship_animater.transform.parent.gameObject.SetActive(false);
+
+    }
 
 }

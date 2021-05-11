@@ -7,6 +7,7 @@ public class UISystem : MonoBehaviour
     [HideInInspector]
     public TreeUI ui_tree;
     public GameObject tree_pos;
+    public GameObject tutorial_pos;
     public ForceUI ui_forec;
 
 
@@ -21,6 +22,18 @@ public class UISystem : MonoBehaviour
 
         return tree_ui;
     }
+
+
+    public GameObject TutorialUICreate()
+    {
+        var tutorial_ui = Instantiate(Resources.Load<GameObject>("UI/Popup/Tutorialinfo"));
+        tutorial_ui.transform.parent = tutorial_pos.transform;
+        tutorial_ui.GetComponent<RectTransform>().localPosition = new Vector3(0f, 0f, 0f);
+
+        return tutorial_ui;
+    }
+
+
 
 
 }

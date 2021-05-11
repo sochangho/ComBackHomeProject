@@ -691,7 +691,7 @@ public class Slice : MonoBehaviour
         else 
         {
 
-            TwoObjectCompare(aObject, bObject);
+            TwoObjectCompare(aObject, bObject , contact);
 
         }
 
@@ -906,7 +906,7 @@ public class Slice : MonoBehaviour
 
 
 
-    private void TwoObjectCompare(GameObject A , GameObject B)
+    private void TwoObjectCompare(GameObject A , GameObject B , Vector3 contact)
     {
         Mesh A_Mesh = A.GetComponent<MeshFilter>().sharedMesh;
 
@@ -917,42 +917,25 @@ public class Slice : MonoBehaviour
         Vector3[] B_vertics = B_Mesh.vertices;
 
 
-        Vector3 centor_A = Vector3.zero;
+        var a_dir = (A_vertics[0] - contact).normalized;
 
-        Vector3 centor_B = Vector3.zero;
+        var b_dir = (B_vertics[0] - contact).normalized;
 
 
-        for (int i = 0; i < A_vertics.Length; i++)
+        var dotA_UP = Vector3.Dot(a_dir, Vector3.up);
+
+        var dotB_UP = Vector3.Dot(b_dir, Vector3.up);
+
+
+        if(dotA_UP > 0)
         {
-
-            centor_A += A_vertics[i];
-
-        }
-
-        for (int i = 0; i < B_vertics.Length; i++)
-        {
-
-            centor_B += B_vertics[i];
-
-        }
-
-
-        if ((centor_A / A_vertics.Length).y > (centor_B / B_vertics.Length).y)
-        {
-
             Object_property = A;
-            Debug.Log(A.name);
 
         }
-        else if ((centor_A / A_vertics.Length).y < (centor_B / B_vertics.Length).y)
+        else
         {
-
             Object_property = B;
-            Debug.Log(B.name);
-
         }
-
-
 
 
         var leafs = transform.parent.GetComponent<TargetCollider>().leafs;
@@ -960,7 +943,10 @@ public class Slice : MonoBehaviour
         foreach(var leaf in leafs)
         {
             leaf.transform.SetParent(Object_property.transform);
+            leaf.AddComponent<TreeAlpha>().ChangeLitMode();
         }
+
+        Object_property.AddComponent<TreeAlpha>().ChangeLitMode();          
         ExplosionPragment(Object_property);
         //StartCoroutine(PragmentRoutin(Object_property));
 

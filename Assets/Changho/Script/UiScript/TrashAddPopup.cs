@@ -40,7 +40,8 @@ public class TrashAddPopup : Popup
                 {
                     if(itemtype == item.ItemType())
                     {
-                        transhItemInfo.additem_name.text = itemtype;
+                        item.itemInfoSet();
+                        transhItemInfo.additem_name.text = item.GetItemName();
                         break;
                     }
 

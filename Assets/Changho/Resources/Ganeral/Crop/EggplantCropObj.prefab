@@ -39,12 +39,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4750182891619966418}
-  m_LocalRotation: {x: 0.03489949, y: 0, z: 0, w: 0.99939084}
-  m_LocalPosition: {x: 0, y: 0.303, z: -0.598}
+  m_LocalRotation: {x: 0.03489949, y: -0, z: -0, w: 0.99939084}
+  m_LocalPosition: {x: 0.1646502, y: 0.411, z: -1.6653111}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 7026855543997903978}
-  m_RootOrder: 4
+  m_Father: {fileID: 6566032233708026706}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 4, y: 0, z: 0}
 --- !u!20 &5840510327653774604
 Camera:
@@ -161,9 +161,8 @@ Transform:
   - {fileID: 3724546343363758713}
   - {fileID: 6918467966382485648}
   - {fileID: 927727861040492768}
-  - {fileID: 9211578193840005222}
   m_Father: {fileID: 6566032233708026706}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &81446516821238260
 MonoBehaviour:
@@ -190,8 +189,9 @@ MonoBehaviour:
   crop_wait: 0.1
   crop_temp: 0.05
   paticle: {fileID: 7401968591956283591, guid: 602956787e730e640ab403889e44d039, type: 3}
-  camera_pos: {fileID: 4750182891619966418}
+  cropCamera: {fileID: 4750182891619966418}
   waterTrigger: 0
+  grow_speed: 1.4
 --- !u!135 &3290856453858709689
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -203,8 +203,8 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.8601679
-  m_Center: {x: 0, y: 0, z: 0.29955643}
+  m_Radius: 1.8442364
+  m_Center: {x: 0.04276848, y: 0, z: 0.3021903}
 --- !u!1 &6549845810145153429
 GameObject:
   m_ObjectHideFlags: 0
@@ -233,6 +233,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 6439857728141510567}
+  - {fileID: 9211578193840005222}
   - {fileID: 7026855543997903978}
   m_Father: {fileID: 0}
   m_RootOrder: 0

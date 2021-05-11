@@ -51,7 +51,7 @@ public class AxeStart : MonoBehaviour
             {
                 TreeUIStart();
                 collider.GetComponent<Trees>().TreeNameSet();
-                collider.GetComponent<Trees>().tree_hp -= 5;
+                collider.GetComponent<Trees>().tree_hp -= 30;
                 collider.GetComponent<Trees>().TreeHpSet();
 
                 if(collider.GetComponent<Trees>().tree_hp <= 0)

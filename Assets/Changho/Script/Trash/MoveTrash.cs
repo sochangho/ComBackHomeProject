@@ -84,7 +84,7 @@ public class MoveTrash : MonoBehaviour
                 var trash_system = FindObjectOfType<TrashSystem>();
                 FindObjectOfType<ShipState>().ChangeStart();
                 trash_system.shipHp -= 10;
-                trash_system.ItemZero();
+               // trash_system.ItemZero();
 
       
             }

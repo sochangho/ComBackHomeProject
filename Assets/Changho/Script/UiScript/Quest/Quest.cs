@@ -1,46 +1,33 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class Quest : Popup
 {
-
-
-    private int bigFish;
-
-    private int middleFish;
-
-    private int smallFish;
-
-    private int apple;
-
-    private int plum;
-
-    private int chestnut;
-
-    private int axe;
-
-    private int fishing;
-
-    private int bonfire;
-
-    private int ston;
-
-    private int nail;
-
-    private int rope;
-
-    private int fireWood;
-
-
-    private List<QuestSlot> qusts = new List<QuestSlot>();
-
-    // 퀘스트슬롯 프리팹
     [SerializeField]
-    private GameObject qustslot_prefab;
+    private TextMeshProUGUI name;
+
+    [SerializeField]
+    private TextMeshProUGUI subscript;
+
+    [SerializeField]
+    private TextMeshProUGUI conditions;
+
+    [SerializeField]
+    private Button complete_button;
 
 
+    private void Start()
+    {
 
+        complete_button.gameObject.SetActive(false);
+
+        SetQuest();
+
+
+    }
     public void OnCloseButtonPress()
     {
         FindObjectOfType<PlayerControl>().enabled = true;
@@ -48,24 +35,41 @@ public class Quest : Popup
 
     }
 
-
-    public void SetQuestitem()
+    private void SetQuest()
     {
-      
+        var tutorial = TutorialSystem.Instance;
+
+        name.text = tutorial.tutorials[tutorial.tutorial_index].name;
+
+        subscript.text = tutorial.tutorials[tutorial.tutorial_index].suscript;
+
+        var state = tutorial.tutorials[tutorial.tutorial_index].CompleteConditon();
+
+        conditions.text = tutorial.tutorials[tutorial.tutorial_index].SetCondition(); 
 
 
-        
-        
+
+        if(state == TutorialState.Complete)
+        {
+            complete_button.gameObject.SetActive(true);
+            complete_button.onClick.AddListener(TutorialNext);
+
+        }
+
     }
 
-    /// <summary>
-    /// 모든 퀘스트들 설명과 조건들을 qusts변수에 Add시켜준다 그 후에 추가된 개수만큼 프리팹 생성을 시켜준다.
-    /// </summary>
 
-    public void SetMission()
+    public void TutorialNext()
     {
 
 
+        var tutorial = TutorialSystem.Instance;
+
+        tutorial.tutorial_index++;
+
+        tutorial.NextStart();
+        
+        OnCloseButtonPress();
 
     }
 

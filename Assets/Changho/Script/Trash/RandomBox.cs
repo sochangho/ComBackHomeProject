@@ -82,7 +82,7 @@ public class RandomBox : MonoBehaviour
             ship.camaraShake.CamaraShakeStart();
             ship.ShipExplosion();
             trash_system.shipHp -= 5;
-            trash_system.ItemZero();
+            //trash_system.ItemZero();
 
         }
         else if(number == 1)

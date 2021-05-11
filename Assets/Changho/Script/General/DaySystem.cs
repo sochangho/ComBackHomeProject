@@ -337,7 +337,7 @@ public class DaySystem : MonoBehaviour
 
                 daytime -= Time.deltaTime;
 
-                SeaMorningPanel();
+               // SeaMorningPanel();
                 EnemyMorning();
                 if (daytime <= 0)
                 {
@@ -374,7 +374,7 @@ public class DaySystem : MonoBehaviour
                 }
 
                 daytime -= Time.deltaTime;
-                SeaNightPanel();
+               // SeaNightPanel();
                 EnemyNight();
                 if (daytime <= 0)
                 {

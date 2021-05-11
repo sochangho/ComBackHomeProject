@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BowlWater:MonoBehaviour
 {
-    int warter_cnt = 0; 
+    int warter_cnt = 20; 
     
 
     public void SetWater(int cnt)

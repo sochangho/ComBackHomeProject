@@ -39,24 +39,35 @@ public class TomatoGrow : MonoBehaviour
     [SerializeField]
     private GameObject paticle;
 
-    [SerializeField]
-    private GameObject camera_pos ;
-
-    private GameObject maincamera;
-
+ 
     private GameObject croppanel;
 
     private Material stempSet;
 
-   
+    [SerializeField]
+    private GameObject cropCamera;
+
+    private GameObject mainCamera;
 
     private PlayerControl player_;
 
     private GrowState growstate;
 
-    public bool waterTrigger = false;
-   
+
+    public GrowState Growstate
+    {
+        get
+        {
+            return growstate;
+        }
     
+    }
+
+
+    public bool waterTrigger = false;
+
+    public float grow_speed = 2.2f;
+
     void Start()
     {
 
@@ -71,21 +82,27 @@ public class TomatoGrow : MonoBehaviour
 
         stempSet = stem_renderer.material;
         croppanel = GameObject.Find("Canvas").transform.Find("cropstart").gameObject;
-        maincamera = GameObject.Find("MainCamera");
+        mainCamera = FindObjectOfType<CamaraShake>().gameObject;
+        
         player_ = FindObjectOfType<PlayerControl>();
-        camera_pos.SetActive(false);
+       
         
     }
 
 
-  
+    
+
+
 
     public void Grow()
    {
         croppanel.SetActive(false);
+        mainCamera.SetActive(false);
+        cropCamera.SetActive(true);
 
-        camera_pos.SetActive(true);
-        maincamera.SetActive(false);
+
+        
+
 
         int cnt = player_.usingitem.GetComponent<BowlWater>().GetWater();
         cnt--;
@@ -126,7 +143,8 @@ public class TomatoGrow : MonoBehaviour
         {
 
             stempSet.SetFloat("_StemGrow", stempSet.GetFloat("_StemGrow") + temp);
-            camera_pos.transform.localPosition = new Vector3(0, stempSet.GetFloat("_StemGrow")*0.6f + 0.3f, -0.94f);
+            cropCamera.transform.localPosition = 
+                new Vector3(cropCamera.transform.localPosition.x, stempSet.GetFloat("_StemGrow")*grow_speed + 0.3f, cropCamera.transform.localPosition.z);
 
 
             if(stempSet.GetFloat("_StemGrow") > st)
@@ -149,9 +167,11 @@ public class TomatoGrow : MonoBehaviour
             growstate = GrowState.Step3;
         }
 
-        camera_pos.SetActive(false);
-        maincamera.SetActive(true);
+      
+      
         croppanel.SetActive(true);
+        mainCamera.SetActive(true);
+        cropCamera.SetActive(false);
 
     }
 
@@ -186,10 +206,8 @@ public class TomatoGrow : MonoBehaviour
 
 
 
-
-
-        camera_pos.SetActive(false);
-        maincamera.SetActive(true);
+        mainCamera.SetActive(true);
+        cropCamera.SetActive(false);
 
     }
 
