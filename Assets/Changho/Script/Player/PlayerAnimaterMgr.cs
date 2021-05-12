@@ -141,6 +141,20 @@ public class PlayerAnimaterMgr : MonoBehaviour
 
     }
 
+    public void RunAnimation(bool state)
+    {
+
+        if(player_animator.GetBool("Run") != state)
+        {
+            player_animator.SetBool("Run", state);
+        }
+    }
+
+
+    public bool RunState()
+    {
+        return player_animator.GetBool("Run");
+    }
 
 
 }

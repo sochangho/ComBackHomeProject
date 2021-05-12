@@ -50,7 +50,8 @@ public class Enemy : MonoBehaviour
 
     public bool enemydie_trigger = false;
 
-    
+  
+
     public EnemyState State
     {
         get
@@ -78,6 +79,11 @@ public class Enemy : MonoBehaviour
 
     private void OnEnable()
     {
+        if(enemy_HP != 100)
+        {
+            enemy_HP = 100;
+        } 
+
         LifeRoutinStart();
         FlyColorSet();
     }
@@ -135,6 +141,10 @@ public class Enemy : MonoBehaviour
         Debug.Log("ddd");
         while (_state != EnemyState.Dead)
         {
+
+
+            enemyBar.enemy_hpimage.fillAmount = enemy_HP / 100;
+
             if (_state == EnemyState.Idle)
             {
                 _state = EnemyState.Search;
@@ -197,19 +207,20 @@ public class Enemy : MonoBehaviour
                 
 
             }
-
+      
 
             if(enemy_HP <= 0 && enemydie_trigger == false)
             {
 
                 enemydie_trigger = true;
                 enemy_HP = 0;
-                _state = EnemyState.Dead;               
                 StartCoroutine(ParticleDieroutin());
+                _state = EnemyState.Dead;               
+                
                
             }
 
-  
+       
         
 
             yield return null;
@@ -294,7 +305,11 @@ public class Enemy : MonoBehaviour
         }
 
         ObjectPoolMgr.Instance.DieParticlePoolReturn(pardie);
-        gameObject.SetActive(false);
+
+        GetComponent<NavMeshAgent>().enabled = false;
+        ObjectPoolMgr.Instance.EnemyReturn(gameObject);
+
+        //gameObject.SetActive(false);
 
     }
 

@@ -130,4 +130,22 @@ public class ObjectPoolMgr : MonoBehaviour
     // 바다 아이템
     //
 
+    public GameObject RippleParticlePool()
+    {
+
+        return objpool[6].GetObject();
+
+    }
+
+
+
+    public void RippleParticleReturn(GameObject obj)
+    {
+
+
+        objpool[6].ReturnObject(obj);
+    }
+
+
+
 }

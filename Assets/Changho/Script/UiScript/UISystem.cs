@@ -11,6 +11,9 @@ public class UISystem : MonoBehaviour
     public ForceUI ui_forec;
 
 
+    public Canvas canvas;
+
+
     public GameObject TreeUICreate()
     {
 
@@ -35,5 +38,13 @@ public class UISystem : MonoBehaviour
 
 
 
+    public GameObject CropStartUICreate()
+    {
+        var cropui = Instantiate(Resources.Load<GameObject>("UI/Popup/cropstart"));
+        cropui.transform.parent = canvas.transform;
+        cropui.GetComponent<RectTransform>().localPosition = new Vector3(0f, 0f, 0f);
 
+        return cropui;
+
+    }
 }

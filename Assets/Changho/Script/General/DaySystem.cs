@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.AI;
 using TMPro;
 
 public class DaySystem : MonoBehaviour
@@ -29,6 +30,21 @@ public class DaySystem : MonoBehaviour
     public bool day_trigger = false;
 
     private DayType dayType;
+
+
+    public DayType Day_Type
+    {
+
+        get
+        {
+            return dayType;
+        }
+        set
+        {
+            dayType = value;
+        }
+    }
+
 
     private Weather weatherType = Weather.Idle;
 
@@ -160,7 +176,7 @@ public class DaySystem : MonoBehaviour
     private void RainFollowPlayer()
     {
 
-        rain_obj.transform.position = new Vector3(player.transform.position.x, player.transform.position.y + 7f, player.transform.position.z);
+        rain_obj.transform.position = new Vector3(player.transform.position.x, player.transform.position.y + 4f, player.transform.position.z);
 
     }
 
@@ -218,7 +234,14 @@ public class DaySystem : MonoBehaviour
         {
             int random = Random.Range(0, enemy_transformSpawns.Count - 1);
             var enemyobj = ObjectPoolMgr.Instance.EnemyPool();
+
+            
+           
             enemyobj.transform.position = enemy_transformSpawns[random].position;
+
+            enemyobj.GetComponent<NavMeshAgent>().enabled = true;            
+
+
         }
 
 
@@ -236,6 +259,7 @@ public class DaySystem : MonoBehaviour
             {
                 if (enemy.transform.GetChild(i).gameObject.activeSelf == true)
                 {
+                    enemy.transform.GetChild(i).gameObject.GetComponent<NavMeshAgent>().enabled = false;
                     ObjectPoolMgr.Instance.EnemyReturn(enemy.transform.GetChild(i).gameObject);
                 }
 
@@ -335,7 +359,7 @@ public class DaySystem : MonoBehaviour
             if (dayType == DayType.Morning)
             {
 
-                daytime -= Time.deltaTime;
+               // daytime -= Time.deltaTime;
 
                // SeaMorningPanel();
                 EnemyMorning();
@@ -373,7 +397,7 @@ public class DaySystem : MonoBehaviour
                     day_enemytrigger = false;
                 }
 
-                daytime -= Time.deltaTime;
+               // daytime -= Time.deltaTime;
                // SeaNightPanel();
                 EnemyNight();
                 if (daytime <= 0)
@@ -432,6 +456,7 @@ public class DaySystem : MonoBehaviour
                 RainFollowPlayer();
                 if (raintime < 0)
                 {
+                    ObjectPoolMgr.Instance.objpool[6].Reset();
                     weatherType = Weather.Idle;
                     RainActive(false);
                     raintime = 200f;

@@ -1,4 +1,4 @@
-﻿
+﻿using UnityEngine;
 
 public class EscapeTutorial : Tutorials
 {
@@ -9,14 +9,36 @@ public class EscapeTutorial : Tutorials
    public int wood = 0;
 
 
+    public int totalrope = 3;
+
+    public int totalcloth = 3;
+
+    public int totalnail = 6;
+
+    public int totalwood = 20;
+
+    public EscapeTutorial()
+    {
+
+        name = "탈출하기";
+        suscript = "탈출하기 위한 배를 만들기 위해 부품을 모아주세요." + "\r\n"
+            + "조건 - 밧줄 3개 천 3개 못 6개 나무 20개";
+
+    }
+
+
+
     public override void TutorialSet()
     {
         base.TutorialSet();
         tutorialState = TutorialState.Go;
         name = "탈출하기";
-        suscript = "탈출하기 위한 배를 만들기 위해 부품을 모아주세요.";
+        suscript = "탈출하기 위한 배를 만들기 위해 부품을 모아주세요." + "\r\n" 
+            +"조건 - 밧줄 3개 천 3개 못 6개 나무 20개";
 
-
+        PlayerPrefs.SetString("name", name);
+        PlayerPrefs.SetString("subs", suscript);
+        
     }
 
 
@@ -63,7 +85,7 @@ public class EscapeTutorial : Tutorials
         wood = wood_cnt;
         nail = nail_cnt;
 
-        if(rope >= 3 && cloth >= 3 && nail >= 6 && wood >= 20)
+        if(rope >= totalrope && cloth >= totalcloth && nail >= totalnail && wood >= totalwood)
         {
 
             tutorialState = TutorialState.Complete;

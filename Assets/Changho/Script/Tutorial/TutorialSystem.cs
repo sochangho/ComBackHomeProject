@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 
 public class TutorialSystem : MonoBehaviour
 {
@@ -31,6 +31,18 @@ public class TutorialSystem : MonoBehaviour
     public Transform growLook;
 
     public Transform trashLook;
+
+    private TreeSliceTutorial treeSliceTutorial = new TreeSliceTutorial();
+
+    private SeedTutorial seedTutorial = new SeedTutorial();
+
+    private GrowTutorial growTutorial = new GrowTutorial();
+
+    private ShipCreateTutorial shipCreateTutorial = new ShipCreateTutorial();
+
+    private EscapeTutorial escapeTutorial =  new EscapeTutorial();
+
+    public bool tutorial_trigger = false;
 
     private static TutorialSystem _instance;
     // 인스턴스에 접근하기 위한 프로퍼티
@@ -63,21 +75,32 @@ public class TutorialSystem : MonoBehaviour
         }
         // 아래의 함수를 사용하여 씬이 전환되더라도 선언되었던 인스턴스가 파괴되지 않는다.
         DontDestroyOnLoad(gameObject);
+
+        
     }
 
     private void Start()
     {
-        tutorials.Add(new TreeSliceTutorial());
-        tutorials.Add(new SeedTutorial());
-        tutorials.Add(new GrowTutorial());
-        tutorials.Add(new ShipCreateTutorial());
-        tutorials.Add(new EscapeTutorial());
 
+        TutorialsAdd();
 
-
+      
         Invoke("TutorialStart", 2f);
         
     }
+
+
+    public void TutorialsAdd()
+    {
+        tutorials.Add(treeSliceTutorial);
+        tutorials.Add(seedTutorial);
+        tutorials.Add(growTutorial);
+        tutorials.Add(shipCreateTutorial);
+        tutorials.Add(escapeTutorial);
+
+    }
+
+
 
 
 
@@ -86,6 +109,10 @@ public class TutorialSystem : MonoBehaviour
         if(tutorial_index == 0)
         {
             StartCoroutine(TreeCameraPosition());
+            FindObjectOfType<PlayerControl>().player_hp = 50f;
+            FindObjectOfType<PlayerControl>().player_hungry = 10f;
+
+
         }
         else if (tutorial_index == 1)
         {
@@ -111,12 +138,12 @@ public class TutorialSystem : MonoBehaviour
         }
         else if(tutorial_index == 5)
         {
-
+            SceneManager.LoadScene("endGo");
             //엔딩
         }
 
 
-        Debug.Log("TutorialStart Return");
+
 
     }
 
@@ -124,7 +151,9 @@ public class TutorialSystem : MonoBehaviour
 
     private void ArrowCh(Transform tf)
     {
+      
 
+      
         if (arrow.gameObject.activeSelf == false)
         {
             arrow.gameObject.SetActive(true);
@@ -159,7 +188,7 @@ public class TutorialSystem : MonoBehaviour
         }
 
 
-        camera.transform.LookAt(treeLook);
+        StartCoroutine(CameraRotationRoutin(treeLook));
         ArrowCh(treeLook);
         tutorials[0].TutorialSet();
         StartCoroutine(UiRoutin(tutorials[0].suscript));
@@ -184,7 +213,7 @@ public class TutorialSystem : MonoBehaviour
 
             yield return null;
         }
-        camera.transform.LookAt(seedLook);
+        StartCoroutine(CameraRotationRoutin(seedLook));
         ArrowCh(seedLook);
         tutorials[1].TutorialSet();
         StartCoroutine(UiRoutin(tutorials[1].suscript));
@@ -208,7 +237,7 @@ public class TutorialSystem : MonoBehaviour
 
             yield return null;
         }
-        camera.transform.LookAt(growLook);
+        StartCoroutine(CameraRotationRoutin(growLook));
         ArrowCh(growLook);
         tutorials[2].TutorialSet();
         StartCoroutine(UiRoutin(tutorials[2].suscript));
@@ -234,7 +263,7 @@ public class TutorialSystem : MonoBehaviour
             yield return null;
         }
 
-        camera.transform.LookAt(trashLook);
+        StartCoroutine(CameraRotationRoutin(trashLook));
         ArrowCh(trashLook);
         tutorials[4].TutorialSet();
         StartCoroutine(UiRoutin(tutorials[4].suscript));
@@ -279,6 +308,63 @@ public class TutorialSystem : MonoBehaviour
         TutorialStart();
 
     }
+
+    IEnumerator CameraRotationRoutin(Transform look )
+    {
+        var camera = FindObjectOfType<Camera>();
+
+        var dir = (look.position - camera.transform.position).normalized;
+
+        while (camera.transform.forward != dir )
+        {
+            var targetRotation = Quaternion.LookRotation(dir);
+            camera.transform.rotation = Quaternion.Slerp(camera.transform.rotation, targetRotation, 10 * Time.deltaTime);
+
+            yield return null;
+
+        }
+
+    }
+
+
+    IEnumerator HpDre()
+    {
+        WaitForSeconds waitForSeconds = new WaitForSeconds(0.4f);
+
+        var hp = FindObjectOfType<PlayerControl>().player_hp;
+
+        while (hp > 50f)
+        {
+
+            hp -= 2f;
+
+
+            yield return waitForSeconds;
+        }
+
+
+
+    }
+
+    IEnumerator HungryDre()
+    {
+        WaitForSeconds waitForSeconds = new WaitForSeconds(0.4f);
+
+        var hg = FindObjectOfType<PlayerControl>().player_hungry;
+
+        while (hg > 10f)
+        {
+
+            hg -= 2f;
+
+
+            yield return waitForSeconds;
+        }
+
+
+
+    }
+
 
     private void DelayReturn()
     {

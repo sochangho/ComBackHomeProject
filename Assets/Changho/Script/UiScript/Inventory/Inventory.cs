@@ -30,10 +30,12 @@ public class Inventory : Popup
 
 
         SetItem();
+        
     }
 
     public void OnCloseButtonPress()
     {
+       
         if(item_panel.activeSelf == true)
         {
             item_panel.SetActive(false);

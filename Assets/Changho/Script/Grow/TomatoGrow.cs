@@ -39,9 +39,6 @@ public class TomatoGrow : MonoBehaviour
     [SerializeField]
     private GameObject paticle;
 
- 
-    private GameObject croppanel;
-
     private Material stempSet;
 
     [SerializeField]
@@ -80,8 +77,7 @@ public class TomatoGrow : MonoBehaviour
         }
 
 
-        stempSet = stem_renderer.material;
-        croppanel = GameObject.Find("Canvas").transform.Find("cropstart").gameObject;
+        stempSet = stem_renderer.material;        
         mainCamera = FindObjectOfType<CamaraShake>().gameObject;
         
         player_ = FindObjectOfType<PlayerControl>();
@@ -96,7 +92,11 @@ public class TomatoGrow : MonoBehaviour
 
     public void Grow()
    {
-        croppanel.SetActive(false);
+        if (FindObjectOfType<PanelActive>() != null)
+        {
+
+            Destroy(FindObjectOfType<PanelActive>().gameObject);
+        }
         mainCamera.SetActive(false);
         cropCamera.SetActive(true);
 
@@ -167,9 +167,10 @@ public class TomatoGrow : MonoBehaviour
             growstate = GrowState.Step3;
         }
 
-      
-      
-        croppanel.SetActive(true);
+
+
+
+        PanelGrowAdd();
         mainCamera.SetActive(true);
         cropCamera.SetActive(false);
 
@@ -205,7 +206,7 @@ public class TomatoGrow : MonoBehaviour
 
 
 
-
+        PanelHarvastAdd();
         mainCamera.SetActive(true);
         cropCamera.SetActive(false);
 
@@ -311,27 +312,27 @@ public class TomatoGrow : MonoBehaviour
     }
 
 
-    private void TextChangeCrop()
+    private void TextChangeCrop(PanelActive panelActive)
     {
 
         if (gameObject.name == "TomatoCrop")
         {
-            croppanel.GetComponent<PanelActive>().croppanel_text.text = "토마토를 키우시겠습니까?";
+            panelActive.GetComponent<PanelActive>().croppanel_text.text = "토마토를 키우시겠습니까?";
         }
         else if (gameObject.name == "CornCrop")
         {
-            croppanel.GetComponent<PanelActive>().croppanel_text.text = "옥수수를 키우시겠습니까?";
+            panelActive.GetComponent<PanelActive>().croppanel_text.text = "옥수수를 키우시겠습니까?";
 
         }
         else if (gameObject.name == "ChilliCrop")
         {
 
-            croppanel.GetComponent<PanelActive>().croppanel_text.text = "오이고추를 키우시겠습니까?";
+            panelActive.GetComponent<PanelActive>().croppanel_text.text = "오이고추를 키우시겠습니까?";
         }
         else if (gameObject.name == "EggplantCrop")
         {
 
-            croppanel.GetComponent<PanelActive>().croppanel_text.text = "가지를 키우시겠습니까?";
+            panelActive.GetComponent<PanelActive>().croppanel_text.text = "가지를 키우시겠습니까?";
         }
 
 
@@ -349,7 +350,7 @@ public class TomatoGrow : MonoBehaviour
             ItemSystem.Instance.ItemCreate(crop.GetComponent<Items>().ItemType());
             crop.gameObject.SetActive(false);
         }
-
+        GetComponent<SphereCollider>().enabled = false;
         StartCoroutine(StemFadeRoutin());
     }
 
@@ -359,59 +360,92 @@ public class TomatoGrow : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        var player = FindObjectOfType<PlayerControl>();
 
-
-        if (other.tag == "Player" && croppanel.activeSelf == false && growstate != GrowState.Complete
-            && player_.usingitem.GetComponent<Items>().ItemType() == "Bowl") // 물 필요
+        if (other.tag == player.transform.tag  && growstate != GrowState.Complete
+            && player.usingitem.GetComponent<Items>().ItemType() == "Bowl") // 물 필요
         {
-            int cnt = player_.usingitem.GetComponent<BowlWater>().GetWater();
-
-            croppanel.SetActive(true);
-            TextChangeCrop();
-            croppanel.transform.GetChild(1).GetComponent<Button>().onClick.RemoveAllListeners();
-            if (cnt > 0)
-            {
-                
-                croppanel.transform.GetChild(1).GetComponent<Button>().onClick.AddListener(GrowStart);
-               
-            }
-            else
-            {
-                croppanel.transform.GetChild(1).GetComponent<Button>().onClick.AddListener(NoGrow);
-            }
-
+            PanelGrowAdd();
 
         }
-        else if (other.tag == "Player" && croppanel.activeSelf == false && growstate == GrowState.Complete)
+        else if (other.tag == player.transform.tag  && growstate == GrowState.Complete)
         {
-
-           if(crops_renderer[0].gameObject.activeSelf == false)
-            {
-                return;
-            }
-
-
-
-
-            croppanel.SetActive(true);
-            croppanel.transform.GetChild(1).GetComponent<Button>().onClick.RemoveAllListeners();
-            croppanel.GetComponent<PanelActive>().croppanel_text.text = "수확할 수 있습니다. 수확할까요?";
-            croppanel.transform.GetChild(1).GetComponent<Button>().onClick.AddListener(Harvest);
-
-
+            PanelHarvastAdd();
         }
-
-
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.tag == "Player" && croppanel.activeSelf == true)
+        var player = FindObjectOfType<PlayerControl>();
+        if (other.tag == player.transform.tag)
         {
 
-            croppanel.SetActive(false);
+            if (FindObjectOfType<PanelActive>() != null)
+            {
+                Destroy(FindObjectOfType<PanelActive>().gameObject);
+            }
+
         }
     }
 
+
+    private void PanelGrowAdd()
+    {
+        DetoryPanel();
+
+
+        var croppanel = FindObjectOfType<UISystem>().CropStartUICreate();
+        int cnt = player_.usingitem.GetComponent<BowlWater>().GetWater();
+
+       
+        TextChangeCrop(croppanel.GetComponent<PanelActive>());
+
+        
+        if (cnt > 0)
+        {
+
+            croppanel.transform.GetChild(1).GetComponent<Button>().onClick.AddListener(GrowStart);
+            croppanel.transform.GetChild(1).GetComponent<Button>().onClick.AddListener(DetoryPanel);
+        }
+        else
+        {
+            croppanel.transform.GetChild(1).GetComponent<Button>().onClick.AddListener(NoGrow);
+        }
+
+
+       
+    }
+
+    private void PanelHarvastAdd()
+    {
+
+        DetoryPanel();
+
+
+        var croppanel = FindObjectOfType<UISystem>().CropStartUICreate();
+
+
+
+        if (crops_renderer[0].gameObject.activeSelf == false)
+        {
+            return;
+        }
+
+    
+        croppanel.GetComponent<PanelActive>().croppanel_text.text = "수확할 수 있습니다. 수확할까요?";
+        croppanel.transform.GetChild(1).GetComponent<Button>().onClick.AddListener(Harvest);
+        croppanel.transform.GetChild(1).GetComponent<Button>().onClick.AddListener(DetoryPanel);
+
+    }
+
+    private void DetoryPanel()
+    {
+
+        if (FindObjectOfType<PanelActive>() != null)
+        {
+            Destroy(FindObjectOfType<PanelActive>().gameObject);
+        }
+
+    }
 
 }

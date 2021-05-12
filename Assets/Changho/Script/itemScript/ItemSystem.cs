@@ -73,8 +73,43 @@ public class ItemSystem : MonoBehaviour
         ItemCreate(new Fruit(FuritType.Banana).ItemType());
         ItemCreate(new Fruit(FuritType.Banana).ItemType());
         ItemCreate(new Fruit(FuritType.Banana).ItemType());
-
-
+        ItemCreate(new Equipment(EquipmentType.Bowl).ItemType());
+        ItemCreate(new Seed(SeedType.CornSeed).ItemType());
+        ItemCreate(new Seed(SeedType.CornSeed).ItemType());
+        ItemCreate(new Seed(SeedType.CornSeed).ItemType());
+        ItemCreate(new Seed(SeedType.TomatoSeed).ItemType());
+        ItemCreate(new Seed(SeedType.TomatoSeed).ItemType());
+        ItemCreate(new Seed(SeedType.TomatoSeed).ItemType());
+        ItemCreate(new Seed(SeedType.ChilliSeed).ItemType());
+        ItemCreate(new Seed(SeedType.ChilliSeed).ItemType());
+        ItemCreate(new Seed(SeedType.ChilliSeed).ItemType());
+        ItemCreate(new Seed(SeedType.EggplantSeed).ItemType());
+        ItemCreate(new Seed(SeedType.EggplantSeed).ItemType());
+        ItemCreate(new Seed(SeedType.EggplantSeed).ItemType());
+        ItemCreate(new Part(PartType.FireWood).ItemType());
+        ItemCreate(new Part(PartType.FireWood).ItemType());
+        ItemCreate(new Part(PartType.FireWood).ItemType());
+        ItemCreate(new Part(PartType.FireWood).ItemType());
+        ItemCreate(new Part(PartType.FireWood).ItemType());
+        ItemCreate(new Part(PartType.FireWood).ItemType());
+        ItemCreate(new Part(PartType.FireWood).ItemType());
+        ItemCreate(new Part(PartType.FireWood).ItemType());
+        ItemCreate(new Part(PartType.FireWood).ItemType());
+        ItemCreate(new Part(PartType.FireWood).ItemType());
+        ItemCreate(new Part(PartType.FireWood).ItemType());
+        ItemCreate(new Part(PartType.FireWood).ItemType());
+        ItemCreate(new Part(PartType.FireWood).ItemType());
+        ItemCreate(new Part(PartType.FireWood).ItemType());
+        ItemCreate(new Part(PartType.FireWood).ItemType());
+        ItemCreate(new Part(PartType.FireWood).ItemType());
+        ItemCreate(new Part(PartType.FireWood).ItemType());
+        ItemCreate(new Part(PartType.FireWood).ItemType());
+        ItemCreate(new Part(PartType.FireWood).ItemType());
+        ItemCreate(new Part(PartType.FireWood).ItemType());
+        ItemCreate(new Part(PartType.FireWood).ItemType());
+        ItemCreate(new Part(PartType.FireWood).ItemType());
+        ItemCreate(new Part(PartType.FireWood).ItemType());
+        ItemCreate(new Part(PartType.FireWood).ItemType());
 
     }
 

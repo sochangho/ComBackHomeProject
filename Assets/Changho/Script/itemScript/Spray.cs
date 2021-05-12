@@ -38,7 +38,7 @@ public class Spray : MonoBehaviour
                     var enemy = collider.gameObject.GetComponentInParent<Enemy>();
                     enemy.LifeRoutinStop();
                     enemy.enemy_HP -= 40f;
-                    enemy.enemyBar.EnemyHP(enemy.enemy_HP);
+               
 
             }
 

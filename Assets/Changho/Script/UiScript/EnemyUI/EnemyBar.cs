@@ -3,10 +3,12 @@ using UnityEngine.UI;
 
 public class EnemyBar : MonoBehaviour
 {
-    [SerializeField]
-    private Image enemy_hpimage;
+    
+    public Image enemy_hpimage;
 
     private Camera camara;
+
+
 
     private void Start()
     {
@@ -28,15 +30,10 @@ public class EnemyBar : MonoBehaviour
         transform.LookAt(camara.transform);
         transform.Rotate(0, 180, 0);
 
-
+      
     }
 
-    public void EnemyHP(float hp)
-    {
-        enemy_hpimage.fillAmount = hp / 100;
-    }
-
-
+ 
     
   
 }

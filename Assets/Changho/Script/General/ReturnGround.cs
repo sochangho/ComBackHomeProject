@@ -11,6 +11,7 @@ public class ReturnGround : BaseScene
     {
         var itemsystem = ItemSystem.Instance;
         var daysystem = DaySystem.Instance;
+        var tutorialsystem = TutorialSystem.Instance;
 
         if(itemsystem.trashAddPopup == true)
         {
@@ -27,6 +28,9 @@ public class ReturnGround : BaseScene
             
         }
 
+        var ar =  Instantiate(Resources.Load<GameObject>("Ganeral/ArrowObj"));
+        tutorialsystem.arrow = ar.GetComponent<Arrow>();
+        
     }
 
    

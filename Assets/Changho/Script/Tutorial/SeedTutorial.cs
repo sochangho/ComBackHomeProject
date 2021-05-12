@@ -1,4 +1,4 @@
-﻿
+﻿using UnityEngine;
 public class SeedTutorial : Tutorials
 {
   public  int cliiseed = 0;
@@ -7,7 +7,17 @@ public class SeedTutorial : Tutorials
   public  int eggplantseed = 0;
 
 
+    public SeedTutorial()
+    {
+        name = "폐가에서 씨앗줍기";
+        suscript = "HP가 많이 떨어져있습니다. " +
+            "농작물을 키워서 농작물을 먹어서 HP를 회복해야합니다. " +
+            "폐가로 가서 씨앗을 주우세요." +
+            "몬스터가 나올 때 스프레이와 횃불을 만들어서 퇴치하세요. " + "\r\n" +
+            "조건 - 오이고추 씨앗 3개 옥수수 씨앗 3개  토마토 씨앗 3개 가지 씨앗 3개";
 
+
+    }
     public override void TutorialSet()
     {
         base.TutorialSet();
@@ -16,8 +26,12 @@ public class SeedTutorial : Tutorials
         suscript = "HP가 많이 떨어져있습니다. " +
             "농작물을 키워서 농작물을 먹어서 HP를 회복해야합니다. " +
             "폐가로 가서 씨앗을 주우세요." +
-            "몬스터가 나올 때 스프레이와 횃불을 만들어서 퇴치하세요";
-        
+            "몬스터가 나올 때 스프레이와 횃불을 만들어서 퇴치하세요. " + "\r\n" +
+            "조건 - 오이고추 씨앗 3개 옥수수 씨앗 3개  토마토 씨앗 3개 가지 씨앗 3개";
+
+        PlayerPrefs.SetString("name", name);
+        PlayerPrefs.SetString("subs", suscript);
+
     }
 
 

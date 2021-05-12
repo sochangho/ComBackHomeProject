@@ -6,9 +6,21 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Changho/Scenes/StartScene.unity
+    guid: 6cb344ef82224cb41891afeff10b260f
+  - enabled: 1
+    path: Assets/Changho/Scenes/startGo.unity
+    guid: 10b2fe5710f8d3e48bd8a05d49b7bafe
+  - enabled: 1
+    path: Assets/Changho/Scenes/startGo1.unity
+    guid: ee8a4936363dfc444ad8efb3cfaa52da
+  - enabled: 1
     path: Assets/Changho/Scenes/GroundScene.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
   - enabled: 1
     path: Assets/Changho/Scenes/TrashScene.unity
     guid: 174d70f5b3840614b9ae03bf30cd642e
+  - enabled: 1
+    path: Assets/Changho/Scenes/endGo.unity
+    guid: 742be5b73c3f9ba4d8a290829e80392e
   m_configObjects: {}

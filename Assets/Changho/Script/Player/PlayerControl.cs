@@ -31,6 +31,10 @@ public class PlayerControl : MonoBehaviour
     [SerializeField]
     private LayerMask layerToMask;
 
+    [SerializeField]
+    private LayerMask onlyTerrain;
+
+
     [HideInInspector]
     public Vector3 target;
 
@@ -70,7 +74,7 @@ public class PlayerControl : MonoBehaviour
 
     public float player_hp = 20f;
 
-    public float player_hungry = 100f;
+    public float player_hungry = 10f;
 
     public float hp_decrease = 10f;
 
@@ -120,8 +124,11 @@ public class PlayerControl : MonoBehaviour
 
        hpDecrease_coroutin = StartCoroutine(HungryDecease());      
        player_equ = new Equipment(EquipmentType.Ston);
-
         player_anim = FindObjectOfType<PlayerAnimaterMgr>();
+
+
+        StartCoroutine(DustCreate());
+
     }
 
 
@@ -140,9 +147,7 @@ public class PlayerControl : MonoBehaviour
             if (Physics.Raycast(player_camera.ScreenPointToRay(Input.mousePosition), out hit, 50f ,layerToMask))   
             {
 
-
-               
-
+             
                 if (hit.collider.GetComponent<Items>() != null) // 마우스로 클릭한 것이 아이템 일 경우
                 {
 
@@ -152,14 +157,14 @@ public class PlayerControl : MonoBehaviour
                         if (hit.collider.CompareTag("Bornfire"))
                         {
 
-                            StartRun(hit.point);
+                            StartRun(DontMoveUpItem(hit.point));
 
                         }
                         else
                         {
 
 
-                            StartRun(hit.point);
+                            StartRun(DontMoveUpItem(hit.point));
                             player_anim.playerMotion = PlayerMotionState.Lifting;
                             clickitemobj = hit.collider.gameObject;
                             
@@ -208,7 +213,7 @@ public class PlayerControl : MonoBehaviour
             }
         }
       
- 
+        
 
 
         if (Input.GetKeyDown(KeyCode.I))
@@ -236,6 +241,20 @@ public class PlayerControl : MonoBehaviour
                 button.QuestButton();
             }
         }
+
+        if (Input.GetKey(KeyCode.S))
+        {
+            player_anim.RunAnimation(true);
+            
+            player_speed = 10f;
+        }
+        else 
+        {
+            player_anim.RunAnimation(false);
+            player_speed = 5f;
+        }
+
+
 
         if (player_hp <= 0f)
         {
@@ -292,7 +311,7 @@ public class PlayerControl : MonoBehaviour
 
         if(FindObjectOfType<PlayerAnimaterMgr>().playerMotion == PlayerMotionState.Lifting)
         {
-            if(distance < targetToplayer && !clickitem_bool)
+            if(distance < 0.1f && !clickitem_bool)
             {                
                 StartCoroutine(LiftingAnimationRoutin());
                 clickitem_bool = true;
@@ -308,6 +327,9 @@ public class PlayerControl : MonoBehaviour
         
 
     }
+
+
+
 
     // 플레이어 회전
     private void PlayerTurn()
@@ -408,9 +430,9 @@ public class PlayerControl : MonoBehaviour
     {
         float time = 0;
         bool lifingbool = false;
-
+        this.enabled = false;
         player_anim.LiftingAnimation(true);
-        while (time < 1.8f)
+        while (time < 1.7f)
         {
             time += Time.deltaTime;
 
@@ -436,6 +458,7 @@ public class PlayerControl : MonoBehaviour
         }
 
         player_anim.LiftingAnimation(false);
+        this.enabled = true;
         clickitem_bool = false;
 
     }
@@ -579,6 +602,84 @@ public class PlayerControl : MonoBehaviour
 
 
     }
+
+
+    private void OnCollisionStay(Collision collision)
+    {
+        if(collision.collider.tag == "Item")
+        {
+            return;
+        }
+
+    }
+
+
+    private Vector3 DontMoveUpItem(Vector3 p)
+    {
+        RaycastHit raycastHit;
+
+        Vector3  go = p ;
+        
+        if(Physics.Raycast(p,Vector3.down,out raycastHit ,10f,onlyTerrain))
+        {
+
+            go = new Vector3(go.x, raycastHit.point.y, go.z);
+
+        }
+
+
+
+        return go;
+
+    }
+
+    IEnumerator DustCreate()
+    {
+        WaitForSeconds waitForSeconds = new WaitForSeconds(0.1f);
+
+        
+
+        while (true)
+        {
+            if(player_anim.RunState() == true)
+            {
+
+                var dust = ObjectPoolMgr.Instance.DustParticlePool();
+                dust.transform.position = transform.position;
+                StartCoroutine(DustRoutin(dust));
+
+            }
+
+
+            yield return waitForSeconds;
+        }
+
+
+
+    }
+
+
+    IEnumerator DustRoutin(GameObject dust)
+    {
+        float time = 0;
+
+
+        while(time < 0.5f)
+        {
+
+            time += Time.deltaTime;
+
+
+            yield return null;
+
+        }
+
+
+        ObjectPoolMgr.Instance.DustParticleReturn(dust);
+
+    }
+
+
 
 
 
