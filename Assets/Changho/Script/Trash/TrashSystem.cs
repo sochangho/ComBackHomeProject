@@ -87,28 +87,28 @@ public class TrashSystem : MonoBehaviour
         {
             var trash_type = trash.GetComponent<Items>();
 
-            if(trash_type.ItemType() == "Nail")
+            if(trash_type.ItemType() == new Part(PartType.Nail).ItemType())
             {
                 nail_cnt++;
 
                 nailTex.text = nail_cnt.ToString();
                 nailTex.transform.GetComponentInParent<Animator>().SetTrigger("textTrigger");
             }
-            if (trash_type.ItemType() == "Rope")
+            if (trash_type.ItemType() == new Part(PartType.Rope).ItemType())
             {
                 rope_cnt++;
 
                 ropeTex.text = rope_cnt.ToString();
                 ropeTex.transform.GetComponentInParent<Animator>().SetTrigger("textTrigger");
             }
-            if (trash_type.ItemType() == "Bowl")
+            if (trash_type.ItemType() == new Equipment(EquipmentType.Bowl).ItemType())
             {
                 watercan_cnt++;
 
                 warterTex.text = watercan_cnt.ToString();
                 warterTex.transform.GetComponentInParent<Animator>().SetTrigger("textTrigger");
             }
-            if (trash_type.ItemType() == "Fkiller")
+            if (trash_type.ItemType() == new Equipment(EquipmentType.Fkiller).ItemType())
             {
                 fkiller_cnt++;
                 fkillerTex.text = fkiller_cnt.ToString();
@@ -194,22 +194,22 @@ public class TrashSystem : MonoBehaviour
 
         if (nail_cnt > 0) 
         {
-            itemsystem.trashs.Add("Nail", nail_cnt);
+            itemsystem.trashs.Add(new Part(PartType.Nail).ItemType(), nail_cnt);
           
         
         }
         if(fkiller_cnt > 0)
         {
-            itemsystem.trashs.Add("FKiller", fkiller_cnt);
+            itemsystem.trashs.Add(new Equipment(EquipmentType.Fkiller).ItemType(), fkiller_cnt);
         }
         if (rope_cnt > 0)
         {
-            itemsystem.trashs.Add("Rope", rope_cnt);
+            itemsystem.trashs.Add(new Part(PartType.Rope).ItemType(), rope_cnt);
 
         }
         if(watercan_cnt > 0)
         {
-            itemsystem.trashs.Add("Bowl", watercan_cnt);
+            itemsystem.trashs.Add(new Equipment(EquipmentType.Bowl).ItemType(), watercan_cnt);
         }
         if(randombox_cnt > 0)
         {

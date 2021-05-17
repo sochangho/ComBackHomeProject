@@ -118,7 +118,7 @@ public class Equipment : Items
         }
         else if (equipment_type == EquipmentType.Fkiller)
         {
-            itemname = "에프킬러";
+            itemname = "스프레이";
             subscript = "주변에 벌래 떼를 퇴치할 수 있다.";
         }
 
@@ -158,7 +158,7 @@ public class Equipment : Items
 
             if (Physics.Raycast(p.transform.position, Vector3.down, out raycastHit, 10f))
             {
-                Vector3 tarrein_uppoint = new Vector3(raycastHit.point.x, raycastHit.point.y + 1.5f, raycastHit.point.z);
+                Vector3 tarrein_uppoint = new Vector3(raycastHit.point.x, raycastHit.point.y + 1.3f, raycastHit.point.z);
 
                 var bonfire = Instantiate(Resources.Load<GameObject>("Ganeral/Eqi/Bornfire") as GameObject, tarrein_uppoint, Quaternion.identity);
                 bonfire.transform.parent = FindObjectOfType<Terrain>().transform;

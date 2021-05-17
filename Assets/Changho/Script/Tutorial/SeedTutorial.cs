@@ -1,11 +1,9 @@
 ﻿using UnityEngine;
 public class SeedTutorial : Tutorials
 {
-  public  int cliiseed = 0;
-  public  int cornseed = 0;
-  public  int tomatoseed = 0;
-  public  int eggplantseed = 0;
 
+
+    public int seed = 0;
 
     public SeedTutorial()
     {
@@ -14,7 +12,7 @@ public class SeedTutorial : Tutorials
             "농작물을 키워서 농작물을 먹어서 HP를 회복해야합니다. " +
             "폐가로 가서 씨앗을 주우세요." +
             "몬스터가 나올 때 스프레이와 횃불을 만들어서 퇴치하세요. " + "\r\n" +
-            "조건 - 오이고추 씨앗 3개 옥수수 씨앗 3개  토마토 씨앗 3개 가지 씨앗 3개";
+            "조건 - 씨앗 2개";
 
 
     }
@@ -27,7 +25,7 @@ public class SeedTutorial : Tutorials
             "농작물을 키워서 농작물을 먹어서 HP를 회복해야합니다. " +
             "폐가로 가서 씨앗을 주우세요." +
             "몬스터가 나올 때 스프레이와 횃불을 만들어서 퇴치하세요. " + "\r\n" +
-            "조건 - 오이고추 씨앗 3개 옥수수 씨앗 3개  토마토 씨앗 3개 가지 씨앗 3개";
+            "조건 - 씨앗 2개";
 
         PlayerPrefs.SetString("name", name);
         PlayerPrefs.SetString("subs", suscript);
@@ -39,49 +37,24 @@ public class SeedTutorial : Tutorials
     {
         base.CompleteConditon();
 
-        var chill_str = new Seed(SeedType.ChilliSeed).ItemType();
-        var corn_str = new Seed(SeedType.ChilliSeed).ItemType();
-        var tomato_str = new Seed(SeedType.TomatoSeed).ItemType();
-        var eggplant_str = new Seed(SeedType.EggplantSeed).ItemType();
 
-        int cil_cnt = 0;
-        int corn_cnt = 0;
-        int tomato_cnt = 0;
-        int egg_cnt = 0;
+        int seed_cnt = 0;
 
         foreach (var item in ItemSystem.Instance.items)
         {
-            if(item.GetComponent<Items>().ItemType() == chill_str)
+           
+            if(item.GetComponent<Seed>() != null)
             {
-
-                cil_cnt++;
+                seed_cnt++;
             }
 
-            if (item.GetComponent<Items>().ItemType() == corn_str)
-            {
-
-                corn_cnt++;
-            }
-            if (item.GetComponent<Items>().ItemType() == tomato_str)
-            {
-
-                tomato_cnt++;
-            }
-            if (item.GetComponent<Items>().ItemType() == eggplant_str)
-            {
-
-                egg_cnt++;
-            }
 
         }
 
 
-        cliiseed = cil_cnt;
-        cornseed = corn_cnt;
-        tomatoseed = tomato_cnt;
-        eggplantseed = egg_cnt;
+        seed = seed_cnt;
 
-        if(cliiseed >= 3 && cornseed >= 3 && tomatoseed >= 3 && eggplantseed >= 3)
+        if(seed >= 2)
         {
 
             tutorialState = TutorialState.Complete;
@@ -92,7 +65,7 @@ public class SeedTutorial : Tutorials
 
     public override string SetCondition()
     {
-        return "목표 -  오이고추씨앗 : " + cliiseed.ToString() + "/옥수수씨앗 : " + cornseed.ToString() + "/토마토씨앗 : " + tomatoseed.ToString() + "/가지 씨앗 : " + eggplantseed;  
+        return "씨앗 : " + seed.ToString();  
     }
 
 

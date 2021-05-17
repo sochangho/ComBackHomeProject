@@ -190,6 +190,8 @@ MonoBehaviour:
   crop_temp: 0.05
   paticle: {fileID: 7401968591956283591, guid: 602956787e730e640ab403889e44d039, type: 3}
   cropCamera: {fileID: 4750182891619966418}
+  cutoff: 0.65
+  stem_middleValue: 0.5
   waterTrigger: 0
   grow_speed: 1.4
 --- !u!135 &3290856453858709689

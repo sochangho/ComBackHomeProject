@@ -179,6 +179,18 @@ PrefabInstance:
       propertyPath: cropCamera
       value: 
       objectReference: {fileID: 7353735875779023176}
+    - target: {fileID: 1125569788, guid: d536c47ec71ba514b9eebd8af05f17b5, type: 3}
+      propertyPath: cutoff
+      value: 0.67
+      objectReference: {fileID: 0}
+    - target: {fileID: 1125569788, guid: d536c47ec71ba514b9eebd8af05f17b5, type: 3}
+      propertyPath: grow_speed
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1125569788, guid: d536c47ec71ba514b9eebd8af05f17b5, type: 3}
+      propertyPath: stem_middleValue
+      value: 0.7
+      objectReference: {fileID: 0}
     - target: {fileID: 4131043791100283834, guid: d536c47ec71ba514b9eebd8af05f17b5, type: 3}
       propertyPath: m_Name
       value: TomatoCrop

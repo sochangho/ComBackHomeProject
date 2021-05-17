@@ -37,7 +37,7 @@ public class EquUI : MonoBehaviour
         }
         if(eqtype == EquipmentType.Bowl)
         {
-            equ_Image.GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprite/WaterCan") as Sprite;
+            equ_Image.GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprite/Bowl") as Sprite;
         }
         if(eqtype == EquipmentType.Fishing)
         {

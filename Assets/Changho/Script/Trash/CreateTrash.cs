@@ -68,7 +68,7 @@ public class CreateTrash : MonoBehaviour
 
     IEnumerator Create()
     {
-        WaitForSeconds wait = new WaitForSeconds(4f);
+        WaitForSeconds wait = new WaitForSeconds(1f);
 
 
         while(true)

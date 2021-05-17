@@ -50,6 +50,14 @@ public class TomatoGrow : MonoBehaviour
 
     private GrowState growstate;
 
+    [SerializeField]
+    private float cutoff;
+
+    [SerializeField]
+    private float stem_middleValue;
+
+
+    private Canvas[] canvas;
 
     public GrowState Growstate
     {
@@ -74,6 +82,7 @@ public class TomatoGrow : MonoBehaviour
         {
 
             crop.material.SetTexture("_MainTex", crop_tex);
+            crop.material.SetFloat("_CutOff", cutoff);
         }
 
 
@@ -100,6 +109,19 @@ public class TomatoGrow : MonoBehaviour
         mainCamera.SetActive(false);
         cropCamera.SetActive(true);
 
+        if(canvas == null)
+        {
+            canvas = FindObjectsOfType<Canvas>();
+
+                       
+        }
+
+        foreach(var cv in canvas)
+        {
+            cv.gameObject.SetActive(false);
+        }
+
+
 
         
 
@@ -112,7 +134,7 @@ public class TomatoGrow : MonoBehaviour
         if (growstate == GrowState.Step1)
         {
 
-           StartCoroutine(StemStep(0.7f));
+           StartCoroutine(StemStep(stem_middleValue));
 
         }
         else if (growstate == GrowState.Step2)
@@ -158,7 +180,7 @@ public class TomatoGrow : MonoBehaviour
         }
 
         
-        if (stempSet.GetFloat("_StemGrow") == 0.7f)
+        if (stempSet.GetFloat("_StemGrow") == stem_middleValue)
         {
             growstate = GrowState.Step2;
         }
@@ -173,6 +195,11 @@ public class TomatoGrow : MonoBehaviour
         PanelGrowAdd();
         mainCamera.SetActive(true);
         cropCamera.SetActive(false);
+
+        foreach(var cv in canvas)
+        {
+            cv.gameObject.SetActive(true);
+        }
 
     }
 
@@ -209,6 +236,12 @@ public class TomatoGrow : MonoBehaviour
         PanelHarvastAdd();
         mainCamera.SetActive(true);
         cropCamera.SetActive(false);
+
+
+        foreach (var cv in canvas)
+        {
+            cv.gameObject.SetActive(true);
+        }
 
     }
 

@@ -29,6 +29,7 @@ public class DaySystem : MonoBehaviour
 
     public bool day_trigger = false;
 
+
     private DayType dayType;
 
 
@@ -218,40 +219,63 @@ public class DaySystem : MonoBehaviour
 
     private void EnemyNight()
     {
-        var enemy = ObjectPoolMgr.Instance.objpool[2].gameObject;
-        int enemy_cnt = 0;
-
-        for (int i = 0; i < enemy.transform.childCount; i++)
+        if (day_enemytrigger == false)
         {
-            if (enemy.transform.GetChild(i).gameObject.activeSelf == true)
+
+            day_enemytrigger = true;
+            var enemy = ObjectPoolMgr.Instance.objpool[2].gameObject;
+            //int enemy_cnt = 0;
+
+            //for (int i = 0; i < enemy.transform.childCount; i++)
+            //{
+            //    if (enemy.transform.GetChild(i).gameObject.activeSelf == true)
+            //    {
+            //        enemy_cnt++;
+            //    }
+
+            //}
+
+            //if (enemy_cnt < 10)
+            //{
+            //    int random = Random.Range(0, enemy_transformSpawns.Count - 1);
+            //    var enemyobj = ObjectPoolMgr.Instance.EnemyPool();
+
+
+
+            //    enemyobj.transform.position = enemy_transformSpawns[random].position;
+
+            //    enemyobj.GetComponent<NavMeshAgent>().enabled = true;
+
+
+            //}
+
+
+            for(int i =0; i < 10; i++)
             {
-                enemy_cnt++;
+                int random = Random.Range(0, enemy_transformSpawns.Count - 1);
+                var enemyobj = ObjectPoolMgr.Instance.EnemyPool();
+
+
+
+                enemyobj.transform.position = enemy_transformSpawns[random].position;
+
+                enemyobj.GetComponent<NavMeshAgent>().enabled = true;
+
+
+
             }
 
-        }
-
-        if (enemy_cnt < 10)
-        {
-            int random = Random.Range(0, enemy_transformSpawns.Count - 1);
-            var enemyobj = ObjectPoolMgr.Instance.EnemyPool();
-
-            
-           
-            enemyobj.transform.position = enemy_transformSpawns[random].position;
-
-            enemyobj.GetComponent<NavMeshAgent>().enabled = true;            
 
 
         }
-
 
     }
 
     private void EnemyMorning()
     {
-        if (day_enemytrigger == false)
+        if (day_enemytrigger == true)
         {
-            day_enemytrigger = true;
+            day_enemytrigger = false;
             var enemy = ObjectPoolMgr.Instance.objpool[2].gameObject;
 
 
@@ -391,11 +415,6 @@ public class DaySystem : MonoBehaviour
             }
             else if (dayType == DayType.Night)
             {
-                if (day_enemytrigger)
-                {
-
-                    day_enemytrigger = false;
-                }
 
                // daytime -= Time.deltaTime;
                // SeaNightPanel();
@@ -415,7 +434,7 @@ public class DaySystem : MonoBehaviour
 
                 daylight.intensity -= 0.05f;
 
-                if (daylight.intensity <= 1)
+                if (daylight.intensity <= 1.2)
                 {
 
                     dayType = DayType.Night;

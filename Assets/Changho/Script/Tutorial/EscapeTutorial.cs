@@ -98,7 +98,7 @@ public class EscapeTutorial : Tutorials
 
     public override string SetCondition()
     {
-        return  "목표 -  밧줄: " + rope.ToString() + "/천 : " + cloth.ToString() + "/장작 : " + wood.ToString() +"/못 : " + nail; 
+        return  "밧줄: " + rope.ToString() + "/천 : " + cloth.ToString() + "/장작 : " + wood.ToString() +"/못 : " + nail; 
 
 
 

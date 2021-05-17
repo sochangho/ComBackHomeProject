@@ -135,7 +135,7 @@ public class Slice : MonoBehaviour
         slicer_center = slicer_center / orin_vertics.Length;
 
 
-
+        
 
 
         Vector3 plane_normal = new Vector3(0,0,0);
@@ -149,7 +149,12 @@ public class Slice : MonoBehaviour
         {
             if (idx == 0)
             {
-                plane_normal = slicer_center - contact;
+
+                int ran = Random.Range(0, orin_vertics.Length);
+
+              plane_normal = Vector3.Cross(Vector3.up, orin_vertics[ran] - slicer_center).normalized;
+
+             // plane_normal = slicer_center - contact;
             }
             else
             {
@@ -178,8 +183,8 @@ public class Slice : MonoBehaviour
         else
         {
             var player = FindObjectOfType<PlayerControl>();
-            plane_normal = new Vector3(0, 0, 1);
-            random_plane = new Plane(plane_normal.normalized, contact);
+            plane_normal = new Vector3(0,0,1);
+            random_plane = new Plane(plane_normal, contact);
         }
 
 

@@ -10,7 +10,7 @@ public class GrowTutorial : Tutorials
     {
 
         name = "농작물 키우기";
-        suscript = "HP를 키우기 위해서 농작물을 키우고 수확을 하세요" + "\r\n"
+        suscript = "HP를 채우기 위해서 농작물을 키우세요" + "\r\n"
             + "조건 - 농작물 2개";
 
     }
@@ -54,7 +54,7 @@ public class GrowTutorial : Tutorials
         base.TutorialSet();
         tutorialState = TutorialState.Go;
         name = "농작물 키우기";
-        suscript = "HP를 키우기 위해서 농작물을 키우고 수확을 하세요" + "\r\n" 
+        suscript = "HP를 채우기 위해서 농작물을 키우세요" + "\r\n" 
             + "조건 - 농작물 2개";
         PlayerPrefs.SetString("name", name);
         PlayerPrefs.SetString("subs", suscript);
@@ -62,7 +62,7 @@ public class GrowTutorial : Tutorials
 
     public override string SetCondition()
     {
-        return "목표 - 농작물 : " + crop.ToString();
+        return "농작물 : " + crop.ToString();
     }
 
 

@@ -67,7 +67,7 @@ public class Cinemushin2 : MonoBehaviour
     IEnumerator PlayerMpveRoutin()
     {
         Vector3 end = PointDownTerrain(endPoint);
-        player_animator.SetBool("Walk", true);
+        player_animator.SetBool("Run", true);
         while (Vector3.Distance(player.transform.position,end) > 0.2f)
         {
 

@@ -15,8 +15,9 @@ public class Inventory : Popup
 
     public GameObject item_panel;
 
- 
- 
+    public ItemCreateInfo itemcreatepanel;
+
+    public GameObject[] button_objs;
 
     private void Start()
     {
@@ -175,7 +176,48 @@ public class Inventory : Popup
     }
 
 
+    public void  TorchLightInfo()
+    {
+        if (itemcreatepanel.gameObject.activeSelf == false)
+        {
 
+            itemcreatepanel.gameObject.SetActive(true);
+            itemcreatepanel.transform.position = button_objs[1].transform.position;
+            itemcreatepanel.tmp.text = "\r\n" + " 천 : 1개" + "\r\n" + " 나뭇가지 : 1개" + "\r\n" + " 기름 : 1개";
+        }
+    }
+
+    public void BonfireInfo()
+    {
+
+        if (itemcreatepanel.gameObject.activeSelf == false)
+        {
+
+
+            itemcreatepanel.gameObject.SetActive(true);
+            itemcreatepanel.transform.position = button_objs[0].transform.position;
+            itemcreatepanel.tmp.text = "\r\n" + " 나무 : 5개" + "\r\n" + "  부싯돌 : 1개";
+        }
+        
+    }
+
+    public void LaftInfor()
+    {
+        if (itemcreatepanel.gameObject.activeSelf == false)
+        {
+
+            itemcreatepanel.gameObject.SetActive(true);
+            itemcreatepanel.transform.position = button_objs[2].transform.position;
+            itemcreatepanel.tmp.text = "\r\n" + " 나무 : 3개"; ;
+        }
+    }
+
+    public void PanelRemove()
+    {
+        itemcreatepanel.gameObject.SetActive(false);
+
+
+    }
 
 
 }

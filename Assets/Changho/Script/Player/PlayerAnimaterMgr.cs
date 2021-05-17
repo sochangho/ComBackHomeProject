@@ -153,7 +153,7 @@ public class PlayerAnimaterMgr : MonoBehaviour
 
     public bool RunState()
     {
-        return player_animator.GetBool("Run");
+        return (player_animator.GetBool("Run") && player_animator.GetBool("Walk"));
     }
 
 

@@ -83,8 +83,9 @@ public class TutorialSystem : MonoBehaviour
     {
 
         TutorialsAdd();
+        StartCoroutine(HpDre());
+        StartCoroutine(HungryDre());
 
-      
         Invoke("TutorialStart", 2f);
         
     }
@@ -109,10 +110,7 @@ public class TutorialSystem : MonoBehaviour
         if(tutorial_index == 0)
         {
             StartCoroutine(TreeCameraPosition());
-            FindObjectOfType<PlayerControl>().player_hp = 50f;
-            FindObjectOfType<PlayerControl>().player_hungry = 10f;
-
-
+         
         }
         else if (tutorial_index == 1)
         {
@@ -192,6 +190,8 @@ public class TutorialSystem : MonoBehaviour
         ArrowCh(treeLook);
         tutorials[0].TutorialSet();
         StartCoroutine(UiRoutin(tutorials[0].suscript));
+
+       
 
         Invoke("DelayReturn", 4f);
 
@@ -329,14 +329,16 @@ public class TutorialSystem : MonoBehaviour
 
     IEnumerator HpDre()
     {
-        WaitForSeconds waitForSeconds = new WaitForSeconds(0.4f);
+        WaitForSeconds waitForSeconds = new WaitForSeconds(0.05f);
 
         var hp = FindObjectOfType<PlayerControl>().player_hp;
 
-        while (hp > 50f)
+        
+
+        while (FindObjectOfType<PlayerControl>().player_hp > 50f)
         {
 
-            hp -= 2f;
+            FindObjectOfType<PlayerControl>().player_hp -= 2f;
 
 
             yield return waitForSeconds;
@@ -348,14 +350,15 @@ public class TutorialSystem : MonoBehaviour
 
     IEnumerator HungryDre()
     {
-        WaitForSeconds waitForSeconds = new WaitForSeconds(0.4f);
+        WaitForSeconds waitForSeconds = new WaitForSeconds(0.05f);
 
-        var hg = FindObjectOfType<PlayerControl>().player_hungry;
+       
+       
 
-        while (hg > 10f)
+        while (FindObjectOfType<PlayerControl>().player_hungry > 10f)
         {
 
-            hg -= 2f;
+            FindObjectOfType<PlayerControl>().player_hungry -= 2f;
 
 
             yield return waitForSeconds;
@@ -377,6 +380,9 @@ public class TutorialSystem : MonoBehaviour
 
         StartCoroutine(NextTutorialDelay());
     }
+
+
+
 
 
 }

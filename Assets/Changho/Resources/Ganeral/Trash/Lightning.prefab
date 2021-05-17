@@ -59,8 +59,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c76629accd5b68649ac3c807ef219d87, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  max: 100
-  min: 70
+  max: 120
+  min: 80
 --- !u!54 &-6812944994064347874
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -107,6 +107,18 @@ PrefabInstance:
     - target: {fileID: 2768813460990620975, guid: 5f8bb1bb6c7eba94d8e9cffbce8aea2e, type: 3}
       propertyPath: CollisionModule.enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2768813460990620975, guid: 5f8bb1bb6c7eba94d8e9cffbce8aea2e, type: 3}
+      propertyPath: UVModule.enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2768813460990620975, guid: 5f8bb1bb6c7eba94d8e9cffbce8aea2e, type: 3}
+      propertyPath: UVModule.cycles
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2768813460990620975, guid: 5f8bb1bb6c7eba94d8e9cffbce8aea2e, type: 3}
+      propertyPath: UVModule.tilesX
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8211205058667384425, guid: 5f8bb1bb6c7eba94d8e9cffbce8aea2e, type: 3}
       propertyPath: m_LocalPosition.x

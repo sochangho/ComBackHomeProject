@@ -39,7 +39,7 @@ public class Quest : Popup
 
         SetQuest();
 
-        ShipPercent();
+       // ShipPercent();
 
     }
     public void OnCloseButtonPress()
@@ -150,9 +150,8 @@ public class Quest : Popup
             var current = escape.rope + escape.cloth + escape.nail + escape.wood;
             var total = escape.totalrope + escape.totalcloth + escape.totalnail + escape.totalwood;
 
-            percent_image.fillAmount = current / total;
-            percent_font.text = ((current / total) * 100).ToString() + "%";
-
+            percent_image.fillAmount = ((float)current / (float)total);
+            percent_font.text = (((float)current / (float)total) * 100).ToString("N1") + "%";
 
         }
         else

@@ -8,7 +8,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] 
     private float sightLevel = 0.4f;
     [SerializeField] 
-    private float sightLength = 10f;
+    private float sightLength = 20f;
     [SerializeField]
     private float attackrange = 1f;
     [SerializeField]

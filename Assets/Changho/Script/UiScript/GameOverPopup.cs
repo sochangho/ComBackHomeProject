@@ -33,7 +33,7 @@ public class GameOverPopup :Popup
 
     public void GameEndButton()
     {
-
+        Application.Quit();
 
 
     }

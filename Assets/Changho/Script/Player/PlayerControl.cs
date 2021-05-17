@@ -174,7 +174,7 @@ public class PlayerControl : MonoBehaviour
 
                 }
                 else if (hit.collider.gameObject.layer == 13 && hit.collider.gameObject.layer != 4 && hit.collider.gameObject.layer != 17 && 
-                    hit.collider.gameObject.tag != "Tree" && UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject() == false)
+                   UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject() == false)
                 {
                     StartRun(hit.point);                  
                 }
@@ -245,8 +245,11 @@ public class PlayerControl : MonoBehaviour
         if (Input.GetKey(KeyCode.S))
         {
             player_anim.RunAnimation(true);
-            
-            player_speed = 10f;
+
+            if (player_anim.RunState())
+            {
+                player_speed = 10f;
+            }
         }
         else 
         {

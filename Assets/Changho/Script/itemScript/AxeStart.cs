@@ -9,8 +9,9 @@ public class AxeStart : MonoBehaviour
     public bool use_go_trigger = true;
     private bool use_trigger = false;
     private bool treeuistart_trigger = false;
-    
 
+    [HideInInspector]
+    public Vector3 axe_normal;
 
     public void AxeWield()
     {
@@ -150,6 +151,7 @@ public class AxeStart : MonoBehaviour
             if((time > 0.3f) && axe_trigger == false)
             {
                 PlayerRadiusTreeCheck();
+                axe_normal = transform.right;
                 axe_trigger = true;
             }
 

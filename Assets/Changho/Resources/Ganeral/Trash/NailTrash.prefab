@@ -61,8 +61,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c76629accd5b68649ac3c807ef219d87, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  max: 15
-  min: 20
+  max: 100
+  min: 80
 --- !u!65 &33220194398812539
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -76,19 +76,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.9925312, y: 0.9925314, z: 2.3268406}
   m_Center: {x: 0, y: 0, z: 1.1634203}
---- !u!114 &7164478724456411462
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8904759488191200092}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c9450659a6ccc5d43abafe7ec5cc917a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  part_type: 0
 --- !u!95 &5467955333605641297
 Animator:
   serializedVersion: 3
@@ -108,6 +95,19 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &7164478724456411462
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8904759488191200092}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9450659a6ccc5d43abafe7ec5cc917a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  part_type: 0
 --- !u!1001 &3124074647123114781
 PrefabInstance:
   m_ObjectHideFlags: 0
