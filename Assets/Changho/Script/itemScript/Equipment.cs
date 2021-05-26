@@ -221,7 +221,7 @@ public class Equipment : Items
         }
 
 
-        Debug.Log("아이템 총개수" + ItemSystem.Instance.items.Count);
+       
     }
 
 

@@ -18,7 +18,7 @@ public class Items : MonoBehaviour
     virtual public void ItemUse()
     {
 
-        Debug.Log("item사용");
+        
     }
 
 

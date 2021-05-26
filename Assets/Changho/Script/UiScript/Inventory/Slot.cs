@@ -28,7 +28,7 @@ public class Slot:MonoBehaviour
     {
 
         item = additem;
-        Debug.Log(item);
+
         slot_image.sprite = Resources.Load<Sprite>("Sprite/"+item.ItemType()) as Sprite;
         item_cnt++;
         itemcntText.text = item_cnt.ToString();

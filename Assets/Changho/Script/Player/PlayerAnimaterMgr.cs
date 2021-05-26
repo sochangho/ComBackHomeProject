@@ -94,6 +94,7 @@ public class PlayerAnimaterMgr : MonoBehaviour
         if (player_animator.GetBool("Wield") != state)
         {
             player_animator.SetBool("Wield", state);
+           
         }
 
     }

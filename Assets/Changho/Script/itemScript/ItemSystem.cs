@@ -126,7 +126,7 @@ public class ItemSystem : MonoBehaviour
         ItemCreate(new Part(PartType.Cloth).ItemType());
         ItemCreate(new Part(PartType.Rope).ItemType());
         ItemCreate(new Part(PartType.Rope).ItemType());
-
+        ItemCreate(new Equipment(EquipmentType.TorchLight).ItemType());
 
     }
 

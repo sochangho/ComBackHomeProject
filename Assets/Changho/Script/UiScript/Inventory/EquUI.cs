@@ -28,7 +28,7 @@ public class EquUI : MonoBehaviour
 
     public void ImageChange(EquipmentType eqtype)
     {
-        Debug.Log(eqtype.ToString());
+      
         var ei = equ_Image.GetComponent<Image>().sprite;
 
         if(eqtype == EquipmentType.Axe)

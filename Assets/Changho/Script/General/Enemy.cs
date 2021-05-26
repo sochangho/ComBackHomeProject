@@ -74,6 +74,8 @@ public class Enemy : MonoBehaviour
         _agent = GetComponent<NavMeshAgent>();
         _player = FindObjectOfType<PlayerControl>();
         
+     
+
 
     }
 
@@ -82,7 +84,12 @@ public class Enemy : MonoBehaviour
         if(enemy_HP != 100)
         {
             enemy_HP = 100;
-        } 
+        }
+
+        if (enemydie_trigger == true)
+        {
+            enemydie_trigger = false;
+        }
 
         LifeRoutinStart();
         FlyColorSet();
@@ -138,7 +145,7 @@ public class Enemy : MonoBehaviour
 
     IEnumerator LifeRoutin()
     {
-        Debug.Log("ddd");
+       
         while (_state != EnemyState.Dead)
         {
 

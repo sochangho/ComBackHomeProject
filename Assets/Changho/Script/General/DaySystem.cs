@@ -201,12 +201,11 @@ public class DaySystem : MonoBehaviour
             }
 
             if(item.ItemType() == new Equipment(EquipmentType.TorchLight).ItemType()
-                && item.GetComponent<TorchLlightStart>() != null && item.GetComponent<TorchLlightStart>().torchfire_state == FireState.Firing)
+                && item.GetComponent<TorchLlightStart>() != null )
             {
                 var torchlight = item.GetComponent<TorchLlightStart>();
 
-                torchlight.Fire.SetActive(false);
-                torchlight.torchfire_state = FireState.End;
+               
                 torchlight.TorchLightEnd();
             }
         }

@@ -58,7 +58,7 @@ public class Inventory : Popup
         foreach (var item in itemslot)
         {
             item.itemInfoSet();
-            Debug.Log(item.ItemType());
+          
         }
 
 

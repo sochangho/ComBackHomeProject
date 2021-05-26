@@ -14,7 +14,10 @@ public class TorchLlightStart : MonoBehaviour
 
     private bool fire_endTrigger = false;
 
-    public float Th_limit = 2f;
+    public float Th_limit = 0.8f;
+
+    public TrailRenderer attack_renderer;
+
 
     [SerializeField]
     private GameObject fire_particle;
@@ -27,28 +30,18 @@ public class TorchLlightStart : MonoBehaviour
         }
     }
 
-    public FireState torchfire_state = FireState.Firing;
+    //public FireState torchfire_state = FireState.Firing;
 
 
 
     private void Start()
     {
         player_transform = GetComponentInParent<Transform>();
-        
-        
+
+        attack_renderer.enabled = false;
     }
 
 
-    private void OnTriggerStay(Collider other)
-    {
-        if (other.tag == "Zombi" && collider_triger == true)
-        {          
-            var enemy = other.GetComponentInParent<Enemy>();          
-            enemy.LifeRoutinStop();
-           
-        }
-
-    }
 
     private void PlayerRadiusEnemyCheck()
     {
@@ -61,6 +54,10 @@ public class TorchLlightStart : MonoBehaviour
             {
 
                 var enemy = collider.gameObject.GetComponentInParent<Enemy>();
+
+
+
+
                 enemy.LifeRoutinStop();
                 enemy.enemy_HP -= 10f;
                
@@ -72,23 +69,27 @@ public class TorchLlightStart : MonoBehaviour
 
     public void TorchLightEnd()
     {
-        fire_endTrigger = true;
+        
+        FindObjectOfType<EquUI>().ImageNone();
+        ItemSystem.Instance.ItemUseRemove(new Equipment(EquipmentType.TorchLight));
+                 
+        //그리고 착용취소 상태 and 인벤토리에서 파괴
+        //착용시에 불을켜버린다
 
     }
 
 
      public void Wield()
     {
-        if (fire_endTrigger)
-        {
-            ItemSystem.Instance.ItemInfoUI("횃불을 사용할 수 없습니다.", Color.red);
-            return;
+        //if (fire_endTrigger)
+        //{
+        //    ItemSystem.Instance.ItemInfoUI("횃불을 사용할 수 없습니다.", Color.red);
+        //    return;
             
-        }
-        
-
+        //}        
         if (!use_triger)
         {
+
             StartCoroutine(WieldRoutin());
             use_triger = true;
         }
@@ -99,6 +100,7 @@ public class TorchLlightStart : MonoBehaviour
     {
         float time = 0;
         bool torchlight_trigger = false;
+        attack_renderer.enabled = true;
         FindObjectOfType<PlayerAnimaterMgr>().WieldAnimation(true);
         
 
@@ -118,45 +120,22 @@ public class TorchLlightStart : MonoBehaviour
             yield return null;
         }
 
+      
+
         if (use_triger)
         {
             use_triger = false;
         }
-
+        attack_renderer.Clear();
+        attack_renderer.enabled = false;
+       
         FindObjectOfType<PlayerAnimaterMgr>().WieldAnimation(false);
-       // StartCoroutine(ColliderRoutin());
+      
 
     }
 
 
-    IEnumerator ColliderRoutin()
-    {
-        float time = 0;
-
-        if(collider_triger == false)
-        {
-
-            collider_triger = true;
-        }
-
-
-        while (time < 0.3f)
-        {
-            time += Time.deltaTime;
-            yield return null;
-
-        }
-
-        if (collider_triger == true)
-        {
-
-            collider_triger = false;
-        }
-
-
-
-    }
-
+ 
 
 
 }
