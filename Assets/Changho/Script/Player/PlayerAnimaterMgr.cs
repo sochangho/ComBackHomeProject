@@ -151,6 +151,19 @@ public class PlayerAnimaterMgr : MonoBehaviour
         }
     }
 
+    public void PickupAnimation(bool state)
+    {
+
+
+        if(player_animator.GetBool("Pickup") != state)
+        {
+            player_animator.SetBool("Pickup", state);
+        }
+
+
+    }
+
+
 
     public bool RunState()
     {

@@ -8,6 +8,7 @@ public class UISystem : MonoBehaviour
     public TreeUI ui_tree;
     public GameObject tree_pos;
     public GameObject tutorial_pos;
+    public GameObject active_pos;
     public ForceUI ui_forec;
 
 
@@ -47,4 +48,16 @@ public class UISystem : MonoBehaviour
         return cropui;
 
     }
+
+    public GameObject ActiveStartCreate()
+    {
+        var asui = Instantiate(Resources.Load<GameObject>("UI/Popup/ActiveStartPopup"));
+        asui.transform.parent = active_pos.transform;
+        asui.GetComponent<RectTransform>().localPosition = new Vector3(0f, 0f, 0f);
+
+        return asui;
+
+
+    }
+
 }

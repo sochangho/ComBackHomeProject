@@ -6,29 +6,26 @@ using UnityEngine.UI;
 public class WarterTrigger : MonoBehaviour
 {
 
-    [SerializeField]
+   
     private GameObject panel;
 
-    [SerializeField]
-    private TextMeshProUGUI panel_tmp;
-
-    [SerializeField]
-    private Button panel_button;
-
-
+    [HideInInspector]
+    public bool watercondition = false;
+ 
     private void OnTriggerEnter(Collider other)
     {
         if(other.tag == "Player")
         {
-            if (panel.activeSelf == false)
+            if (FindObjectOfType<PanelActive>() == null)
             {
 
-                panel.SetActive(true);
-                panel_tmp.fontSize = 27f;
-                panel_tmp.text = "물을 획득할 수 있습니다. 바가지를 사용하겠습니까??";
+                panel = FindObjectOfType<UISystem>().ActiveStartCreate();
+                
+                panel.GetComponent<PanelActive>().croppanel_text.fontSize = 27f;
+                panel.GetComponent<PanelActive>().croppanel_text.text = "물을 획득할 수 있습니다. 바가지를 사용하겠습니까??";
 
-                panel_button.onClick.RemoveAllListeners();
-                panel_button.onClick.AddListener(ItemSystem.Instance.WaterAdd);
+                panel.GetComponent<PanelActive>().use_button.onClick.RemoveAllListeners();
+                panel.GetComponent<PanelActive>().use_button.onClick.AddListener(ItemSystem.Instance.WaterAdd);
                 
             }
         }
@@ -41,9 +38,9 @@ public class WarterTrigger : MonoBehaviour
     {
         if(other.tag == "Player")
         {
-            if(panel.activeSelf == true)
+            if(FindObjectOfType<PanelActive>() != null)
             {
-                panel.SetActive(false);
+                Destroy(panel);
 
             }
 

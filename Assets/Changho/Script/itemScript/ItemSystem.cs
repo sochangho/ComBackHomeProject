@@ -208,16 +208,42 @@ public class ItemSystem : MonoBehaviour
     {
         int cnt_bowl = 0;
 
-        foreach(var item in items)
+        if (FindObjectOfType<WarterTrigger>().watercondition)
+        {
+            return;
+        }
+
+        if (FindObjectOfType<PlayerControl>().player_equState == PlayerEquState.None )
+        {
+          
+            ItemInfoUI("물 뿌리개를 착용해주세요", Color.yellow);
+            return;
+        }
+        else
+        {
+            if(FindObjectOfType<PlayerControl>().usingitem.GetComponent<BowlWater>() == null)
+            {
+                ItemInfoUI("물 뿌리개를 착용해주세요", Color.yellow);
+                return;
+
+            }
+
+        }
+
+
+
+        foreach (var item in items)
         {
            
           if(item.ItemType() == "Bowl")
           {
 
+              
                 var bowlWater = FindObjectOfType<PlayerControl>().usingitem.GetComponent<BowlWater>();
                 cnt_bowl = bowlWater.GetWater() + 1;
                 bowlWater.SetWater(cnt_bowl);
-                ItemInfoUI("물 획득!!", Color.blue);
+                StartCoroutine(WaterPickUpAnimRoutin());
+                FindObjectOfType<WarterTrigger>().watercondition = true;
                 break;
                 
           }
@@ -231,57 +257,7 @@ public class ItemSystem : MonoBehaviour
         }
     }
 
-    // 아이템 낚시로 획득
-    //public void FishingItemAdd(GameObject item)
-    //{
-
-    //    if (item.GetComponent<Items>() != null)
-    //    {
-    //        if (item.GetComponent<Equipment>() != null)
-    //        {
-
-    //            var equipmentItem = item.GetComponent<Equipment>();
-
-    //            items.Add(new Equipment(equipmentItem.equipment_type).gameObject);
-
-
-    //            var find_information = FindObjectOfType<UIinfo>().gameObject;
-
-    //            find_information.GetComponent<UIinfo>()._infotext = item.GetComponent<Equipment>().GetItemName() + " 획득!!!";
-    //            find_information.GetComponent<UIinfo>().TextColor(Color.blue);
-    //            find_information.GetComponent<UIFade>().FadeStart();
-
-
-
-    //            Destroy(item);
-
-
-    //        }
-    //        else if(item.GetComponent<Fish>() != null)
-    //        {
-
-    //            var fishItem = item.GetComponent<Fish>();
-
-    //            items.Add(new Fish(fishItem.fish_type).gameObject);
-
-    //            ItemInfoUI(item.GetComponent<Part>().GetItemName() + " 획득!!!", Color.blue);
-    //            Destroy(item);
-
-
-
-
-
-    //        }
-    //    }
-    //    else
-    //    {
-    //        return;
-    //    }
-
-
-
-    //}
-
+  
 
     public void BonfireAdd() // 모닥불 생성
     {
@@ -703,6 +679,36 @@ public class ItemSystem : MonoBehaviour
 
 
     }
+
+    /// <summary>
+    /// 물 뜨는 애니메이션을 사용할 때 버튼 클릭시 walk 애니메이션을 사용되는 버그발생 5월 30일 적음 
+    /// 다음 주 주말에 해결!!!
+    /// </summary>
+    /// <returns></returns>
+    IEnumerator WaterPickUpAnimRoutin()
+    {
+
+        float time = 0;
+
+        var player = FindObjectOfType<PlayerControl>();
+        player.Anim.PickupAnimation(true);
+        player.enabled = false;
+
+
+        while (time < 3f)
+        {
+            time += Time.deltaTime;
+
+            yield return null;
+        }
+
+        player.Anim.PickupAnimation(false);
+        player.enabled = true;
+        FindObjectOfType<WarterTrigger>().watercondition = false;
+        ItemInfoUI("물 획득!!", Color.blue);
+
+    }
+
 
 
 }

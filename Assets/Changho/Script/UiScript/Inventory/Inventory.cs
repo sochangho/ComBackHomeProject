@@ -23,16 +23,27 @@ public class Inventory : Popup
     {
 
         item_panel.SetActive(false);
-
-        //invetoryUpdate = new InvetoryUpdate(SetItem);
-        //invetoryUpdate += SetSprit;
-
-        //invetoryUpdate();
-
+        PanelDestroy();
 
         SetItem();
         
     }
+
+    private void PanelDestroy()
+    {
+
+       if( FindObjectOfType<PanelActive>()!= null)
+        {
+
+            Destroy(FindObjectOfType<PanelActive>().gameObject);
+
+        }
+
+
+    }
+
+
+
 
     public void OnCloseButtonPress()
     {

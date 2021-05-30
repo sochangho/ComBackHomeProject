@@ -437,12 +437,12 @@ public class TomatoGrow : MonoBehaviour
         if (cnt > 0)
         {
 
-            croppanel.transform.GetChild(1).GetComponent<Button>().onClick.AddListener(GrowStart);
-            croppanel.transform.GetChild(1).GetComponent<Button>().onClick.AddListener(DetoryPanel);
+            croppanel.GetComponent<PanelActive>().use_button.onClick.AddListener(GrowStart);
+            croppanel.GetComponent<PanelActive>().use_button.onClick.AddListener(DetoryPanel);
         }
         else
         {
-            croppanel.transform.GetChild(1).GetComponent<Button>().onClick.AddListener(NoGrow);
+            croppanel.GetComponent<PanelActive>().use_button.onClick.AddListener(NoGrow);
         }
 
 
@@ -466,8 +466,8 @@ public class TomatoGrow : MonoBehaviour
 
     
         croppanel.GetComponent<PanelActive>().croppanel_text.text = "수확할 수 있습니다. 수확할까요?";
-        croppanel.transform.GetChild(1).GetComponent<Button>().onClick.AddListener(Harvest);
-        croppanel.transform.GetChild(1).GetComponent<Button>().onClick.AddListener(DetoryPanel);
+        croppanel.GetComponent<PanelActive>().use_button.onClick.AddListener(Harvest);
+        croppanel.GetComponent<PanelActive>().use_button.onClick.AddListener(DetoryPanel);
 
     }
 
