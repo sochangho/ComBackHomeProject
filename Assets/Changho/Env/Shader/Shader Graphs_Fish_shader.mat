@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Shader Graphs_Fish_shader
+  m_Shader: {fileID: -6465566751694194690, guid: 09ed3860070b1ae46b7f6ba7c6872931, type: 3}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs: []
+    m_Floats:
+    - Vector1_2232D493: 5
+    - Vector1_5539C33F: 1
+    - Vector1_A8CC2D5D: 3
+    - Vector1_D2DAB9D6: 4
+    - Vector1_E8656BDA: 0.7
+    - Vector1_F6B8D392: 0.1
+    - Vector1_FB6B4BA0: 15
+    m_Colors:
+    - Color_6377B572: {r: 0.6226415, g: 0.2318918, b: 0.1022072, a: 0}
+    - Color_67E84A19: {r: 1, g: 1, b: 1, a: 0}
+    - Color_8EDF03DD: {r: 1, g: 0.4941193, b: 0.3245283, a: 0}
+    - Color_B33D94A8: {r: 0.1886792, g: 0.1886792, b: 0.1886792, a: 0}
+    - Vector2_5D62BCC5: {r: 0, g: 0, b: 0, a: 0}
+    - Vector2_6AEEE305: {r: -0.3, g: 0.104, b: 0, a: 0}
+    - Vector2_78DF6FC9: {r: 0, g: 0, b: 0, a: 0}
+    - Vector2_DCD80E80: {r: 0.5, g: 0.5, b: 0, a: 0}
+  m_BuildTextureStacks: []

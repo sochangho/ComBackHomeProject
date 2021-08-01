@@ -110,16 +110,13 @@ public class PlayerAnimaterMgr : MonoBehaviour
 
     }
 
-    public void FishingAnimation(bool state)
+    public void FishingStartAnimation(bool state)
     {
-
-        if (player_animator.GetBool("Fishing") != state)
-        {
-            player_animator.SetBool("Fishing", state);
-        }
-
+        StartCoroutine(FishingStatAnimantionRoutin(state));
+    
 
     }
+
 
     public void ThrowAnimation(bool state)
     {
@@ -164,11 +161,48 @@ public class PlayerAnimaterMgr : MonoBehaviour
     }
 
 
+   public void FishingCastAnimation(bool state)
+    {
+
+        if(player_animator.GetBool("FishingCast") != state)
+        {
+            player_animator.SetBool("FishingCast", state);
+
+        }
+
+    }
+
+
 
     public bool RunState()
     {
         return (player_animator.GetBool("Run") && player_animator.GetBool("Walk"));
     }
+
+    IEnumerator FishingStatAnimantionRoutin(bool state)
+    {
+        float time = 0;
+
+        if (player_animator.GetBool("Fishing") != state)
+        {
+            player_animator.SetBool("Fishing", state);
+        }
+
+
+        while (time < 3f)
+        {
+            time += Time.deltaTime;
+
+            yield return null;
+        }
+
+        if (player_animator.GetBool("FishingIdle") != state)
+        {
+            player_animator.SetBool("FishingIdle", state);
+        }
+
+    }
+
 
 
 }

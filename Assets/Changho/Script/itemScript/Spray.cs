@@ -28,7 +28,7 @@ public class Spray : MonoBehaviour
     private void SprayTargetRange()
     {
 
-        Collider[] colliders = Physics.OverlapSphere(FindObjectOfType<PlayerControl>().transform.position, 4f);
+        Collider[] colliders = Physics.OverlapSphere(FindObjectOfType<PlayerControl>().transform.position, 6f);
 
         foreach(var collider in colliders)
         {

@@ -33,9 +33,10 @@ public class Quest : Popup
 
         complete_button.gameObject.SetActive(false);
 
+        PlayerStop();
 
 
-       
+
 
         SetQuest();
 
@@ -49,6 +50,31 @@ public class Quest : Popup
         Close();
 
     }
+
+
+    public void OnDestroy()
+    {
+        PlayerStart();
+    }
+
+
+    private void PlayerStop()
+    {
+        var player = FindObjectOfType<PlayerControl>();
+
+        player.PlayerControlStop();
+        player.Anim.WalkAnimation(false);
+        player.Anim.RunAnimation(false);
+    }
+
+    private void PlayerStart()
+    {
+
+        FindObjectOfType<PlayerControl>().PlayerControlStart();
+
+    }
+
+
 
     private void SetQuest()
     {
@@ -75,7 +101,11 @@ public class Quest : Popup
         }
         if (tutorial.tutorials[4] == null)
         {
-            tutorial.tutorials[4] = new EscapeTutorial();
+            tutorial.tutorials[4] = new FishingTutorial();
+        }
+        if (tutorial.tutorials[5] == null)
+        {
+            tutorial.tutorials[5] = new EscapeTutorial();
         }
 
 

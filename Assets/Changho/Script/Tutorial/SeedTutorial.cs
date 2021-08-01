@@ -4,6 +4,8 @@ public class SeedTutorial : Tutorials
 
 
     public int seed = 0;
+    public bool oldhouse_ok = false;
+
 
     public SeedTutorial()
     {
@@ -25,6 +27,7 @@ public class SeedTutorial : Tutorials
             "농작물을 키워서 농작물을 먹어서 HP를 회복해야합니다. " +
             "폐가로 가서 씨앗을 주우세요." +
             "몬스터가 나올 때 스프레이와 횃불을 만들어서 퇴치하세요. " + "\r\n" +
+            "그리고 폐가에서 빠져 나와 주세요" + "\r\n" +
             "조건 - 씨앗 2개";
 
         PlayerPrefs.SetString("name", name);
@@ -51,10 +54,8 @@ public class SeedTutorial : Tutorials
 
         }
 
-
         seed = seed_cnt;
-
-        if(seed >= 2)
+        if(seed >= 2 && DaySystem.Instance.Day_Type.Equals(DayType.MorningGo))
         {
 
             tutorialState = TutorialState.Complete;

@@ -238,12 +238,17 @@ public class ItemSystem : MonoBehaviour
           if(item.ItemType() == "Bowl")
           {
 
-              
-                var bowlWater = FindObjectOfType<PlayerControl>().usingitem.GetComponent<BowlWater>();
-                cnt_bowl = bowlWater.GetWater() + 1;
-                bowlWater.SetWater(cnt_bowl);
-                StartCoroutine(WaterPickUpAnimRoutin());
-                FindObjectOfType<WarterTrigger>().watercondition = true;
+
+                TutorialSystem.Instance.LakeStart(() =>
+                {
+
+                    var bowlWater = FindObjectOfType<PlayerControl>().usingitem.GetComponent<BowlWater>();
+                    cnt_bowl = bowlWater.GetWater() + 1;
+                    bowlWater.SetWater(cnt_bowl);
+                    StartCoroutine(WaterPickUpAnimRoutin());
+                    FindObjectOfType<WarterTrigger>().watercondition = true;
+
+                });
                 break;
                 
           }
@@ -691,6 +696,11 @@ public class ItemSystem : MonoBehaviour
         float time = 0;
 
         var player = FindObjectOfType<PlayerControl>();
+        if(FindObjectOfType<PanelActive>() != null)
+        {
+            Destroy(FindObjectOfType<PanelActive>().gameObject);
+        }
+
         player.Anim.PickupAnimation(true);
         player.enabled = false;
 
@@ -706,6 +716,7 @@ public class ItemSystem : MonoBehaviour
         player.enabled = true;
         FindObjectOfType<WarterTrigger>().watercondition = false;
         ItemInfoUI("물 획득!!", Color.blue);
+        FindObjectOfType<WarterTrigger>().WaterPickup();
 
     }
 

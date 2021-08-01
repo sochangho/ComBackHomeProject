@@ -1,0 +1,55 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1224897927518384385
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1224897927518384447}
+  - component: {fileID: 1224897927518384446}
+  m_Layer: 0
+  m_Name: UiContoller
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1224897927518384447
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1224897927518384385}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 498.95334, y: 347.7017, z: -298.9389}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1224897927518384446
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1224897927518384385}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08131812c3bf43c4abb29c91247a97fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startGoalui: {fileID: 6513461072867252304, guid: f1943066cdf78904ab577827ab3a6a67, type: 3}
+  startGoaluiElement: {fileID: 6278904063167150278, guid: 253cbc4472d5d874ebc6e96764c55aa9, type: 3}
+  curruntGoalui: {fileID: 0}
+  curruntGoaluiElement: {fileID: 376751520620506130, guid: d3aa13dc4f2d16d489acb33b91ecc474, type: 3}
+  fishGameui1: {fileID: 453307051652128957, guid: e45bcc82ba038ad4ea2aa1e973276a9e, type: 3}
+  fishGameui2: {fileID: 4184096846075898996, guid: d75957ed406dd3749b4fb94d1b3b6b59, type: 3}
+  fishingAquireui: {fileID: 2967230756174414902, guid: 03e0ea8c67aabfe41ba43c8c4ea3c290, type: 3}
+  plusOne: {fileID: 3287698947535851263, guid: 8c7093582d7da14419ccca81522eafd4, type: 3}
+  gameEndui: {fileID: 4031593181401991579, guid: ec24f004969260845bce4f3472d75802, type: 3}
+  canvas: {fileID: 0}

@@ -21,7 +21,7 @@ public class Arrow : MonoBehaviour
     {
 
 
-        if(Vector3.Distance(transform.position , tutorialSystem.arrowLook.position) > 10f)
+        if(FindObjectOfType<TutorialSystem>().arrowLook != null && Vector3.Distance(transform.position , tutorialSystem.arrowLook.position) > 10f)
         {
             
 

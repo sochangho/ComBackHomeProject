@@ -783,3 +783,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   croppanel_text: {fileID: 6675629960586806749}
   use_button: {fileID: 6675629961966274562}
+  destroy_button: {fileID: 6675629962282693230}

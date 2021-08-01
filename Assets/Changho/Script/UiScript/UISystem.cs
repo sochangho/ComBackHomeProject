@@ -11,9 +11,11 @@ public class UISystem : MonoBehaviour
     public GameObject active_pos;
     public ForceUI ui_forec;
 
-
+    public GameObject fishingGageUi;
+    public GameObject fishingAquireUi;
+    public GameObject fishingStartUi;
     public Canvas canvas;
-
+    public Canvas playerCanvas;
 
     public GameObject TreeUICreate()
     {
@@ -60,4 +62,47 @@ public class UISystem : MonoBehaviour
 
     }
 
+    
+    public void CreateFishingGamge()
+    {
+
+        if (playerCanvas.worldCamera == null)
+        {
+            playerCanvas.worldCamera = FindObjectOfType<Camera>();
+        }
+        var ui = Instantiate(fishingGageUi);
+        ui.transform.SetParent(playerCanvas.gameObject.transform);
+        ui.transform.localPosition = new Vector3(0f, 0f, 0f);
+        ui.GetComponent<RectTransform>().anchoredPosition = new Vector3(0f, 0.82f,0f);
+
+    }
+
+    public void CreateFishingAquireUi(Items fishitem)
+    {
+        var ui = Instantiate(fishingAquireUi);
+        ui.transform.SetParent(canvas.transform);
+        ui.GetComponent<RectTransform>().anchoredPosition = new Vector3(26f, -222f);
+        fishingAquireUi.GetComponent<FishingAcquireUi>().itemaquire_img.sprite = Resources.Load<Sprite>("Sprite/" + fishitem.ItemType());
+
+        StartCoroutine(CreateAfterDestroy(ui));
+    }
+
+    public void CreateFishingStartUi()
+    {
+        var ui = Instantiate(fishingStartUi);
+        ui.transform.SetParent(canvas.transform);
+        ui.GetComponent<RectTransform>().anchoredPosition = new Vector2(0.375f, 78.54596f);
+
+
+    }
+
+
+    IEnumerator CreateAfterDestroy(GameObject obj)
+    {
+        yield return new WaitForSeconds(5f);
+
+        Destroy(obj);
+
+
+    }
 }

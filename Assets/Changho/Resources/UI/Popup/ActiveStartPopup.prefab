@@ -263,6 +263,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   croppanel_text: {fileID: 4883401515695926467}
   use_button: {fileID: 4883401517142053060}
+  destroy_button: {fileID: 4883401516365922646}
 --- !u!1 &4883401516365922640
 GameObject:
   m_ObjectHideFlags: 0

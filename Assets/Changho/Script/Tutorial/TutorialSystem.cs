@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
+using System;
 public class TutorialSystem : MonoBehaviour
 {
+   
 
     [HideInInspector]
     public List<Tutorials> tutorials = new List<Tutorials>();
@@ -13,6 +14,7 @@ public class TutorialSystem : MonoBehaviour
 
     public Arrow arrow;
 
+    public GameObject fisingfiled_gameObj;
 
     public Transform arrowLook;
 
@@ -24,6 +26,8 @@ public class TutorialSystem : MonoBehaviour
 
     public Transform trashpos;
 
+    public Transform fishingpos;
+
     public Transform treeLook;
 
     public Transform seedLook;
@@ -31,6 +35,8 @@ public class TutorialSystem : MonoBehaviour
     public Transform growLook;
 
     public Transform trashLook;
+
+    public Transform fishingLook;
 
     private TreeSliceTutorial treeSliceTutorial = new TreeSliceTutorial();
 
@@ -42,7 +48,16 @@ public class TutorialSystem : MonoBehaviour
 
     private EscapeTutorial escapeTutorial =  new EscapeTutorial();
 
+    private FishingTutorial fishingTutorial = new FishingTutorial();
+
+    private List<TutorialCameraInfo> tutorialCameraInfos = new List<TutorialCameraInfo>();
+
+    private Coroutine questRoutine;
+
     public bool tutorial_trigger = false;
+    public bool transition = false ;
+
+    
 
     private static TutorialSystem _instance;
     // 인스턴스에 접근하기 위한 프로퍼티
@@ -81,8 +96,9 @@ public class TutorialSystem : MonoBehaviour
 
     private void Start()
     {
-
+        transition = false;
         TutorialsAdd();
+        TutorialTransformSetAdd();
         StartCoroutine(HpDre());
         StartCoroutine(HungryDre());
 
@@ -93,52 +109,109 @@ public class TutorialSystem : MonoBehaviour
 
     public void TutorialsAdd()
     {
-        tutorials.Add(treeSliceTutorial);
-        tutorials.Add(seedTutorial);
-        tutorials.Add(growTutorial);
-        tutorials.Add(shipCreateTutorial);
-        tutorials.Add(escapeTutorial);
+        if(tutorials.Count > 0)
+        {
+            tutorials.Clear();
+        }
+
+        tutorials.Add(new TreeSliceTutorial());
+        tutorials.Add(new SeedTutorial());
+        tutorials.Add(new GrowTutorial());
+        tutorials.Add(new ShipCreateTutorial());
+        tutorials.Add(new FishingTutorial());
+        tutorials.Add(new EscapeTutorial());
+       
 
     }
 
+    public void TutorialTransformSetAdd()
+    {
 
+        tutorialCameraInfos.Add(new TutorialCameraInfo(0, treepos.position, treeLook));
+        tutorialCameraInfos.Add(new TutorialCameraInfo(1, seedpos.position, seedLook));
+        tutorialCameraInfos.Add(new TutorialCameraInfo(2, growpos.position, growLook));
+        tutorialCameraInfos.Add(new TutorialCameraInfo(4, fishingpos.position, fishingLook));
+        tutorialCameraInfos.Add(new TutorialCameraInfo(5, trashpos.position, trashLook));
+       
+    }
 
+    
 
 
     public void TutorialStart()
     {
-        if(tutorial_index == 0)
-        {
-            StartCoroutine(TreeCameraPosition());
-         
-        }
-        else if (tutorial_index == 1)
-        {
-           
-            StartCoroutine(SeedCameraPosition());
-        }
-        else if (tutorial_index == 2)
-        {
-            StartCoroutine(GrowCameraPosition());
-        }
-        else if (tutorial_index == 3)
+        
+        if (tutorial_index == 3)
         {
 
             arrow.gameObject.SetActive(false);
             tutorials[3].TutorialSet();
             StartCoroutine(UiRoutin(tutorials[3].suscript));
-    
+            return;
         }
-        else if (tutorial_index == 4)
-        {
-            StartCoroutine(TrashCameraPosition());
 
-        }
-        else if(tutorial_index == 5)
+
+        if (tutorial_index == 6)
         {
             SceneManager.LoadScene("endGo");
             //엔딩
         }
+
+
+
+        foreach (var tutorialCameraInfo in tutorialCameraInfos)
+        {
+            if(tutorial_index == tutorialCameraInfo.GetTutorialIndex())
+            {
+                Vector3 position_des;
+                Transform transform_des;
+
+                tutorialCameraInfo.GetTutorialCameraInfo(out position_des, out transform_des);
+
+
+                StartCoroutine(TutorialTransformChangeRoution(tutorial_index, position_des, transform_des));
+
+
+
+            }
+
+
+        }
+
+        questRoutine = StartCoroutine(QuestCompleteRoutin());
+
+        //if(tutorial_index == 0)
+        //{
+        //    StartCoroutine(TreeCameraPosition());
+         
+        //}
+        //else if (tutorial_index == 1)
+        //{
+           
+        //    StartCoroutine(SeedCameraPosition());
+        //}
+        //else if (tutorial_index == 2)
+        //{
+        //    StartCoroutine(GrowCameraPosition());
+        //}
+        //else if (tutorial_index == 3)
+        //{
+
+        //    arrow.gameObject.SetActive(false);
+        //    tutorials[3].TutorialSet();
+        //    StartCoroutine(UiRoutin(tutorials[3].suscript));
+    
+        //}
+        //else if (tutorial_index == 4)
+        //{
+        //    StartCoroutine(TrashCameraPosition());
+
+        //}
+        //else if(tutorial_index == 5)
+        //{
+        //    SceneManager.LoadScene("endGo");
+        //    //엔딩
+        //}
 
 
 
@@ -164,21 +237,20 @@ public class TutorialSystem : MonoBehaviour
     }
 
 
-    IEnumerator TreeCameraPosition()
+    IEnumerator TutorialTransformChangeRoution(int tutorial_index ,Vector3 desitination,Transform  look_transform)
     {
-
         var camera = FindObjectOfType<Camera>();
         FindObjectOfType<PlayerControl>().enabled = false;
-       
-       
 
-        while (Vector3.Distance(treepos.position , camera.transform.position) > 0.1f)
+
+
+        while (Vector3.Distance(desitination, camera.transform.position) > 0.1f)
         {
 
 
-          
 
-          camera.transform.position = Vector3.MoveTowards(camera.transform.position, treepos.position, 200 * Time.deltaTime);
+
+            camera.transform.position = Vector3.MoveTowards(camera.transform.position, desitination, 200 * Time.deltaTime);
 
 
 
@@ -186,91 +258,19 @@ public class TutorialSystem : MonoBehaviour
         }
 
 
-        StartCoroutine(CameraRotationRoutin(treeLook));
-        ArrowCh(treeLook);
-        tutorials[0].TutorialSet();
-        StartCoroutine(UiRoutin(tutorials[0].suscript));
+        StartCoroutine(CameraRotationRoutin(look_transform));
+        ArrowCh(look_transform);
+        tutorials[tutorial_index].TutorialSet();
+        StartCoroutine(UiRoutin(tutorials[tutorial_index].suscript));
 
-       
+
 
         Invoke("DelayReturn", 4f);
 
     }
 
-    IEnumerator SeedCameraPosition()
-    {
-        var camera = FindObjectOfType<Camera>();
-        
-        FindObjectOfType<PlayerControl>().enabled = false;
 
-        
-
-        while (Vector3.Distance(seedpos.position, camera.transform.position) > 0.1f)
-        {
-
-            camera.transform.position = Vector3.MoveTowards(camera.transform.position, seedpos.position, 200 * Time.deltaTime);
-
-
-            yield return null;
-        }
-        StartCoroutine(CameraRotationRoutin(seedLook));
-        ArrowCh(seedLook);
-        tutorials[1].TutorialSet();
-        StartCoroutine(UiRoutin(tutorials[1].suscript));
-
-        Invoke("DelayReturn", 4f);
-    }
-
-
-    IEnumerator GrowCameraPosition()
-    {
-
-        var camera = FindObjectOfType<Camera>();
-        FindObjectOfType<PlayerControl>().enabled = false;
-        
-
-        while (Vector3.Distance(growpos.position, camera.transform.position) > 0.1f)
-        {
-
-            camera.transform.position = Vector3.MoveTowards(camera.transform.position, growpos.position, 200 * Time.deltaTime);
-
-
-            yield return null;
-        }
-        StartCoroutine(CameraRotationRoutin(growLook));
-        ArrowCh(growLook);
-        tutorials[2].TutorialSet();
-        StartCoroutine(UiRoutin(tutorials[2].suscript));
-
-        Invoke("DelayReturn", 4f);
-
-
-
-    }
-
-
-    IEnumerator TrashCameraPosition()
-    {
-
-        var camera = FindObjectOfType<Camera>();
-        FindObjectOfType<PlayerControl>().enabled = false;
-       
-
-        while (Vector3.Distance(trashpos.position, camera.transform.position) > 0.1f)
-        {
-
-            camera.transform.position = Vector3.MoveTowards(camera.transform.position, trashpos.position, 200 * Time.deltaTime);
-            yield return null;
-        }
-
-        StartCoroutine(CameraRotationRoutin(trashLook));
-        ArrowCh(trashLook);
-        tutorials[4].TutorialSet();
-        StartCoroutine(UiRoutin(tutorials[4].suscript));
-        Invoke("DelayReturn", 4f);
-
-
-    }
+  
 
 
     IEnumerator UiRoutin(string sub)
@@ -382,6 +382,84 @@ public class TutorialSystem : MonoBehaviour
     }
 
 
+
+    IEnumerator QuestCompleteRoutin()
+    {
+
+       
+        while (true) {
+
+            if(tutorials[tutorial_index].CompleteConditon() == TutorialState.Complete 
+                && SceneManager.GetActiveScene().name == "GroundScene" 
+
+                )
+            {
+                Invoke("OtherUI", 0.2f);
+                break;
+            }
+
+           
+            yield return null;
+        }
+
+    }
+
+
+    IEnumerator otherUIRoutin()
+    {
+        while (FindObjectOfType<TrashAddPopup>() != null)
+        {
+
+            yield return null;
+
+
+        }
+
+        //ui 생성 함수 
+        ItemSystem.Instance.ItemInfoUI("퀘스트 완료!!", Color.blue);
+        FindObjectOfType<UIButton>().QuestButton();
+        
+    }
+
+
+
+    private void OtherUI()
+    {
+
+        StartCoroutine(otherUIRoutin());
+
+    }
+
+    public void TransitionScene()
+    {
+        StopCoroutine(questRoutine);
+        transition=true;
+    }
+
+    public void RestartQuest()
+    {
+
+        if (transition)
+        {
+            questRoutine = StartCoroutine(QuestCompleteRoutin());
+        }
+    }
+
+
+    public void LakeStart(Action animationAfterCallback )
+    {
+        fishingLook.position = new Vector3(fishingLook.position.x, FindObjectOfType<PlayerControl>().transform.position.y, fishingLook.position.z);
+
+        FindObjectOfType<PlayerControl>().transform.LookAt(fishingLook);
+      
+        if (animationAfterCallback != null)
+        {
+
+            animationAfterCallback();
+        }
+
+
+    }
 
 
 

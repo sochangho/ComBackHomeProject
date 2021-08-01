@@ -20,4 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Changho/Scenes/endGo.unity
     guid: 742be5b73c3f9ba4d8a290829e80392e
+  - enabled: 1
+    path: Assets/Changho/Scenes/TrashScene.unity
+    guid: 174d70f5b3840614b9ae03bf30cd642e
   m_configObjects: {}

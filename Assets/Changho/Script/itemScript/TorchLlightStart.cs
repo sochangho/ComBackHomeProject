@@ -45,7 +45,7 @@ public class TorchLlightStart : MonoBehaviour
 
     private void PlayerRadiusEnemyCheck()
     {
-        Collider[] colliders = Physics.OverlapSphere(FindObjectOfType<PlayerControl>().transform.position, 3f);
+        Collider[] colliders = Physics.OverlapSphere(FindObjectOfType<PlayerControl>().transform.position, 4f);
 
 
         foreach(var collider in colliders)

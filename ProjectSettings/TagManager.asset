@@ -25,6 +25,7 @@ TagManager:
   - LightningBoll
   - Rain
   - CropPlace
+  - UiCollider
   layers:
   - Default
   - TransparentFX

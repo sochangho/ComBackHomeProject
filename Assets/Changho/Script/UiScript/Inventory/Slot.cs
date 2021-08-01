@@ -117,7 +117,7 @@ public class Slot:MonoBehaviour
     public void SlotNullSet()
     {
 
-        item = null;
+        item = new Items();
         item_cnt = 0;
         slot_image.sprite = Resources.Load<Sprite>("Sprite/Rectangle") as Sprite;
         itemcntText.text = "";

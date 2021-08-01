@@ -27,6 +27,7 @@ public class SeaGoChoice :Popup
         {
 
             DaySystem.Instance.StopDaySystem();
+            TutorialSystem.Instance.TransitionScene();
             SceneManager.LoadScene("TrashScene");
 
         }

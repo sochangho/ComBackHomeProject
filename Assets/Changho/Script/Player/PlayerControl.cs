@@ -13,6 +13,8 @@ public class PlayerControl : MonoBehaviour
 
     public GameObject player_positionFix;
 
+    public GameObject fishingItem;
+
     [SerializeField]
     private GameObject camera;
 
@@ -96,7 +98,8 @@ public class PlayerControl : MonoBehaviour
 
     private PlayerAnimaterMgr player_anim;
 
-
+    private bool playerRun;
+  
     public PlayerAnimaterMgr Anim
     {
 
@@ -109,9 +112,9 @@ public class PlayerControl : MonoBehaviour
 
     private void Awake()
     {
-
+        
         var go = Instantiate(camera);
-
+        playerRun = true;
         player_camera = go.GetComponent<Camera>();
          
 
@@ -126,172 +129,196 @@ public class PlayerControl : MonoBehaviour
        player_equ = new Equipment(EquipmentType.Ston);
         player_anim = FindObjectOfType<PlayerAnimaterMgr>();
 
-
+       
         StartCoroutine(DustCreate());
 
     }
 
 
-    // Update is called once per frame
-    void FixedUpdate()
+    public void PlayerControlStart()
     {
-        
-        player_positionFix.transform.localPosition = new Vector3(0, 0, 0);
 
+        playerRun = true;
+      
+    }
+ 
 
-        if (Input.GetMouseButtonDown(0))
+    public void PlayerControlStop()
+    {
+        playerRun = false;
+        StartRun(gameObject.transform.position);
+       
+    }
+
+    private void FixedUpdate()
+    {
+        if (playerRun)
         {
 
-            RaycastHit hit;
+            player_positionFix.transform.localPosition = new Vector3(0, 0, 0);
 
-            if (Physics.Raycast(player_camera.ScreenPointToRay(Input.mousePosition), out hit, 50f ,layerToMask))   
+
+            if (Input.GetMouseButtonDown(0))
             {
 
-             
-                if (hit.collider.GetComponent<Items>() != null) // 마우스로 클릭한 것이 아이템 일 경우
+                RaycastHit hit;
+
+                if (Physics.Raycast(player_camera.ScreenPointToRay(Input.mousePosition), out hit, 50f, layerToMask))
                 {
 
-                    if (Vector3.Distance(transform.position, hit.point) < 7f)
+
+                    if (hit.collider.GetComponent<Items>() != null) // 마우스로 클릭한 것이 아이템 일 경우
                     {
 
-                        if (hit.collider.CompareTag("Bornfire"))
+                        if (Vector3.Distance(transform.position, hit.point) < 7f)
                         {
 
-                            StartRun(DontMoveUpItem(hit.point));
+                            if (hit.collider.CompareTag("Bornfire"))
+                            {
 
+                                StartRun(DontMoveUpItem(hit.point));
+
+                            }
+                            else
+                            {
+
+
+                                StartRun(DontMoveUpItem(hit.point));
+                                player_anim.playerMotion = PlayerMotionState.Lifting;
+                                clickitemobj = hit.collider.gameObject;
+                               
+                            }
                         }
-                        else
-                        {
 
 
-                            StartRun(DontMoveUpItem(hit.point));
-                            player_anim.playerMotion = PlayerMotionState.Lifting;
-                            clickitemobj = hit.collider.gameObject;
-                            
-                        }
                     }
-
-
+                    else if (hit.collider.gameObject.layer == 13 && hit.collider.gameObject.layer != 4 && hit.collider.gameObject.layer != 17 &&
+                       UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject() == false)
+                    {
+                        StartRun(hit.point);
+                    }
                 }
-                else if (hit.collider.gameObject.layer == 13 && hit.collider.gameObject.layer != 4 && hit.collider.gameObject.layer != 17 && 
-                   UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject() == false)
+                // 마우스로 찍은 포인터 값을 target에 반환한다.
+            }
+
+            if (Input.GetKeyDown(KeyCode.Z))
+            {
+                itemslot.ItemUseZ();
+
+            }
+            if (Input.GetKeyDown(KeyCode.X))
+            {
+                itemslot.ItemUseX();
+
+            }
+            if (Input.GetKeyDown(KeyCode.C))
+            {
+                itemslot.ItemUseC();
+
+            }
+            if (Input.GetKeyDown(KeyCode.V))
+            {
+                itemslot.ItemUseV();
+
+            }
+            if (Input.GetKeyDown(KeyCode.A))
+            {
+                if (routinA_bool == false)
                 {
-                    StartRun(hit.point);                  
+                    player_equ.ItemUse();
+                    StopRun();
+                    routinA_bool = true;
+                    StartCoroutine(RoutinAkey());
                 }
             }
-            // 마우스로 찍은 포인터 값을 target에 반환한다.
-        }
 
-        if (Input.GetKeyDown(KeyCode.Z))
-        {
-            itemslot.ItemUseZ();
-                   
-        }
-        if (Input.GetKeyDown(KeyCode.X))
-        {
-            itemslot.ItemUseX();
 
-        }
-        if (Input.GetKeyDown(KeyCode.C))
-        {
-            itemslot.ItemUseC();
 
-        }
-        if (Input.GetKeyDown(KeyCode.V))
-        {
-            itemslot.ItemUseV();
 
-        }
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            if (routinA_bool == false)
+            if (Input.GetKeyDown(KeyCode.I))
             {
-                player_equ.ItemUse();
+                var inventory = GameObject.Find("InventoryPopup(Clone)");
+                if (inventory != null)
+                {
+                    inventory.GetComponent<Inventory>().OnCloseButtonPress();
+                }
+                else
+                {
+                    button.InventoryButton();
+                }
+            }
+            if (Input.GetKeyDown(KeyCode.Q))
+            {
+                var quest = GameObject.Find("QuestPopup(Clone)");
+                if (quest != null)
+                {
+                    quest.GetComponent<Quest>().OnCloseButtonPress();
+                }
+                else
+                {
+
+                    button.QuestButton();
+                }
+            }
+
+            if (Input.GetKey(KeyCode.S))
+            {
+                player_anim.RunAnimation(true);
+
+                if (player_anim.RunState())
+                {
+                    player_speed = 10f;
+                }
+            }
+            else
+            {
+                player_anim.RunAnimation(false);
+                player_speed = 5f;
+            }
+
+
+
+            if (player_hp <= 0f)
+            {
+                //애니메이션
+                //플레이어 죽음 
+                player_hp = 0;
+
+
+                if (gameover_bool == false)
+                {
+                    gameover_bool = true;
+                    Debug.Log("게임 오버");
+                    FindObjectOfType<UIButton>().GameOverPopup();
+                }
+
+            }
+
+
+
+            if (PlayerRun())
+            {
+
+
+                PlayerTurn();
+            }
+            else
+            {
                 StopRun();
-                routinA_bool = true;
-                StartCoroutine(RoutinAkey());
-            }
-        }
-      
-        
-
-
-        if (Input.GetKeyDown(KeyCode.I))
-        {
-            var inventory = GameObject.Find("InventoryPopup(Clone)");
-            if (inventory != null)
-            {
-                inventory.GetComponent<Inventory>().OnCloseButtonPress();
-            }
-            else
-            {
-                button.InventoryButton();
-            }
-        }
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            var quest = GameObject.Find("QuestPopup(Clone)");
-            if (quest != null)
-            {
-                quest.GetComponent<Quest>().OnCloseButtonPress();
-            }
-            else
-            {
-
-                button.QuestButton();
-            }
-        }
-
-        if (Input.GetKey(KeyCode.S))
-        {
-            player_anim.RunAnimation(true);
-
-            if (player_anim.RunState())
-            {
-                player_speed = 10f;
-            }
-        }
-        else 
-        {
-            player_anim.RunAnimation(false);
-            player_speed = 5f;
-        }
-
-
-
-        if (player_hp <= 0f)
-        {
-            //애니메이션
-            //플레이어 죽음 
-            player_hp = 0;
-
-
-            if (gameover_bool == false)
-            {
-                gameover_bool = true;
-                Debug.Log("게임 오버");
-                FindObjectOfType<UIButton>().GameOverPopup();
             }
 
+
+            FollowCamera();
+            player_camera.transform.LookAt(this.transform);
+
         }
 
-
-
-        if (PlayerRun())
-        {
-
-           
-            PlayerTurn();
-        }
-        else
-        {
-            StopRun();
-        }
-       
-
-        FollowCamera();
-        player_camera.transform.LookAt(this.transform);
     }
+
+
+
+ 
+
 
     //플레이어 이동
     private bool PlayerRun()
@@ -435,6 +462,7 @@ public class PlayerControl : MonoBehaviour
         bool lifingbool = false;
         this.enabled = false;
         player_anim.LiftingAnimation(true);
+        equUI.ImageNone();
         while (time < 1.7f)
         {
             time += Time.deltaTime;
@@ -442,7 +470,7 @@ public class PlayerControl : MonoBehaviour
             if(time > 1.19f && !lifingbool)
             {
                 ItemSystem.Instance.ItemClickAdd(clickitemobj);
-                
+               
                 if(usingitem == null)
                 {
                     EquAnimationChange(EquipmentType.Ston);
@@ -496,55 +524,56 @@ public class PlayerControl : MonoBehaviour
     ///  아이템 장착
     /// </summary>
     public void PlayerEqu(EquipmentType et)
-    {
-
-        if(player_equState == PlayerEquState.None)
         {
 
-            player_equState = PlayerEquState.Equ;
-            
-        }
+            if (player_equState == PlayerEquState.None)
+            {
+
+                player_equState = PlayerEquState.Equ;
+
+            }
+
+
+            if (player_equ.equipment_type == et)
+            {
+                ItemSystem.Instance.ItemInfoUI(player_equ.equipment_type.ToString() + "이미 장착 중입니다.", Color.yellow);
+
+            }
+            else
+            {
+
+                player_equ.equipment_type = et;
+
+
+                for (int i = 0; i < equipitem.transform.childCount; i++)
+                {
+                    if (equipitem.transform.GetChild(i).gameObject.activeSelf == true)
+                    {
+                        equipitem.transform.GetChild(i).gameObject.SetActive(false);
+                    }
+
+                }
+
+
+
+                for (int i = 0; i < equipitem.transform.childCount; i++)
+                {
+                    if (equipitem.transform.GetChild(i).GetComponent<Equipment>().ItemType() == player_equ.ItemType())
+                    {
+
+                        equipitem.transform.GetChild(i).gameObject.SetActive(true);
+                        usingitem = equipitem.transform.GetChild(i).gameObject;
+
+                    }
+
+                }
+
+                equUI.ImageChange(et);
+                EquAnimationChange(et);
+
+
+            }
         
-
-        if(player_equ.equipment_type == et)
-        {
-            ItemSystem.Instance.ItemInfoUI(player_equ.equipment_type.ToString() + "이미 장착 중입니다.", Color.yellow);
-
-        }
-        else
-        {
-
-            player_equ.equipment_type= et;
-
-
-            for (int i = 0; i < equipitem.transform.childCount; i++)
-            {
-                if (equipitem.transform.GetChild(i).gameObject.activeSelf == true)
-                {
-                    equipitem.transform.GetChild(i).gameObject.SetActive(false);
-                }
-
-            }
-
-
-
-            for (int i= 0; i< equipitem.transform.childCount; i++)
-            {
-                if(equipitem.transform.GetChild(i).GetComponent<Equipment>().ItemType() == player_equ.ItemType())
-                {
-
-                    equipitem.transform.GetChild(i).gameObject.SetActive(true);
-                    usingitem = equipitem.transform.GetChild(i).gameObject;
-
-                }
-                
-            }
-
-            equUI.ImageChange(et);
-            EquAnimationChange(et);
-
-
-        }
     }
 
     /// <summary>
@@ -637,27 +666,27 @@ public class PlayerControl : MonoBehaviour
     }
 
     IEnumerator DustCreate()
-    {
-        WaitForSeconds waitForSeconds = new WaitForSeconds(0.1f);
-
-        
-
-        while (true)
         {
-            if(player_anim.RunState() == true)
+            WaitForSeconds waitForSeconds = new WaitForSeconds(0.1f);
+
+
+
+            while (true)
             {
+                if (player_anim.RunState() == true)
+                {
 
-                var dust = ObjectPoolMgr.Instance.DustParticlePool();
-                dust.transform.position = transform.position;
-                StartCoroutine(DustRoutin(dust));
+                    var dust = ObjectPoolMgr.Instance.DustParticlePool();
+                    dust.transform.position = transform.position;
+                    StartCoroutine(DustRoutin(dust));
 
+                }
+
+
+                yield return waitForSeconds;
             }
 
-
-            yield return waitForSeconds;
-        }
-
-
+        
 
     }
 

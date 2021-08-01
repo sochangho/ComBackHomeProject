@@ -19,15 +19,43 @@ public class Inventory : Popup
 
     public GameObject[] button_objs;
 
+
+    
+
+
     private void Start()
     {
 
         item_panel.SetActive(false);
         PanelDestroy();
-
+        PlayerStop();
         SetItem();
         
     }
+
+    private void OnDestroy()
+    {
+        PlayerStart();
+
+
+    }
+
+    private void PlayerStop()
+    {
+        var player = FindObjectOfType<PlayerControl>();
+
+        player.PlayerControlStop();
+        player.Anim.WalkAnimation(false);
+        player.Anim.RunAnimation(false);
+    }
+
+    private void PlayerStart()
+    {
+
+        FindObjectOfType<PlayerControl>().PlayerControlStart();
+
+    }
+
 
     private void PanelDestroy()
     {
@@ -158,6 +186,7 @@ public class Inventory : Popup
 
         foreach(var slot in slots)
         {
+            Debug.Log(slot.GetComponent<Slot>().SlotGet().ToString());
             if(slot.GetComponent<Slot>().SlotGet().ItemType() != itemtype)
             {
 
