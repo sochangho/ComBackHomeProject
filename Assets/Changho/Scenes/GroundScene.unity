@@ -19934,6 +19934,51 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1e4f7206dfce18047976ff34fa7b0d30, type: 3}
+--- !u!1 &908336486
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 908336488}
+  - component: {fileID: 908336487}
+  m_Layer: 0
+  m_Name: WalkSound
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &908336487
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 908336486}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dda7dc1438fa7024b9d1d9b2af468fce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 6153878059936241131, guid: 06ffcb499a1d92b44b12e29e4177c6ac, type: 3}
+  initialSize: 30
+--- !u!4 &908336488
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 908336486}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1375518164}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &908474491
 GameObject:
   m_ObjectHideFlags: 0
@@ -24885,7 +24930,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 67974c3b84f23784986c979feffb57c6, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.448
+  m_Volume: 1
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -30183,6 +30228,7 @@ MonoBehaviour:
   - {fileID: 999259122}
   - {fileID: 908474492}
   - {fileID: 1773180904}
+  - {fileID: 908336487}
 --- !u!4 &1375518164
 Transform:
   m_ObjectHideFlags: 0
@@ -30201,6 +30247,7 @@ Transform:
   - {fileID: 999259123}
   - {fileID: 908474493}
   - {fileID: 1773180905}
+  - {fileID: 908336488}
   m_Father: {fileID: 0}
   m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

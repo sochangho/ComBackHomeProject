@@ -389,8 +389,8 @@ public class TutorialSystem : MonoBehaviour
        
         while (true) {
 
-            if(tutorials[tutorial_index].CompleteConditon() == TutorialState.Complete 
-                && SceneManager.GetActiveScene().name == "GroundScene" 
+            if (tutorials[tutorial_index].CompleteConditon() == TutorialState.Complete
+                && SceneManager.GetActiveScene().name == "GroundScene" && FindObjectOfType<TrashAddPopup>() == null
 
                 )
             {

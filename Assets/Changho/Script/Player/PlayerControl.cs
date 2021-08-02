@@ -1,8 +1,6 @@
 ﻿using System.Collections;
-
 using UnityEngine;
-using UnityEngine.AI;
-
+using System;
 
 // 플레이어 이동 및 아이템 파밍 , 키를 눌렀을 때 행동
 public class PlayerControl : MonoBehaviour
@@ -131,6 +129,8 @@ public class PlayerControl : MonoBehaviour
 
        
         StartCoroutine(DustCreate());
+        StartCoroutine(RunSoundCreate());
+        StartCoroutine(WalkSoundCreate());
 
     }
 
@@ -336,6 +336,11 @@ public class PlayerControl : MonoBehaviour
 
           
             return true;
+        }
+        else
+        {
+            player_anim.RunAnimation(false);
+
         }
 
 
@@ -665,6 +670,72 @@ public class PlayerControl : MonoBehaviour
 
     }
 
+    IEnumerator RunSoundCreate()
+    {
+        WaitForSeconds waitForSeconds = new WaitForSeconds(0.3f);
+
+        while (true)
+        {
+            if (player_anim.RunState() == true)
+            {
+
+               
+                var sound = ObjectPoolMgr.Instance.WalkSoundPool();
+            
+                StartCoroutine(EffectRoutin(() => {
+
+                    ObjectPoolMgr.Instance.WalkSoundReturn(sound);
+
+
+                } , 0.2f));
+
+
+            }
+
+
+            yield return waitForSeconds;
+        }
+
+
+
+
+    }
+
+    IEnumerator WalkSoundCreate()
+    {
+        WaitForSeconds waitForSeconds = new WaitForSeconds(0.7f);
+
+        while (true)
+        {
+            if (player_anim.WalkState() == true)
+            {
+
+
+                var sound = ObjectPoolMgr.Instance.WalkSoundPool();
+
+                StartCoroutine(EffectRoutin(() => {
+
+                    ObjectPoolMgr.Instance.WalkSoundReturn(sound);
+
+
+                }, 0.2f));
+
+
+            }
+
+
+            yield return waitForSeconds;
+        }
+
+
+
+
+    }
+
+
+
+
+
     IEnumerator DustCreate()
         {
             WaitForSeconds waitForSeconds = new WaitForSeconds(0.1f);
@@ -677,26 +748,31 @@ public class PlayerControl : MonoBehaviour
                 {
 
                     var dust = ObjectPoolMgr.Instance.DustParticlePool();
+                   
                     dust.transform.position = transform.position;
-                    StartCoroutine(DustRoutin(dust));
+                    StartCoroutine(EffectRoutin(()=> {
 
-                }
+                        ObjectPoolMgr.Instance.DustParticleReturn(dust);
+                         
+                    
+                    } , 0.5f));
+
+
+            }
 
 
                 yield return waitForSeconds;
             }
 
-        
-
     }
 
 
-    IEnumerator DustRoutin(GameObject dust)
+    IEnumerator EffectRoutin(Action effectActionm , float delay)
     {
         float time = 0;
 
 
-        while(time < 0.5f)
+        while(time < delay)
         {
 
             time += Time.deltaTime;
@@ -706,12 +782,14 @@ public class PlayerControl : MonoBehaviour
 
         }
 
-
-        ObjectPoolMgr.Instance.DustParticleReturn(dust);
+        if(effectActionm != null)
+        {
+            effectActionm();
+            
+        }
+        
 
     }
-
-
 
 
 

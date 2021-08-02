@@ -179,6 +179,13 @@ public class PlayerAnimaterMgr : MonoBehaviour
         return (player_animator.GetBool("Run") && player_animator.GetBool("Walk"));
     }
 
+    public bool WalkState()
+    {
+
+        return (player_animator.GetBool("Walk") || player_animator.GetBool("TorchWalk")) && !player_animator.GetBool("Run") ;
+    }
+
+
     IEnumerator FishingStatAnimantionRoutin(bool state)
     {
         float time = 0;

@@ -146,6 +146,17 @@ public class ObjectPoolMgr : MonoBehaviour
         objpool[6].ReturnObject(obj);
     }
 
+    public GameObject WalkSoundPool()
+    {
 
+        return objpool[7].GetObject();
+    }
+
+    public void WalkSoundReturn(GameObject obj)
+    {
+
+        objpool[7].ReturnObject(obj);
+
+    }
 
 }

@@ -284,12 +284,8 @@ public class TrashSystem : MonoBehaviour
         }
 
         if (time <= 0)
-        {
-           
-            time = 0;
-
-           
-
+        {           
+            time = 0;         
         }
 
         FindObjectOfType<MoveShip>().enabled = false;
@@ -306,7 +302,7 @@ public class TrashSystem : MonoBehaviour
         Debug.Log("게임 종료");
         float time = 0;
 
-        while (time < 0.5f)
+        while (time < 1.5f)
         {
             time += Time.deltaTime;
 
