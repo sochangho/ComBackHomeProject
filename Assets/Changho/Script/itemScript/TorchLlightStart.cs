@@ -47,24 +47,8 @@ public class TorchLlightStart : MonoBehaviour
     {
         Collider[] colliders = Physics.OverlapSphere(FindObjectOfType<PlayerControl>().transform.position, 4f);
 
-
-        foreach(var collider in colliders)
-        {
-            if(collider.gameObject.tag == "Zombi")
-            {
-
-                var enemy = collider.gameObject.GetComponentInParent<Enemy>();
-
-
-
-
-                enemy.LifeRoutinStop();
-                enemy.enemy_HP -= 10f;
-               
-            } 
-        }
-
-
+        StartCoroutine(AttackRoutin(colliders));
+        StartCoroutine(AttackSoudRoutin(colliders));
     }
 
     public void TorchLightEnd()
@@ -102,7 +86,7 @@ public class TorchLlightStart : MonoBehaviour
         bool torchlight_trigger = false;
         attack_renderer.enabled = true;
         FindObjectOfType<PlayerAnimaterMgr>().WieldAnimation(true);
-        
+        Sounds.Instance.SoundPlay("Wield");
 
         while (time < Th_limit)
         {
@@ -134,8 +118,68 @@ public class TorchLlightStart : MonoBehaviour
 
     }
 
+    IEnumerator AttackRoutin(Collider[] colliders)
+    {
 
- 
+        foreach (var collider in colliders)
+        {
+            if (collider.gameObject.tag == "Zombi")
+            {
+
+                var enemy = collider.gameObject.GetComponentInParent<Enemy>();
+
+
+
+
+                enemy.LifeRoutinStop();
+                enemy.enemy_HP -= 10f;
+              
+
+            }
+
+
+            yield return new WaitForSeconds(0.1f);
+        }
+
+
+
+
+    }
+
+    IEnumerator AttackSoudRoutin(Collider[] colliders)
+    {
+
+        foreach (var collider in colliders)
+        {
+            if (collider.gameObject.tag == "Zombi")
+            {
+                var enemy = collider.gameObject.GetComponentInParent<Enemy>();
+                if (enemy.enemy_HP > 0)
+                {
+
+                    var sound = ObjectPoolMgr.Instance.AttackSoundPool();
+                    StartCoroutine(SoundReturn(sound));
+                }
+            }
+
+
+            yield return new WaitForSeconds(0.1f);
+        }
+
+
+
+
+    }
+
+
+
+    IEnumerator SoundReturn(GameObject sound)
+    {
+
+        yield return new WaitForSeconds(0.1f);
+        ObjectPoolMgr.Instance.AttackSoundReturn(sound);
+
+    }
 
 
 }

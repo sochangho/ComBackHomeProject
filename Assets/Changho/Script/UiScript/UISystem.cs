@@ -96,6 +96,12 @@ public class UISystem : MonoBehaviour
 
     }
 
+    public void UIClick()
+    {
+        Sounds.Instance.SoundPlay("Click");
+    }
+
+
 
     IEnumerator CreateAfterDestroy(GameObject obj)
     {

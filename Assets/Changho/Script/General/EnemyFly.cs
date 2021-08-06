@@ -14,7 +14,7 @@ public class EnemyFly : MonoBehaviour
     {
 
         player = FindObjectOfType<PlayerControl>();
-        camaraShake = FindObjectOfType<CamaraShake>();
+        camaraShake =GameObject.Find("MainCamera(Clone)").GetComponent<CamaraShake>();
     }
 
 
@@ -25,6 +25,7 @@ public class EnemyFly : MonoBehaviour
         if(other.tag == "Player")
         {
             camaraShake.CamaraShakeStart();
+            Sounds.Instance.SoundPlay("Bugattack");
             player.player_hp -= 0.1f;
            
         }

@@ -53,6 +53,8 @@ public class Slot:MonoBehaviour
     public void Clickitem()
     {
 
+        Sounds.Instance.SoundPlay("SlotClick");
+
         if (item != null)
         {
             FindObjectOfType<Inventory>().SlotClickDefanse(item.ItemType());

@@ -1,12 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using System;
 public class AxeStart : MonoBehaviour
 {
    
     public float limit_time = 2f;
     public bool use_go_trigger = true;
+    public GameObject sound;
+
     private bool use_trigger = false;
     private bool treeuistart_trigger = false;
 
@@ -44,7 +46,7 @@ public class AxeStart : MonoBehaviour
     private void PlayerRadiusTreeCheck()
     {
         Collider[] colliders = Physics.OverlapSphere(FindObjectOfType<PlayerControl>().transform.position, 3f);
-
+        
 
         foreach(var collider in colliders)
         {
@@ -61,10 +63,19 @@ public class AxeStart : MonoBehaviour
                     ActionAxe(collider);
                 }
 
-               
+                if(collider.GetComponent<CamaraShake>() == null)
+                {
+                   var shake = collider.gameObject.AddComponent<CamaraShake>();
+                    shake._amount = 0.2f;
+                    shake._duration = 0.1f;
+                }
+
+                collider.GetComponent<CamaraShake>().CamaraShakeStart();
+                
                 var dust = ObjectPoolMgr.Instance.DustParticlePool();
                 dust.transform.position = transform.position;
                 StartCoroutine(DustParticleRoutin(dust));
+                StartCoroutine(Sound());
                 FindObjectOfType<UISystem>().ui_forec.DecreaseForceBar();
                
                 break;
@@ -82,52 +93,105 @@ public class AxeStart : MonoBehaviour
             var playerTotreeDir = other.transform.position - FindObjectOfType<PlayerControl>().transform.position;
             var playertreeDot = Vector3.Dot(playerTotreeDir.normalized, FindObjectOfType<PlayerControl>().transform.forward);
 
-
+        
 
             if (playertreeDot > 0f)
             {
                 var add_fruits = other.GetComponent<Trees>().Fruits;
                 string fruitname;
                 string namoo = new Part(PartType.FireWood).GetItemName();
+                other.GetComponent<TargetCollider>().TreeSlice(other.transform.position);
 
+            FindObjectOfType<PlayerControl>().enabled = false;
+            StartCoroutine(DelayCallback(2f ,() => {FindObjectOfType<PlayerControl>().enabled = true;}));
 
-                if (other.GetComponent<Trees>().Tree_type == TreeType.AppleTree)
+            if (other.GetComponent<Trees>().Tree_type == TreeType.AppleTree)
                 {
-                    
+
+                StartCoroutine(DelayCallback(2f ,() =>
+                {
+
                     foreach (var add_fruit in add_fruits)
                     {
-                    ItemSystem.Instance.TreeItemCreate(other.transform.position, new Fruit(FuritType.Apple));
+                        ItemSystem.Instance.TreeItemCreate(other.transform.position, new Fruit(FuritType.Apple)  , 
+                            Resources.Load<Material>("Mat/GlowMat_Apple")as Material );
+                        
                     }
+
+
+                }));
+
+                
                     
                 }
                 else if (other.GetComponent<Trees>().Tree_type == TreeType.BananaTree)
                 {
-                   
+                StartCoroutine(DelayCallback(2f ,() => {
                     foreach (var add_fruit in add_fruits)
                     {
-                    ItemSystem.Instance.TreeItemCreate(other.transform.position, new Fruit(FuritType.Banana));
-                     }
-                    
+                        ItemSystem.Instance.TreeItemCreate(other.transform.position, new Fruit(FuritType.Banana),
+                             Resources.Load<Material>("Mat/GlowMat_Banana") as Material);
+                       
+                    }
+                }));
+
                 }
                 else if (other.GetComponent<Trees>().Tree_type == TreeType.CoconutTree)
                 {
-                    
+                StartCoroutine(DelayCallback( 2f,() => {
+
+
                     foreach (var add_fruit in add_fruits)
                     {
-                    ItemSystem.Instance.TreeItemCreate(other.transform.position, new Fruit(FuritType.Coconet));
+                        ItemSystem.Instance.TreeItemCreate(other.transform.position, new Fruit(FuritType.Coconet),
+                             Resources.Load<Material>("Mat/GlowMat_Blown") as Material);
+                        
                     }
-                    
+
+
+                }));    
+
                 }
 
+            StartCoroutine(DelayCallback(2f , ()
+                =>
+            {
 
-            ItemSystem.Instance.TreeItemCreate(other.transform.position, new Part(PartType.FireWood));
-            //메쉬슬라이싱
-            other.GetComponent<TargetCollider>().TreeSlice(other.transform.position);
+                Vector3 pos;
+                if(other.GetComponent<Trees>().Tree_type == TreeType.AppleTree)
+                {
+                    pos = new Vector3(other.transform.position.x, other.transform.position.y + 5f, other.transform.position.z);
+                }
+                else
+                {
+                    pos = other.transform.position;
+                }
+                ItemSystem.Instance.TreeItemCreate(pos, new Part(PartType.FireWood) ,
+                     Resources.Load<Material>("Mat/GlowMat_Blown") as Material);
+            }));
+
+           
             }
 
 
         
     }
+
+    IEnumerator DelayCallback(float delay, Action itemCallback)
+    {
+        yield return new WaitForSeconds(delay);
+
+        if (itemCallback != null)
+        {
+            itemCallback();
+
+        }
+
+
+    }
+
+
+
 
     /// <summary>
     ///  무기 사용 대기시간
@@ -140,10 +204,10 @@ public class AxeStart : MonoBehaviour
         bool axe_trigger = false;
 
         FindObjectOfType<PlayerAnimaterMgr>().WieldAnimation(true);
-
+        Sounds.Instance.SoundPlay("Wield");
         
 
-        while(time < limit_time)
+        while(time < limit_time && FindObjectOfType<PlayerAnimaterMgr>().WieldState())
         {
             time += Time.deltaTime;
 
@@ -190,6 +254,14 @@ public class AxeStart : MonoBehaviour
         }
 
     }
+
+    IEnumerator Sound()
+    {
+        sound.SetActive(true);
+        yield return new WaitForSeconds(0.2f);
+        sound.SetActive(false);
+    }
+
 
     IEnumerator DustParticleRoutin(GameObject obj)
     {

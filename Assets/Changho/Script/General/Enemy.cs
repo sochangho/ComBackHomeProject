@@ -35,6 +35,8 @@ public class Enemy : MonoBehaviour
 
     private PlayerControl _player;
 
+    private AudioSource _audio;
+
     private Coroutine lifeCoroutin;
 
     private EnemyState _state;
@@ -50,7 +52,7 @@ public class Enemy : MonoBehaviour
 
     public bool enemydie_trigger = false;
 
-  
+    
 
     public EnemyState State
     {
@@ -73,7 +75,7 @@ public class Enemy : MonoBehaviour
     {
         _agent = GetComponent<NavMeshAgent>();
         _player = FindObjectOfType<PlayerControl>();
-        
+        _audio = GetComponent<AudioSource>();
      
 
 
@@ -145,10 +147,11 @@ public class Enemy : MonoBehaviour
 
     IEnumerator LifeRoutin()
     {
+
        
         while (_state != EnemyState.Dead)
         {
-
+            SoundDistance();
 
             enemyBar.enemy_hpimage.fillAmount = enemy_HP / 100;
 
@@ -222,6 +225,7 @@ public class Enemy : MonoBehaviour
                 enemydie_trigger = true;
                 enemy_HP = 0;
                 StartCoroutine(ParticleDieroutin());
+                Sounds.Instance.SoundPlay("Bugdie");
                 _state = EnemyState.Dead;               
                 
                
@@ -235,10 +239,16 @@ public class Enemy : MonoBehaviour
 
     }
     
+    private void SoundDistance()
+    {
+        var distance = Vector3.Distance(_player.transform.position, start_point.position);
+        float distanceSound = distance/150f;
+
+        _audio.volume = 0.1f - distanceSound;
 
 
 
-
+    }
 
     private void PlayerSearch()
     {

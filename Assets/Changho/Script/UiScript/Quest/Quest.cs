@@ -28,15 +28,21 @@ public class Quest : Popup
     private TextMeshProUGUI percent_font;
 
 
+    private void OnEnable()
+    {
+        Sounds.Instance.SoundPlay("Click");
+    }
+
+
     private void Start()
     {
-
+        Sounds.Instance.SoundPlay("Open");
         complete_button.gameObject.SetActive(false);
 
         PlayerStop();
 
 
-
+      
 
         SetQuest();
 
@@ -45,7 +51,9 @@ public class Quest : Popup
     }
     public void OnCloseButtonPress()
     {
-       
+
+        Sounds.Instance.SoundPlay("Click");
+
         FindObjectOfType<PlayerControl>().enabled = true;
         Close();
 
@@ -54,6 +62,8 @@ public class Quest : Popup
 
     public void OnDestroy()
     {
+        Sounds.Instance.SoundPlay("Close");
+        
         PlayerStart();
     }
 

@@ -24,6 +24,9 @@ public class ItemSystem : MonoBehaviour
 
     public bool warterTrigger = false;
 
+
+    [SerializeField]
+    private RuntimeAnimatorController[] runtimeControllers;
    
     private static ItemSystem _instance;
     // 인스턴스에 접근하기 위한 프로퍼티
@@ -629,32 +632,52 @@ public class ItemSystem : MonoBehaviour
 
     }
 
-    public void TreeItemCreate<T>(Vector3 pos , T item ) where T : Items
+    public void TreeItemCreate<T>(Vector3 pos , T item , Material mat ) where T : Items
     {
 
-         var particle = ObjectPoolMgr.Instance.ParticlePool();
-        particle.transform.position = pos;
-        StartCoroutine(ItemCreateparticleRoutin(particle));
-
+       
+    
         foreach(var prefabitem in prefebitems)
         {
             if(prefabitem.ItemType() == item.ItemType())
             {
                 var go = Instantiate(prefabitem);
+                var origin_mat = go.GetComponent<MeshRenderer>().materials[0];
+                Material[] mats = new Material[1]; 
+                mats[0] = mat;
+                go.GetComponent<MeshRenderer>().materials = mats;
+
                 go.gameObject.AddComponent<ItemTreeCollider>();
-                go.transform.position = pos;
-                go.gameObject.AddComponent<Rigidbody>().useGravity = true;
-                go.gameObject.AddComponent<BoxCollider>();
+                go.transform.parent = null;
+                go.tag = "Item";
 
-                float x = Random.Range(-1, 1);
-                float y = Random.Range(-1, 1);
-                float z = Random.Range(-1, 1);
+                if (item.ItemType() == new Fruit(FuritType.Apple).ItemType())
+                {
+                    go.transform.position = new Vector3(pos.x, pos.y + 5f, pos.z);
 
-                var offest = new Vector3(x, y, z);
+                }
+                else
+                {
+                    go.transform.position = pos;
+                }
+
+                float[] distance = new float[2];
+                distance[0] = 2f;
+                distance[1] = -2f;
+
+             
+
+
+
+              
+                go.gameObject.AddComponent<Rigidbody>().velocity = GetVelocity(pos,
+                new Vector3(pos.x + distance[Random.Range(0,distance.Length)] , pos.y , pos.z + distance[Random.Range(0, distance.Length)]), 45f);
+
                 
-                go.GetComponent<Rigidbody>().AddExplosionForce(60f, transform.position + offest, 10f);
 
-                go.transform.parent = FindObjectOfType<Terrain>().transform;
+              
+               StartCoroutine( ItemMove(go.gameObject , origin_mat) );
+
 
                 break;
             }
@@ -666,6 +689,48 @@ public class ItemSystem : MonoBehaviour
 
 
     }
+    Vector3 GetVelocity(Vector3 currentPos, Vector3 targetPos, float initialAngle)
+    {
+        float gravity = Physics.gravity.magnitude;
+        float angle = initialAngle * Mathf.Deg2Rad;
+
+        Vector3 planarTarget = new Vector3(targetPos.x, 0, targetPos.z);
+        Vector3 planarPosition = new Vector3(currentPos.x, 0, currentPos.z);
+
+        float distance = Vector3.Distance(planarTarget, planarPosition);
+        float yOffset = currentPos.y - targetPos.y;
+
+        float initialVelocity = (1 / Mathf.Cos(angle)) * Mathf.Sqrt((0.5f * gravity * Mathf.Pow(distance, 2)) / (distance * Mathf.Tan(angle) + yOffset));
+
+        Vector3 velocity = new Vector3(0f, initialVelocity * Mathf.Sin(angle), initialVelocity * Mathf.Cos(angle));
+
+        float angleBetweenObjects = Vector3.Angle(Vector3.forward, planarTarget - planarPosition) * (targetPos.x > currentPos.x ? 1 : -1);
+        Vector3 finalVelocity = Quaternion.AngleAxis(angleBetweenObjects, Vector3.up) * velocity;
+
+        return finalVelocity;
+    }
+
+
+    IEnumerator ItemMove(GameObject obj  , Material mat)
+    {
+
+        yield return new WaitForSeconds(1f);
+        
+        obj.AddComponent<BoxCollider>();
+        var particle = ObjectPoolMgr.Instance.ParticlePool();
+        particle.transform.position = obj.transform.position;
+        StartCoroutine(ItemCreateparticleRoutin(particle));
+        
+        Sounds.Instance.SoundPlay("Coin");
+        Material[] mats = new Material[1];
+        mats[0] = mat;
+        obj.GetComponent<MeshRenderer>().materials = mats;
+
+        //ItemClickAdd(obj);
+    }
+
+
+
 
     IEnumerator ItemCreateparticleRoutin(GameObject obj)
     {

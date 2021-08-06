@@ -5,6 +5,9 @@ using System;
 // 플레이어 이동 및 아이템 파밍 , 키를 눌렀을 때 행동
 public class PlayerControl : MonoBehaviour
 {
+
+    public Transform[] spwanpoints; 
+
     public PlayerEquState player_equState;
 
     public ThrowStones stons;
@@ -329,7 +332,7 @@ public class PlayerControl : MonoBehaviour
 
 
     
-        if (distance >= targetToplayer )
+        if (distance >= targetToplayer && (player_anim.WalkState()|| player_anim.RunState()))
         {
           
             transform.localPosition = Vector3.MoveTowards(transform.position, target , player_speed * Time.deltaTime);
@@ -475,6 +478,7 @@ public class PlayerControl : MonoBehaviour
             if(time > 1.19f && !lifingbool)
             {
                 ItemSystem.Instance.ItemClickAdd(clickitemobj);
+                Sounds.Instance.SoundPlay("Itemacquire");
                
                 if(usingitem == null)
                 {

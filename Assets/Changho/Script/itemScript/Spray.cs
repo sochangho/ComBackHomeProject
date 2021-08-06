@@ -10,7 +10,8 @@ public class Spray : MonoBehaviour
 
     private int spray_cnt = 3;
     private bool use_trigger = false;
-    
+
+    public GameObject sound;
 
     public void SprayUse()
     {
@@ -18,6 +19,7 @@ public class Spray : MonoBehaviour
         if (use_trigger == false)
         {
             use_trigger = true;
+            StartCoroutine(Sound());
             StartCoroutine(SprayRoutin());
             spray_cnt--;
         }
@@ -30,21 +32,80 @@ public class Spray : MonoBehaviour
 
         Collider[] colliders = Physics.OverlapSphere(FindObjectOfType<PlayerControl>().transform.position, 6f);
 
-        foreach(var collider in colliders)
+        StartCoroutine(AttackRoutin(colliders));
+        StartCoroutine(AttackSoudRoutin(colliders));
+
+    }
+
+    IEnumerator Sound()
+    {
+        sound.SetActive(true);
+
+        yield return new WaitForSeconds(2f);
+
+        sound.SetActive(false);
+
+
+    }
+
+    IEnumerator AttackRoutin(Collider[] colliders)
+    {
+        foreach (var collider in colliders)
         {
-            if(collider.gameObject.tag == "Zombi")
+            if (collider.gameObject.tag == "Zombi")
             {
+
+                var enemy = collider.gameObject.GetComponentInParent<Enemy>();
+                enemy.LifeRoutinStop();
+                enemy.enemy_HP -= 40f;
               
-                    var enemy = collider.gameObject.GetComponentInParent<Enemy>();
-                    enemy.LifeRoutinStop();
-                    enemy.enemy_HP -= 40f;
-               
 
             }
 
+            yield return new WaitForSeconds(0.1f);
         }
 
+
+
     }
+
+
+    IEnumerator AttackSoudRoutin(Collider[] colliders)
+    {
+
+        foreach (var collider in colliders)
+        {
+            if (collider.gameObject.tag == "Zombi")
+            {
+
+                var enemy = collider.gameObject.GetComponentInParent<Enemy>();
+                if (enemy.enemy_HP > 0) 
+                {
+                    var sound = ObjectPoolMgr.Instance.AttackSoundPool();
+                    StartCoroutine(SoundReturn(sound));
+                }
+            }
+
+
+            yield return new WaitForSeconds(0.1f);
+        }
+
+
+
+
+    }
+
+
+
+    IEnumerator SoundReturn(GameObject sound)
+    {
+
+        yield return new WaitForSeconds(0.7f);
+        ObjectPoolMgr.Instance.AttackSoundReturn(sound);      
+       
+    }
+
+
 
     IEnumerator SprayRoutin()
     {

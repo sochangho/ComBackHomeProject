@@ -159,4 +159,18 @@ public class ObjectPoolMgr : MonoBehaviour
 
     }
 
+
+    public GameObject AttackSoundPool()
+    {
+
+        return objpool[8].GetObject();
+    }
+
+    public void AttackSoundReturn(GameObject obj)
+    {
+
+        objpool[8].ReturnObject(obj);
+
+    }
+
 }

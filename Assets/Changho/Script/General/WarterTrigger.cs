@@ -77,7 +77,7 @@ public class WarterTrigger : MonoBehaviour
 
             panel.GetComponent<PanelActive>().use_button.onClick.RemoveAllListeners();
             panel.GetComponent<PanelActive>().use_button.onClick.AddListener(ItemSystem.Instance.WaterAdd);
-
+            panel.GetComponent<PanelActive>().use_button.onClick.AddListener(() => { Sounds.Instance.SoundPlay("Water"); });
 
 
         }

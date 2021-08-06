@@ -759,6 +759,9 @@ MonoBehaviour:
   shippercent: {fileID: 816862771}
   percent_image: {fileID: 1953430659}
   percent_font: {fileID: 1390979214}
+  audios:
+  - {fileID: 7922178852173415785, guid: 14054c2b320218743bc8b0106fa9b391, type: 3}
+  - {fileID: 7922178852173415785, guid: cea722bf6f8edbe45930babc1e750d5c, type: 3}
 --- !u!1 &4695959523656302877
 GameObject:
   m_ObjectHideFlags: 0

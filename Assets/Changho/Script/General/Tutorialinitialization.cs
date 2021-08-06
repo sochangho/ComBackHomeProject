@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class Tutorialinitialization : MonoBehaviour
 {
+    
 
     private void Start()
     {
-
         TutorialSystem.Instance.TutorialsAdd();
         TutorialSystem.Instance.RestartQuest();
-       
+
+ 
     }
 }

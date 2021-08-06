@@ -185,6 +185,11 @@ public class PlayerAnimaterMgr : MonoBehaviour
         return (player_animator.GetBool("Walk") || player_animator.GetBool("TorchWalk")) && !player_animator.GetBool("Run") ;
     }
 
+    public bool WieldState()
+    {
+
+        return player_animator.GetBool("Wield");
+    }
 
     IEnumerator FishingStatAnimantionRoutin(bool state)
     {

@@ -27,6 +27,8 @@ public class ItemPanel : MonoBehaviour
     public void UseClick()
     {
 
+        Sounds.Instance.SoundPlay("SlotClick");
+
         if (item is Equipment)
         {
             if (item.ItemType() == new Equipment(EquipmentType.Bonfire).ItemType())
@@ -54,6 +56,7 @@ public class ItemPanel : MonoBehaviour
 
     public void CencelClick()
     {
+        Sounds.Instance.SoundPlay("SlotClick");
         gameObject.SetActive(false);
         FindObjectOfType<Inventory>().SlotClickOK();
     }

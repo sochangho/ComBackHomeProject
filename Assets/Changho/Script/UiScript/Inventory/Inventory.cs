@@ -20,8 +20,11 @@ public class Inventory : Popup
     public GameObject[] button_objs;
 
 
-    
 
+    private void OnEnable()
+    {
+        SoundPlay("Click");
+    }
 
     private void Start()
     {
@@ -30,11 +33,13 @@ public class Inventory : Popup
         PanelDestroy();
         PlayerStop();
         SetItem();
-        
-    }
 
+        SoundPlay("Open");
+    }
     private void OnDestroy()
     {
+
+        SoundPlay("Close");
         PlayerStart();
 
 
@@ -80,6 +85,8 @@ public class Inventory : Popup
         {
             item_panel.SetActive(false);
         }
+      
+        SoundPlay("Click");
         FindObjectOfType<PlayerControl>().enabled = true;
         Close();
     }
@@ -151,6 +158,7 @@ public class Inventory : Popup
 
     public void OpenBoxButton()
     {
+        SoundPlay("Click");
         ItemSystem.Instance.OpenBox();
 
         InventoryUpdate();
@@ -159,6 +167,7 @@ public class Inventory : Popup
 
     public void ClickBornfireCreate()
     {
+        SoundPlay("Click");
         ItemSystem.Instance.BonfireAdd();
         InventoryUpdate();
     }
@@ -166,6 +175,7 @@ public class Inventory : Popup
 
     public void ClickTorchLightCreate()
     {
+        SoundPlay("Click");
         ItemSystem.Instance.TorchLightAdd();
         InventoryUpdate();
 
@@ -173,8 +183,8 @@ public class Inventory : Popup
 
     public void ClickRaftCreate()
     {
-        
 
+        SoundPlay("Click");
         ItemSystem.Instance.RaftAdd();
         InventoryUpdate();
     }
@@ -186,7 +196,7 @@ public class Inventory : Popup
 
         foreach(var slot in slots)
         {
-            Debug.Log(slot.GetComponent<Slot>().SlotGet().ToString());
+           
             if(slot.GetComponent<Slot>().SlotGet().ItemType() != itemtype)
             {
 
@@ -259,5 +269,11 @@ public class Inventory : Popup
 
     }
 
+    public void SoundPlay(string name)
+    {
+
+        Sounds.Instance.SoundPlay(name);
+
+    }
 
 }
