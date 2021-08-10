@@ -768,7 +768,7 @@ public class ItemSystem : MonoBehaviour
 
         player.Anim.PickupAnimation(true);
         player.enabled = false;
-
+        Sounds.Instance.SoundPlay("Water");
 
         while (time < 3f)
         {

@@ -26,6 +26,7 @@ TagManager:
   - Rain
   - CropPlace
   - UiCollider
+  - FishingZone
   layers:
   - Default
   - TransparentFX

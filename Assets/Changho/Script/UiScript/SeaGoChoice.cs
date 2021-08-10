@@ -59,5 +59,8 @@ public class SeaGoChoice :Popup
 
     }
 
-
+    public void ButtonSound()
+    {
+        Sounds.Instance.SoundPlay("SlotClick");
+    }
 }

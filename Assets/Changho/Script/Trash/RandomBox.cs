@@ -83,6 +83,7 @@ public class RandomBox : MonoBehaviour
             ship.ShipExplosion();
             trash_system.shipHp -= 5;
             //trash_system.ItemZero();
+            Sounds.Instance.SoundPlay("explosion");
 
         }
         else if(number == 1)

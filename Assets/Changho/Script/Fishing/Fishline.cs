@@ -83,7 +83,7 @@ public class Fishline : MonoBehaviour
         StartCoroutine(FishStartActionRoutinBackPoint2());
         StartCoroutine(FishStartActionRoutinBackPoint3());
         StartCoroutine(FisingGageDelay());
-        Debug.Log("호출");
+        
 
     }
 
@@ -94,7 +94,8 @@ public class Fishline : MonoBehaviour
         StartCoroutine(FishingAquireRoutinPoint2());
         StartCoroutine(FishingAquireRoutinPoint3());
         StartCoroutine(FishingAquireAfterDelayAnimation());
-       
+        Sounds.Instance.SoundSetActive(true, "FishingPull");
+      
     }
 
 
@@ -210,12 +211,14 @@ public class Fishline : MonoBehaviour
 
     IEnumerator FishingAquireAfterDelayAnimation()
     {
+        
         yield return new WaitForSeconds(5f);
+        Sounds.Instance.SoundSetActive(false, "FishingPull");
         FindObjectOfType<PlayerAnimaterMgr>().FishingCastAnimation(false);
         FindObjectOfType<PlayerControl>().PlayerControlStart();
         StartCoroutine(origin2Routin());
         StartCoroutine(origin3Routin());
-
+      
         if ((TutorialSystem.Instance.tutorial_index == TutorialSystem.Instance.tutorials.FindIndex(x => x is FishingTutorial))
             && (FindObjectOfType<FishingStartUi>() == null))
         {
@@ -233,6 +236,8 @@ public class Fishline : MonoBehaviour
         FindObjectOfType<EquUI>().ImageNone();
 
     }
+
+
 
 
     IEnumerator origin2Routin()

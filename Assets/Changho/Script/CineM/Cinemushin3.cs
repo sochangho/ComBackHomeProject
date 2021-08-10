@@ -16,7 +16,7 @@ public class Cinemushin3 : MonoBehaviour
     public CinemachineVirtualCamera virtualCamera;
     public Animator player_animator;
     public Transform gohome;
-    
+    public AudioSource source;
 
     private void Start()
     {
@@ -66,8 +66,8 @@ public class Cinemushin3 : MonoBehaviour
         virtualCamera.LookAt=Boat.transform;
        
         player.transform.parent = Boat.transform;
-      
-        
+
+        source.Play();
        
 
         while(Vector3.Distance(Boat.transform.position, gohome.position) > 0.2f)

@@ -30,6 +30,10 @@ public class GameOverPopup :Popup
 
     }
 
+    public void ButtonSound()
+    {
+        Sounds.Instance.SoundPlay("SlotClick");
+    }
 
     public void GameEndButton()
     {

@@ -14,6 +14,7 @@ public class FishingGageUi : MonoBehaviour
     {
         camera = FindObjectOfType<Camera>();
         gage_img.fillAmount = 1;
+        Sounds.Instance.SoundPlay("FishingGage");
     }
 
     // Update is called once per frame
@@ -30,7 +31,7 @@ public class FishingGageUi : MonoBehaviour
 
             //이벤트 
             EventManager.Emit("Acquire", null);
-
+            Sounds.Instance.SoundPlay("FishingComplete");
             Destroy(this.gameObject);
 
         }

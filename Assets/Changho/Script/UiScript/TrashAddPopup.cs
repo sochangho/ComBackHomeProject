@@ -62,7 +62,10 @@ public class TrashAddPopup : Popup
 
 
     
-
+    public void ButtonSound()
+    {
+        Sounds.Instance.SoundPlay("SlotClick");
+    }
 
 
 }

@@ -21,12 +21,42 @@ public class Sounds : SlngletonGeneral<Sounds>
     {
         var sound = soundFairs.Find(x => x.soundName == name);
 
+
+  
+
         sound.source.Play();
+
         
+    }
+
+    public void SoundStop(string name)
+    {
+        var sound = soundFairs.Find(x => x.soundName == name);
+
+        
+
+        sound.source.Stop();
 
     }
 
+    public void SoundSetActive(bool active ,string name)
+    {
+        var sound = soundFairs.Find(x => x.soundName == name);
 
+        if (active)
+        {
+            sound.source.gameObject.SetActive(true);
+            sound.source.Play();
+        }
+        else
+        {
+            sound.source.gameObject.SetActive(false);
+
+        }
+       
+
+
+    }
 }
 
 

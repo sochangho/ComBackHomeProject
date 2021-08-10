@@ -194,7 +194,7 @@ public class PlayerAnimaterMgr : MonoBehaviour
     IEnumerator FishingStatAnimantionRoutin(bool state)
     {
         float time = 0;
-
+        bool use = false;
         if (player_animator.GetBool("Fishing") != state)
         {
             player_animator.SetBool("Fishing", state);
@@ -204,6 +204,13 @@ public class PlayerAnimaterMgr : MonoBehaviour
         while (time < 3f)
         {
             time += Time.deltaTime;
+
+            if(time > 2f && !use && state)
+            {
+                use = true;
+                Sounds.Instance.SoundPlay("FishingThrow");
+            }
+
 
             yield return null;
         }

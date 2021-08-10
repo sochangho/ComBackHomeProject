@@ -12,6 +12,11 @@ public class FishingStartUi : MonoBehaviour
         buttons[0].onClick.AddListener(FishingStartButton);
         buttons[1].onClick.AddListener(UiDestroy);
 
+        foreach(var button in buttons)
+        {
+            button.onClick.AddListener(() => { Sounds.Instance.SoundPlay("SlotClick"); });
+        }
+
     }
 
     private void FishingStartButton()

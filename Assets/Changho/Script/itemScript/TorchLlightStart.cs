@@ -56,9 +56,10 @@ public class TorchLlightStart : MonoBehaviour
         
         FindObjectOfType<EquUI>().ImageNone();
         ItemSystem.Instance.ItemUseRemove(new Equipment(EquipmentType.TorchLight));
-                 
+
         //그리고 착용취소 상태 and 인벤토리에서 파괴
         //착용시에 불을켜버린다
+        FindObjectOfType<PlayerAnimaterMgr>().WieldAnimation(false);
 
     }
 

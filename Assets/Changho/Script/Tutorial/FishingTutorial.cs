@@ -36,7 +36,7 @@ public class FishingTutorial : Tutorials
         }
 
         fish = complete_cnt;
-        if (fish >= 2)
+        if (fish >= 3)
         {
 
             tutorialState = TutorialState.Complete;

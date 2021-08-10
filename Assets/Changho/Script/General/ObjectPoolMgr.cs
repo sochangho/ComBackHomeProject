@@ -173,4 +173,16 @@ public class ObjectPoolMgr : MonoBehaviour
 
     }
 
+
+
+    public GameObject SplashPool()
+    {
+        return objpool[9].GetObject();
+    }
+
+    public void SplashReturn(GameObject obj)
+    {
+        objpool[9].ReturnObject(obj);
+    }
+
 }

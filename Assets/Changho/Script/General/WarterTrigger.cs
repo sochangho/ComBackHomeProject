@@ -21,7 +21,7 @@ public class WarterTrigger : MonoBehaviour
                 arrow.SetActive(false);
             }
 
-            if((TutorialSystem.Instance.tutorial_index == TutorialSystem.Instance.tutorials.FindIndex(x => x is FishingTutorial) )
+            if ((TutorialSystem.Instance.tutorial_index == TutorialSystem.Instance.tutorials.FindIndex(x => x is FishingTutorial))
                 && (FindObjectOfType<FishingStartUi>() == null))
             {
 
@@ -31,6 +31,9 @@ public class WarterTrigger : MonoBehaviour
 
 
             WaterPickup();
+
+
+
         }
         
     }
@@ -77,8 +80,8 @@ public class WarterTrigger : MonoBehaviour
 
             panel.GetComponent<PanelActive>().use_button.onClick.RemoveAllListeners();
             panel.GetComponent<PanelActive>().use_button.onClick.AddListener(ItemSystem.Instance.WaterAdd);
-            panel.GetComponent<PanelActive>().use_button.onClick.AddListener(() => { Sounds.Instance.SoundPlay("Water"); });
-
+            panel.GetComponent<PanelActive>().use_button.onClick.AddListener(() => { Sounds.Instance.SoundPlay("SlotClick"); });
+            panel.GetComponent<PanelActive>().destroy_button.onClick.AddListener(() => { Sounds.Instance.SoundPlay("SlotClick"); });
 
         }
 

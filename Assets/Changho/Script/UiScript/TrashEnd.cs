@@ -10,7 +10,7 @@ public class TrashEnd : Popup
     /// </summary>
     public void GoGroundScene()
     {
-
+        Sounds.Instance.SoundPlay("SlotClick");
         DaySystem.Instance.day_trigger = true;
         SceneManager.LoadScene("GroundScene");
        

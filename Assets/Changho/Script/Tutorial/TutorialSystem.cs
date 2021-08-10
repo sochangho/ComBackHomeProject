@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 using System;
 public class TutorialSystem : MonoBehaviour
 {
@@ -157,12 +158,28 @@ public class TutorialSystem : MonoBehaviour
             //엔딩
         }
 
+        FindObjectOfType<PlayerControl>().enabled = false;
 
+        var buttons = FindObjectsOfType<Button>();
+
+        foreach(var button in buttons)
+        {
+            button.interactable = false;
+        }
+
+        var player = FindObjectOfType<PlayerControl>();
+
+        player.PlayerControlStop();
+        player.Anim.WalkAnimation(false);
+        player.Anim.RunAnimation(false);
 
         foreach (var tutorialCameraInfo in tutorialCameraInfos)
         {
             if(tutorial_index == tutorialCameraInfo.GetTutorialIndex())
             {
+
+               
+
                 Vector3 position_des;
                 Transform transform_des;
 
@@ -240,7 +257,7 @@ public class TutorialSystem : MonoBehaviour
     IEnumerator TutorialTransformChangeRoution(int tutorial_index ,Vector3 desitination,Transform  look_transform)
     {
         var camera = FindObjectOfType<Camera>();
-        FindObjectOfType<PlayerControl>().enabled = false;
+       
 
 
 
@@ -265,7 +282,7 @@ public class TutorialSystem : MonoBehaviour
 
 
 
-        Invoke("DelayReturn", 4f);
+        Invoke("DelayReturn", 6f);
 
     }
 
@@ -323,6 +340,7 @@ public class TutorialSystem : MonoBehaviour
             yield return null;
 
         }
+        FindObjectOfType<PlayerControl>().PlayerControlStart();
 
     }
 
@@ -372,6 +390,12 @@ public class TutorialSystem : MonoBehaviour
     private void DelayReturn()
     {
         FindObjectOfType<PlayerControl>().enabled = true;
+
+        var buttons = FindObjectsOfType<Button>();
+        foreach (var button in buttons)
+        {
+            button.interactable = true;
+        }
 
     }
 

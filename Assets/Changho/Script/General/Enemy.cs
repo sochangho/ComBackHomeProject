@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-
+using UnityEngine.SceneManagement;
 public class Enemy : MonoBehaviour
 {
     [SerializeField] 
@@ -41,6 +41,7 @@ public class Enemy : MonoBehaviour
 
     private EnemyState _state;
 
+    
 
     [HideInInspector]
     public Vector3 dir_back;
@@ -95,6 +96,11 @@ public class Enemy : MonoBehaviour
 
         LifeRoutinStart();
         FlyColorSet();
+
+        if(SceneManager.GetActiveScene().name == "GroundScene")
+        {
+            _audio.Play();
+        }
     }
 
 
@@ -241,6 +247,12 @@ public class Enemy : MonoBehaviour
     
     private void SoundDistance()
     {
+       if(_player == null)
+        {
+            _player = FindObjectOfType<PlayerControl>();
+
+        }
+
         var distance = Vector3.Distance(_player.transform.position, start_point.position);
         float distanceSound = distance/150f;
 

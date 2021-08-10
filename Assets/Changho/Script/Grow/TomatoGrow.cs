@@ -432,8 +432,8 @@ public class TomatoGrow : MonoBehaviour
 
        
         TextChangeCrop(croppanel.GetComponent<PanelActive>());
-
-        
+        croppanel.GetComponent<PanelActive>().use_button.onClick.AddListener(() => { Sounds.Instance.SoundPlay("SlotClick"); });
+        croppanel.GetComponent<PanelActive>().destroy_button.onClick.AddListener(() => { Sounds.Instance.SoundPlay("SlotClick"); });
         if (cnt > 0)
         {
 
@@ -468,6 +468,8 @@ public class TomatoGrow : MonoBehaviour
         croppanel.GetComponent<PanelActive>().croppanel_text.text = "수확할 수 있습니다. 수확할까요?";
         croppanel.GetComponent<PanelActive>().use_button.onClick.AddListener(Harvest);
         croppanel.GetComponent<PanelActive>().use_button.onClick.AddListener(DetoryPanel);
+        croppanel.GetComponent<PanelActive>().use_button.onClick.AddListener(() => { Sounds.Instance.SoundPlay("SlotClick"); });
+        croppanel.GetComponent<PanelActive>().destroy_button.onClick.AddListener(() => { Sounds.Instance.SoundPlay("SlotClick"); });
 
     }
 
