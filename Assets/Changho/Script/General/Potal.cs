@@ -32,8 +32,11 @@ public class Potal : MonoBehaviour
         if(other.tag == "Player")
         {
 
-            FindObjectOfType<SeaGoChoice>().OnCloseChoice();
+            if (FindObjectOfType<SeaGoChoice>() != null)
+            {
 
+                FindObjectOfType<SeaGoChoice>().OnCloseChoice();
+            }
         }
 
 

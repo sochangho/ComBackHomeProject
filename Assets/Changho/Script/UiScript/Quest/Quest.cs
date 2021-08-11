@@ -111,11 +111,7 @@ public class Quest : Popup
         }
         if (tutorial.tutorials[4] == null)
         {
-            tutorial.tutorials[4] = new FishingTutorial();
-        }
-        if (tutorial.tutorials[5] == null)
-        {
-            tutorial.tutorials[5] = new EscapeTutorial();
+            tutorial.tutorials[4] = new EscapeTutorial();
         }
 
 

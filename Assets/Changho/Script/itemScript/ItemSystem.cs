@@ -649,8 +649,7 @@ public class ItemSystem : MonoBehaviour
 
                 go.gameObject.AddComponent<ItemTreeCollider>();
                 go.transform.parent = null;
-                go.tag = "Item";
-
+              
                 if (item.ItemType() == new Fruit(FuritType.Apple).ItemType())
                 {
                     go.transform.position = new Vector3(pos.x, pos.y + 5f, pos.z);

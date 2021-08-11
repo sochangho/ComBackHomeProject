@@ -21,14 +21,6 @@ public class WarterTrigger : MonoBehaviour
                 arrow.SetActive(false);
             }
 
-            if ((TutorialSystem.Instance.tutorial_index == TutorialSystem.Instance.tutorials.FindIndex(x => x is FishingTutorial))
-                && (FindObjectOfType<FishingStartUi>() == null))
-            {
-
-                FindObjectOfType<UISystem>().CreateFishingStartUi();
-                return;
-            }
-
 
             WaterPickup();
 

@@ -119,7 +119,7 @@ public class TutorialSystem : MonoBehaviour
         tutorials.Add(new SeedTutorial());
         tutorials.Add(new GrowTutorial());
         tutorials.Add(new ShipCreateTutorial());
-        tutorials.Add(new FishingTutorial());
+
         tutorials.Add(new EscapeTutorial());
        
 
@@ -131,8 +131,8 @@ public class TutorialSystem : MonoBehaviour
         tutorialCameraInfos.Add(new TutorialCameraInfo(0, treepos.position, treeLook));
         tutorialCameraInfos.Add(new TutorialCameraInfo(1, seedpos.position, seedLook));
         tutorialCameraInfos.Add(new TutorialCameraInfo(2, growpos.position, growLook));
-        tutorialCameraInfos.Add(new TutorialCameraInfo(4, fishingpos.position, fishingLook));
-        tutorialCameraInfos.Add(new TutorialCameraInfo(5, trashpos.position, trashLook));
+      
+        tutorialCameraInfos.Add(new TutorialCameraInfo(4, trashpos.position, trashLook));
        
     }
 
@@ -152,9 +152,10 @@ public class TutorialSystem : MonoBehaviour
         }
 
 
-        if (tutorial_index == 6)
+        if (tutorial_index == 5)
         {
             SceneManager.LoadScene("endGo");
+            return;
             //엔딩
         }
 
@@ -197,41 +198,7 @@ public class TutorialSystem : MonoBehaviour
 
         questRoutine = StartCoroutine(QuestCompleteRoutin());
 
-        //if(tutorial_index == 0)
-        //{
-        //    StartCoroutine(TreeCameraPosition());
-         
-        //}
-        //else if (tutorial_index == 1)
-        //{
-           
-        //    StartCoroutine(SeedCameraPosition());
-        //}
-        //else if (tutorial_index == 2)
-        //{
-        //    StartCoroutine(GrowCameraPosition());
-        //}
-        //else if (tutorial_index == 3)
-        //{
-
-        //    arrow.gameObject.SetActive(false);
-        //    tutorials[3].TutorialSet();
-        //    StartCoroutine(UiRoutin(tutorials[3].suscript));
-    
-        //}
-        //else if (tutorial_index == 4)
-        //{
-        //    StartCoroutine(TrashCameraPosition());
-
-        //}
-        //else if(tutorial_index == 5)
-        //{
-        //    SceneManager.LoadScene("endGo");
-        //    //엔딩
-        //}
-
-
-
+     
 
     }
 
@@ -414,10 +381,9 @@ public class TutorialSystem : MonoBehaviour
         while (true) {
 
             if (tutorials[tutorial_index].CompleteConditon() == TutorialState.Complete
-                && SceneManager.GetActiveScene().name == "GroundScene" && FindObjectOfType<TrashAddPopup>() == null
-
-                )
+                && SceneManager.GetActiveScene().name == "GroundScene" && FindObjectOfType<TrashAddPopup>() == null)
             {
+                
                 Invoke("OtherUI", 0.2f);
                 break;
             }
@@ -456,7 +422,11 @@ public class TutorialSystem : MonoBehaviour
 
     public void TransitionScene()
     {
-        StopCoroutine(questRoutine);
+
+        if (questRoutine != null)
+        {
+            StopCoroutine(questRoutine);
+        }
         transition=true;
     }
 
@@ -465,6 +435,7 @@ public class TutorialSystem : MonoBehaviour
 
         if (transition)
         {
+           
             questRoutine = StartCoroutine(QuestCompleteRoutin());
         }
     }

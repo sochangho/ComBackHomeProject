@@ -53,8 +53,11 @@ public class ForceUI : MonoBehaviour
 
             if (player.player_force < 100)
             {
+                
 
-                if (player.usingitem.GetComponent<AxeStart>().use_go_trigger == false)
+
+                if (player.usingitem != null && player.usingitem.GetComponent<AxeStart>() != null && 
+                    player.usingitem.GetComponent<AxeStart>().use_go_trigger == false)
                 {
                     player.usingitem.GetComponent<AxeStart>().use_go_trigger = true;
                 }
