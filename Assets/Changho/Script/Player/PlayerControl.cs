@@ -270,7 +270,7 @@ public class PlayerControl : MonoBehaviour
 
                 if (player_anim.RunState())
                 {
-                    player_speed = 20f;
+                    player_speed = 10f;
                 }
             }
             else

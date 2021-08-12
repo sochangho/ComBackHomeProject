@@ -15,8 +15,7 @@ public class DaySystem : MonoBehaviour
     [SerializeField]
     private float daytime = 300f;
 
-    [SerializeField]
-    private float raintime = 200f;
+
 
     [SerializeField]
     private GameObject rain_obj;
@@ -110,7 +109,7 @@ public class DaySystem : MonoBehaviour
         daylight.intensity = 2;
         dayType = DayType.Morning;
         dayroutin = StartCoroutine(DayRoutin());
-        rainroutin = StartCoroutine(RainRoutin());
+       
 
         player.player_hp = 100;
         player.player_hungry = 100;
@@ -147,7 +146,7 @@ public class DaySystem : MonoBehaviour
 
 
         dayroutin = StartCoroutine(DayRoutin());
-        rainroutin = StartCoroutine(RainRoutin());
+       
         daylight.gameObject.SetActive(true);
         terrain.gameObject.SetActive(true);
 
@@ -164,54 +163,7 @@ public class DaySystem : MonoBehaviour
  
 
 
-    private void RainActive(bool state)
-    {
-        if(rain_obj != null && rain_obj.activeSelf != state)
-        {
-            rain_obj.SetActive(state);
-
-        }
-
-    }
-
-    private void RainFollowPlayer()
-    {
-
-        rain_obj.transform.position = new Vector3(player.transform.position.x, player.transform.position.y + 4f, player.transform.position.z);
-
-    }
-
-
-    private void TorchLightAndBonfireEnd()
-    {
-        var items = FindObjectsOfType<Items>();
-
-        foreach(var item in items)
-        {
-            if(item.ItemType() == new Equipment(EquipmentType.Bonfire).ItemType() 
-                && item.GetComponent<BornfireStart>() != null && item.GetComponent<BornfireStart>().bonfire_state == FireState.Firing)
-            {
-                var bonfire = item.GetComponent<BornfireStart>();
-
-
-                bonfire.Fire.SetActive(false);
-                bonfire.bonfire_state = FireState.End;
-                bonfire.Smoke.SetActive(true);
-                bonfire.BonfireEnd();
-            }
-
-            if(item.ItemType() == new Equipment(EquipmentType.TorchLight).ItemType()
-                && item.GetComponent<TorchLlightStart>() != null )
-            {
-                var torchlight = item.GetComponent<TorchLlightStart>();
-
-               
-                torchlight.TorchLightEnd();
-            }
-        }
-    }
-
-    
+  
 
 
 
@@ -223,31 +175,7 @@ public class DaySystem : MonoBehaviour
 
             day_enemytrigger = true;
             var enemy = ObjectPoolMgr.Instance.objpool[2].gameObject;
-            //int enemy_cnt = 0;
-
-            //for (int i = 0; i < enemy.transform.childCount; i++)
-            //{
-            //    if (enemy.transform.GetChild(i).gameObject.activeSelf == true)
-            //    {
-            //        enemy_cnt++;
-            //    }
-
-            //}
-
-            //if (enemy_cnt < 10)
-            //{
-            //    int random = Random.Range(0, enemy_transformSpawns.Count - 1);
-            //    var enemyobj = ObjectPoolMgr.Instance.EnemyPool();
-
-
-
-            //    enemyobj.transform.position = enemy_transformSpawns[random].position;
-
-            //    enemyobj.GetComponent<NavMeshAgent>().enabled = true;
-
-
-            //}
-
+          
 
             for(int i =0; i < 10; i++)
             {
@@ -449,43 +377,7 @@ public class DaySystem : MonoBehaviour
 
     }
 
-    IEnumerator RainRoutin()
-    {
-
-       
-
-        while (true)
-        {
-          if(weatherType == Weather.Idle)
-          {
-                raintime -= Time.deltaTime;
-               
-                if (raintime < 0)
-                {
-                    weatherType = Weather.Rain;
-                    raintime = 50f;
-                }
-          }   
-          else if(weatherType == Weather.Rain)
-          {
-                raintime -= Time.deltaTime;
-                TorchLightAndBonfireEnd();
-                RainActive(true);
-                RainFollowPlayer();
-                if (raintime < 0)
-                {
-                    ObjectPoolMgr.Instance.objpool[6].Reset();
-                    weatherType = Weather.Idle;
-                    RainActive(false);
-                    raintime = 200f;
-                }
-
-
-          }
-
-            yield return null;
-        }
-    }
+ 
 
 }
 

@@ -53,6 +53,8 @@ public class TutorialSystem : MonoBehaviour
 
     private List<TutorialCameraInfo> tutorialCameraInfos = new List<TutorialCameraInfo>();
 
+   
+
     private Coroutine questRoutine;
 
     public bool tutorial_trigger = false;
@@ -127,13 +129,13 @@ public class TutorialSystem : MonoBehaviour
 
     public void TutorialTransformSetAdd()
     {
-
         tutorialCameraInfos.Add(new TutorialCameraInfo(0, treepos.position, treeLook));
         tutorialCameraInfos.Add(new TutorialCameraInfo(1, seedpos.position, seedLook));
-        tutorialCameraInfos.Add(new TutorialCameraInfo(2, growpos.position, growLook));
-      
-        tutorialCameraInfos.Add(new TutorialCameraInfo(4, trashpos.position, trashLook));
-       
+        tutorialCameraInfos.Add(new TutorialCameraInfo(2, growpos.position, growLook));      
+        tutorialCameraInfos.Add(new TutorialCameraInfo(4, trashpos.position, trashLook));   
+        
+     
+
     }
 
     
@@ -177,23 +179,12 @@ public class TutorialSystem : MonoBehaviour
         foreach (var tutorialCameraInfo in tutorialCameraInfos)
         {
             if(tutorial_index == tutorialCameraInfo.GetTutorialIndex())
-            {
-
-               
-
+            {                              
                 Vector3 position_des;
                 Transform transform_des;
-
                 tutorialCameraInfo.GetTutorialCameraInfo(out position_des, out transform_des);
-
-
                 StartCoroutine(TutorialTransformChangeRoution(tutorial_index, position_des, transform_des));
-
-
-
             }
-
-
         }
 
         questRoutine = StartCoroutine(QuestCompleteRoutin());
@@ -273,7 +264,7 @@ public class TutorialSystem : MonoBehaviour
         }
 
         Destroy(ui);
-
+        FindObjectOfType<UISystem>().CreateTrasitionUi();
     }
 
     IEnumerator NextTutorialDelay()

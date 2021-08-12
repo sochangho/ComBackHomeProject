@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
-
+using UnityEngine.UI;
 public class BornfireStart : MonoBehaviour
 {
 
@@ -20,9 +20,14 @@ public class BornfireStart : MonoBehaviour
     [SerializeField]
     private Light bonfire_light;
 
+    [SerializeField]
+    private Canvas canvas;
+
+    [SerializeField]
+    private GameObject gaugeui;
 
 
-
+  
     public GameObject Fire
     {
 
@@ -56,6 +61,12 @@ public class BornfireStart : MonoBehaviour
     {
         _player = FindObjectOfType<PlayerControl>();
         bornfire_coroutin = StartCoroutine(BornfireCorutin());
+        var cu =CreateUi();
+        if (cu != null)
+        {
+            StartCoroutine(BornfireRoutinGauge(cu));
+        }
+
        
 
     }
@@ -112,7 +123,7 @@ public class BornfireStart : MonoBehaviour
        if(other.tag == "Zombi" && fireTrigger == true)
         {
 
-            Debug.Log(other.name);
+           
             other.GetComponentInParent<Enemy>().State = EnemyState.Gohome;
             other.GetComponentInParent<Enemy>().searchTrigger = false;
         }
@@ -125,7 +136,7 @@ public class BornfireStart : MonoBehaviour
         
         if(other.tag == "Zombi" && fireTrigger == true)
         {
-            Debug.Log("나갔다");
+            
             other.GetComponentInParent<Enemy>().searchTrigger = true;
 
 
@@ -134,8 +145,45 @@ public class BornfireStart : MonoBehaviour
 
     }
 
+    IEnumerator BornfireRoutinGauge(GameObject ui)
+    {
+        WaitForSeconds waitForSeconds = new WaitForSeconds(0.1f);
+
+        while(ui.GetComponent<Image>().fillAmount > 0f)
+        {
+
+            ui.GetComponent<Image>().fillAmount -= 0.01f;
+
+            yield return waitForSeconds;
+
+        }
+
+        paticleobj.SetActive(false);
+        bonfire_state = FireState.End;
+        smoke_paticleobj.SetActive(true);
+        BonfireEnd();
+
+    }
+
+    private GameObject CreateUi()
+    {
+        if(bonfire_state == FireState.End)
+        {
+            return null;
+        }
 
 
+        var ui = Instantiate(gaugeui);
+        ui.transform.SetParent(canvas.transform);
+        ui.transform.localPosition = new Vector3(0, 0, 0);
+        ui.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 0.63f);
+
+
+        return ui;
+    }
+
+
+    
 
 
 }

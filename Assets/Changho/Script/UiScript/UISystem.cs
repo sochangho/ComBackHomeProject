@@ -14,6 +14,8 @@ public class UISystem : MonoBehaviour
     public GameObject fishingGageUi;
     public GameObject fishingAquireUi;
     public GameObject fishingStartUi;
+    public GameObject PanelUi;
+    public GameObject TransitionUi;
     public Canvas canvas;
     public Canvas playerCanvas;
 
@@ -95,6 +97,29 @@ public class UISystem : MonoBehaviour
 
 
     }
+
+
+    public GameObject CreatePanelUi()
+    {
+         PanelUi.SetActive(true);                    
+        return PanelUi;
+    }
+
+    public void CreateTrasitionUi()
+    {
+        var ui = Instantiate(TransitionUi);
+        ui.transform.SetParent(canvas.transform);
+        ui.GetComponent<RectTransform>().anchoredPosition = new Vector3(0f, 137f);
+        ui.GetComponent<PanelActive>().croppanel_text.text = "이동할 수 있습니다. 이동할까요??";
+
+       
+        ui.GetComponent<PanelActive>().use_button.onClick.AddListener(()=> { FindObjectOfType<Transitions>().SetTrastionPos(TutorialSystem.Instance.tutorial_index); });
+        ui.GetComponent<PanelActive>().use_button.onClick.AddListener(() => { Destroy(ui); });
+
+
+
+    }
+
 
     public void UIClick()
     {

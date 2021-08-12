@@ -649,16 +649,9 @@ public class ItemSystem : MonoBehaviour
 
                 go.gameObject.AddComponent<ItemTreeCollider>();
                 go.transform.parent = null;
-              
-                if (item.ItemType() == new Fruit(FuritType.Apple).ItemType())
-                {
-                    go.transform.position = new Vector3(pos.x, pos.y + 5f, pos.z);
 
-                }
-                else
-                {
-                    go.transform.position = pos;
-                }
+
+                go.transform.position = new Vector3(pos.x, FindObjectOfType<PlayerControl>().transform.position.y + 6f, pos.z);
 
                 float[] distance = new float[2];
                 distance[0] = 2f;

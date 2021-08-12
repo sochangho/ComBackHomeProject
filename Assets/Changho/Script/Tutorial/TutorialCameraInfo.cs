@@ -35,6 +35,23 @@ public class TutorialCameraInfo : MonoBehaviour
         return tutorial_index;
     }
     
+    public Transform GetTutorialTransform()
+    {
+
+
+        return look_transform;
+    }
+
+
+}
+
+
+
+[System.Serializable]
+public class TransitionPlayerPos
+{
+    public int index;
+    public Transform playerTranstion;
 
 
 }

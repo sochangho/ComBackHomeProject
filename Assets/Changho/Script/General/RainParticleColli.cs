@@ -36,7 +36,7 @@ public class RainParticleColli : MonoBehaviour
     {
         float time = 0;
 
-        while(time < 0.3f)
+        while(time < 0.1f)
         {
 
             time += Time.deltaTime;
