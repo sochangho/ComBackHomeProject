@@ -58,7 +58,7 @@ public class DaySystem : MonoBehaviour
 
     private Coroutine dayroutin;
 
-    private Coroutine rainroutin;
+  
 
     private float temp_hp;
 
@@ -125,7 +125,7 @@ public class DaySystem : MonoBehaviour
 
         ObjectPoolMgr.Instance.objpool[2].Reset();
         StopCoroutine(dayroutin);
-        StopCoroutine(rainroutin);
+     
 
 
        temp_hp = player.player_hp;

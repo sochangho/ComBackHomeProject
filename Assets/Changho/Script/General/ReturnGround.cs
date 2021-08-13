@@ -17,6 +17,7 @@ public class ReturnGround : BaseScene
         {
             OpenPopup<TrashAddPopup>("UI/Popup/TrashAddPopup");            
             itemsystem.TrashAdd();
+            itemsystem.ReturnGround();
             itemsystem.trashAddPopup = false;
 
         }

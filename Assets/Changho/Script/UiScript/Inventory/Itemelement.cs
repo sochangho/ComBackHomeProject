@@ -35,7 +35,7 @@ public class Itemelement : MonoBehaviour
 
         if (useitemname != null)
         {
-            var items = ItemSystem.Instance.items;
+            var items = ItemManager.Instance.itemList;
 
 
             foreach(var item in items)

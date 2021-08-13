@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 public class UISystem : MonoBehaviour
 {
     [HideInInspector]
@@ -16,6 +16,7 @@ public class UISystem : MonoBehaviour
     public GameObject fishingStartUi;
     public GameObject PanelUi;
     public GameObject TransitionUi;
+   
     public Canvas canvas;
     public Canvas playerCanvas;
 
@@ -121,6 +122,7 @@ public class UISystem : MonoBehaviour
     }
 
 
+    
     public void UIClick()
     {
         Sounds.Instance.SoundPlay("Click");

@@ -57,7 +57,7 @@ public class EscapeTutorial : Tutorials
 
 
 
-        foreach(var item in ItemSystem.Instance.items)
+        foreach(var item in ItemManager.Instance.itemList)
         {
             if(item.ItemType() == rope_str)
             {

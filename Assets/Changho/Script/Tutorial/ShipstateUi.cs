@@ -81,7 +81,7 @@ public class ShipstateUi : MonoBehaviour
         int wood = 0;
 
 
-        foreach(var item in ItemSystem.Instance.items)
+        foreach(var item in ItemManager.Instance.itemList)
         {
 
             if(item.ItemType() == rope_str)

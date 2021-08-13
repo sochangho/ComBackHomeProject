@@ -24,17 +24,18 @@ public class Slot:MonoBehaviour
    
 
 
-    public void SlotSeting(Items additem)
+    public void SlotSeting(Items additem , int cnt)
     {
 
         item = additem;
 
         slot_image.sprite = Resources.Load<Sprite>("Sprite/"+item.ItemType()) as Sprite;
-        item_cnt++;
+        item_cnt = cnt;
         itemcntText.text = item_cnt.ToString();
 
     } 
-    
+
+     
 
     public Items SlotGet()
     {
@@ -43,11 +44,18 @@ public class Slot:MonoBehaviour
 
     }
 
-    public void SlotCnt()
+    public void SlotCnt(int cnt)
     {
 
-        item_cnt++;
+        item_cnt = cnt;
         itemcntText.text = item_cnt.ToString();
+    }
+
+    public int SlotCntget()
+    {
+
+
+        return item_cnt;
     }
 
     public void Clickitem()
@@ -55,7 +63,7 @@ public class Slot:MonoBehaviour
 
         Sounds.Instance.SoundPlay("SlotClick");
 
-        if (item != null)
+        if (item.ItemType() != "Empty")
         {
             FindObjectOfType<Inventory>().SlotClickDefanse(item.ItemType());
             var panel = FindObjectOfType<Inventory>().item_panel;

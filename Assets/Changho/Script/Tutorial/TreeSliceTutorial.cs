@@ -39,9 +39,9 @@ public class TreeSliceTutorial : Tutorials
        
         int fruite_cnt = 0;
 
-        foreach(var item in ItemSystem.Instance.items)
+        foreach(var item in ItemManager.Instance.itemList)
         {
-            if (item.GetComponent<Fruit>())
+            if (item is Fruit)
             {
                 fruite_cnt++;
 

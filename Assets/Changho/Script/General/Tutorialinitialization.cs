@@ -10,7 +10,6 @@ public class Tutorialinitialization : MonoBehaviour
     {
         TutorialSystem.Instance.TutorialsAdd();
         TutorialSystem.Instance.RestartQuest();
-
- 
+        
     }
 }

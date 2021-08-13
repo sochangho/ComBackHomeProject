@@ -24,7 +24,7 @@ public class ThrowStones : MonoBehaviour
     {
         bool stoncheck = false;
 
-        foreach(var item in ItemSystem.Instance.items)
+        foreach(var item in ItemManager.Instance.itemList)
         {
 
             if(item.ItemType() == new Part(PartType.DefaultSton).ItemType())

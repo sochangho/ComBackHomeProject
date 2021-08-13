@@ -71,7 +71,7 @@ public class FishingGameManager : SlngletonGeneral<FishingGameManager>
         var fish =Instantiate(fishingItems[randomvalue].gameObject);        
         fish.transform.SetParent(fishline.point3);
         fish.transform.localPosition = new Vector3(0, 0, 0);     
-        ItemSystem.Instance.ItemCreate(fish.GetComponent<Fish>().ItemType());
+        ItemSystem.Instance.ItemCreate(fish.GetComponent<Fish>());
         StartCoroutine(FishMoveDelay(fish));
         //FindObjectOfType<UISystem>().CreateFishingAquireUi(fish.GetComponent<Items>());
 

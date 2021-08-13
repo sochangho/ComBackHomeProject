@@ -11,7 +11,7 @@ public class UIFade : MonoBehaviour
     private Image infoPanel;
 
     float fades = 1.0f;
-    float fadesout = 0.05f;
+    float fadesout = 0.03f;
     private Coroutine fade_coroutin;
    
     // Start is called before the first frame update

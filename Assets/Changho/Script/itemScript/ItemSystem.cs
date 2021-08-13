@@ -6,13 +6,13 @@ public class ItemSystem : MonoBehaviour
 {
 
 
-    [HideInInspector]
-    public List<Items> items = new List<Items>();
-
+   
     [HideInInspector]
     public Dictionary<string, int> trashs = new Dictionary<string, int>();
 
-  
+    [HideInInspector]
+    public List<string> itemCurrent = new List<string>();
+
     [HideInInspector]
     public int randomboxAdd;
 
@@ -69,88 +69,134 @@ public class ItemSystem : MonoBehaviour
 
 
         
-        ItemCreate(new Equipment(EquipmentType.Axe).ItemType());
-        ItemCreate(new Fruit(FuritType.Banana).ItemType());
-        ItemCreate(new Equipment(EquipmentType.Bowl).ItemType());
-        ItemCreate(new Part(PartType.FireWood).ItemType());
-        ItemCreate(new Part(PartType.FireWood).ItemType());
-        ItemCreate(new Part(PartType.FireWood).ItemType());
-        ItemCreate(new Part(PartType.FireWood).ItemType());
-        ItemCreate(new Part(PartType.FireWood).ItemType());
-        ItemCreate(new Part(PartType.FireWood).ItemType());
-        ItemCreate(new Part(PartType.FireWood).ItemType());
-        ItemCreate(new Part(PartType.FireWood).ItemType());
-        ItemCreate(new Part(PartType.FireWood).ItemType());
-        ItemCreate(new Part(PartType.FireWood).ItemType());
-        ItemCreate(new Part(PartType.FireWood).ItemType());
-        ItemCreate(new Part(PartType.FireWood).ItemType());
-        ItemCreate(new Part(PartType.FireWood).ItemType());
-        ItemCreate(new Part(PartType.FireWood).ItemType());
-        ItemCreate(new Part(PartType.FireWood).ItemType());
-        ItemCreate(new Part(PartType.FireWood).ItemType());
-        ItemCreate(new Part(PartType.FireWood).ItemType());
-        ItemCreate(new Part(PartType.FireWood).ItemType());
-        ItemCreate(new Part(PartType.FireWood).ItemType());
-        ItemCreate(new Part(PartType.FireWood).ItemType());
-        ItemCreate(new Part(PartType.FireWood).ItemType());
-        ItemCreate(new Part(PartType.FireWood).ItemType());
-        ItemCreate(new Part(PartType.FireWood).ItemType());
-        ItemCreate(new Part(PartType.FireWood).ItemType());
-        ItemCreate(new Part(PartType.FireWood).ItemType());
-        ItemCreate(new Part(PartType.FireWood).ItemType());
-        ItemCreate(new Part(PartType.FireWood).ItemType());
-        ItemCreate(new Part(PartType.FireWood).ItemType());
-        ItemCreate(new Part(PartType.FireWood).ItemType());
-        ItemCreate(new Part(PartType.FireWood).ItemType());
-        ItemCreate(new Part(PartType.FireWood).ItemType());
-        ItemCreate(new Part(PartType.FireWood).ItemType());
-        ItemCreate(new Part(PartType.FireWood).ItemType());
-        ItemCreate(new Part(PartType.FireWood).ItemType());
-        ItemCreate(new Part(PartType.FireWood).ItemType());
-        ItemCreate(new Part(PartType.FireWood).ItemType());
-        ItemCreate(new Part(PartType.FireWood).ItemType());
-        ItemCreate(new Part(PartType.FireWood).ItemType());
-        ItemCreate(new Part(PartType.FireWood).ItemType());
-        ItemCreate(new Part(PartType.FireWood).ItemType());
-        ItemCreate(new Part(PartType.FireWood).ItemType());
-        ItemCreate(new Part(PartType.FireWood).ItemType());
-        ItemCreate(new Part(PartType.FireWood).ItemType());
-        ItemCreate(new Part(PartType.FireWood).ItemType());
-        ItemCreate(new Part(PartType.FireWood).ItemType());
-        ItemCreate(new Part(PartType.FireWood).ItemType());
-        ItemCreate(new Part(PartType.FireWood).ItemType());
-        ItemCreate(new Part(PartType.FireWood).ItemType());
-        ItemCreate(new Part(PartType.Nail).ItemType());
-        ItemCreate(new Part(PartType.Nail).ItemType());
-        ItemCreate(new Part(PartType.Nail).ItemType());
-        ItemCreate(new Part(PartType.Nail).ItemType());
-        ItemCreate(new Part(PartType.Cloth).ItemType());
-        ItemCreate(new Part(PartType.Cloth).ItemType());
-        ItemCreate(new Part(PartType.Cloth).ItemType());
-        ItemCreate(new Part(PartType.Rope).ItemType());
-        ItemCreate(new Part(PartType.Rope).ItemType());
-        ItemCreate(new Equipment(EquipmentType.TorchLight).ItemType());
+        ItemCreate(new Equipment(EquipmentType.Axe));
+        ItemCreate(new Fruit(FuritType.Banana));
+        ItemCreate(new Equipment(EquipmentType.Bowl));
+        ItemCreate(new Part(PartType.FireWood));
+        ItemCreate(new Part(PartType.FireWood));
+        ItemCreate(new Part(PartType.FireWood));
+        ItemCreate(new Part(PartType.FireWood));
+        ItemCreate(new Part(PartType.FireWood));
+        ItemCreate(new Part(PartType.FireWood));
+        ItemCreate(new Part(PartType.FireWood));
+        ItemCreate(new Part(PartType.FireWood));
+        ItemCreate(new Part(PartType.FireWood));
+        ItemCreate(new Part(PartType.FireWood));
+        ItemCreate(new Part(PartType.FireWood));
+        ItemCreate(new Part(PartType.FireWood));
+        ItemCreate(new Part(PartType.FireWood));
+        ItemCreate(new Part(PartType.FireWood));
+        ItemCreate(new Part(PartType.FireWood));
+        ItemCreate(new Part(PartType.FireWood));
+        ItemCreate(new Part(PartType.FireWood));
+        ItemCreate(new Part(PartType.FireWood));
+        ItemCreate(new Part(PartType.FireWood));
+        ItemCreate(new Part(PartType.FireWood));
+        ItemCreate(new Part(PartType.FireWood));
+        ItemCreate(new Part(PartType.FireWood));
+        ItemCreate(new Part(PartType.FireWood));
+        ItemCreate(new Part(PartType.FireWood));
+        ItemCreate(new Part(PartType.FireWood));
+        ItemCreate(new Part(PartType.FireWood));
+        ItemCreate(new Part(PartType.FireWood));
+        ItemCreate(new Part(PartType.FireWood));
+        ItemCreate(new Part(PartType.FireWood));
+        ItemCreate(new Part(PartType.FireWood));
+        ItemCreate(new Part(PartType.FireWood));
+        ItemCreate(new Part(PartType.FireWood));
+        ItemCreate(new Part(PartType.FireWood));
+        ItemCreate(new Part(PartType.FireWood));
+        ItemCreate(new Part(PartType.FireWood));
+        ItemCreate(new Part(PartType.FireWood));
+        ItemCreate(new Part(PartType.FireWood));
+        ItemCreate(new Part(PartType.FireWood));
+        ItemCreate(new Part(PartType.FireWood));
+        ItemCreate(new Part(PartType.FireWood));
+        ItemCreate(new Part(PartType.FireWood));
+        ItemCreate(new Part(PartType.FireWood));
+        ItemCreate(new Part(PartType.FireWood));
+        ItemCreate(new Part(PartType.FireWood));
+        ItemCreate(new Part(PartType.FireWood));
+        ItemCreate(new Part(PartType.FireWood));
+        ItemCreate(new Part(PartType.FireWood));
+        ItemCreate(new Part(PartType.FireWood));
+        ItemCreate(new Part(PartType.Nail));
+        ItemCreate(new Part(PartType.Nail));
+        ItemCreate(new Part(PartType.Nail));
+        ItemCreate(new Part(PartType.Nail));
+        ItemCreate(new Part(PartType.Cloth));
+        ItemCreate(new Part(PartType.Cloth));
+        ItemCreate(new Part(PartType.Cloth));
+        ItemCreate(new Part(PartType.Rope));
+        ItemCreate(new Part(PartType.Rope));
+        ItemCreate(new Equipment(EquipmentType.TorchLight));
+
+    
+    }
+
+
+    public void ReturnGround()
+    {
+
+        foreach (var item in itemCurrent)
+        {
+            TrashAfterAdd(item);
+
+        }
+
+        itemCurrent.Clear();
 
     }
 
 
-    public void ItemCreate(string itemtypename)
+    public void TrashSaveItem()
     {
 
-        foreach(var additem in prefebitems)
+      var items = ItemManager.Instance.itemList;
+
+
+        if(itemCurrent.Count > 0)
         {
-            if(additem.ItemType() == itemtypename)
+            itemCurrent.Clear();
+        }
+
+        foreach(var item in items)
+        {
+            if (item.ItemType() != "Empty")
             {
-                var go = Instantiate(additem.gameObject);
-                items.Add(go.GetComponent<Items>());
-                go.transform.SetParent(this.transform);
-                go.SetActive(false);
-                        
+                itemCurrent.Add(item.ItemType());
+            }
+        }
+      
+
+
+    }
+
+
+
+
+    public void ItemCreate(Items item)
+    {
+        ItemManager.Instance.itemList.Add(item);
+
+    }
+    
+
+    private void TrashAfterAdd(string itemtypename)
+    {
+        foreach (var additem in prefebitems)
+        {
+            if (additem.ItemType() == itemtypename)
+            {
+               
+                ItemManager.Instance.itemList.Add(additem);
+              
+
             }
         }
 
     }
-    
+
 
     /// <summary>
     /// 팝업창 뜨면 실행
@@ -163,7 +209,7 @@ public class ItemSystem : MonoBehaviour
             for(int j =0; j < trash.Value; j++)
             {
 
-                ItemCreate(trash.Key);
+                TrashAfterAdd(trash.Key);
 
             }
 
@@ -182,23 +228,29 @@ public class ItemSystem : MonoBehaviour
         if (item.GetComponent<Items>() != null)
         {
 
-            foreach(var additem in prefebitems)
-            {
-                if(item.GetComponent<Items>().ItemType() == additem.ItemType())
-                {
-                    var go = Instantiate(additem.gameObject);
-                    items.Add(go.GetComponent<Items>());
-                    go.transform.SetParent(this.transform);
-                    go.SetActive(false);
-                    Destroy(item);
-                    ItemSlotCheck(item.GetComponent<Items>());
 
-                }
-                
+            ItemManager.Instance.itemList.Add(item.GetComponent<Items>());
+            Destroy(item);
+            ItemSlotCheck(item.GetComponent<Items>());
 
-            }
 
-                       
+            //foreach(var additem in prefebitems)
+            //{
+            //    if(item.GetComponent<Items>().ItemType() == additem.ItemType())
+            //    {
+            //        var go = Instantiate(additem.gameObject);
+            //        items.Add(go.GetComponent<Items>());
+            //        go.transform.SetParent(this.transform);
+            //        go.SetActive(false);
+            //        Destroy(item);
+            //        ItemSlotCheck(item.GetComponent<Items>());
+
+            //    }
+
+
+            //}
+
+
         }
     }
 
@@ -235,7 +287,7 @@ public class ItemSystem : MonoBehaviour
 
 
 
-        foreach (var item in items)
+        foreach (var item in ItemManager.Instance.itemList)
         {
            
           if(item.ItemType() == "Bowl")
@@ -273,7 +325,7 @@ public class ItemSystem : MonoBehaviour
         float st_cnt = 0;
 
 
-        foreach (var item in items)
+        foreach (var item in ItemManager.Instance.itemList)
         {
            
 
@@ -298,36 +350,26 @@ public class ItemSystem : MonoBehaviour
            
             for(int i =0; i < 5; i++)
             {
-                foreach(var item in items)
-                {
-                    if(item.ItemType() == new Part(PartType.FireWood).ItemType())
-                    {
-                        ItemUseRemove(item);
-                        break;
-                    }
-
-                }
+            
+                        ItemUseRemove(new Part(PartType.FireWood));
+                     
+                
 
             }
 
             for (int i = 0; i < 1; i++)
             {
-                foreach (var item in items)
-                {
-                    if (item.ItemType() == new Part(PartType.Firestone).ItemType())
-                    {
-                        ItemUseRemove(item);
-                        break;
-                    }
-
-                }
+              
+                        ItemUseRemove(new Part(PartType.Firestone));
+                     
+              
 
             }
 
 
 
 
-            ItemCreate(new Equipment(EquipmentType.Bonfire).ItemType());
+            ItemCreate(new Equipment(EquipmentType.Bonfire));
             ItemInfoUI("모닥불 생성 ", Color.blue);
         }
         else
@@ -348,7 +390,7 @@ public class ItemSystem : MonoBehaviour
         int cloth_cnt = 0;
 
 
-        foreach (var item in items)
+        foreach (var item in ItemManager.Instance.itemList)
         {
            
             if(item.ItemType() == new Part(PartType.Oil).ItemType())
@@ -375,39 +417,13 @@ public class ItemSystem : MonoBehaviour
         if (oil_cnt >= 1 && cloth_cnt >= 1 && branch_cnt >= 1)
         {
 
-            foreach (var item in items)
-            {
-                if (item.ItemType() == new Part(PartType.Oil).ItemType())
-                {
-                    ItemUseRemove(item);
-                    break;
-                }
-
-            }
-
-            foreach (var item in items)
-            {
-                if (item.ItemType() == new Part(PartType.Cloth).ItemType())
-                {
-                    ItemUseRemove(item);
-                    break;
-                }
-
-            }
-
-            foreach (var item in items)
-            {
-                if (item.ItemType() == new Part(PartType.Branch).ItemType())
-                {
-                    ItemUseRemove(item);
-                    break;
-                }
-
-            }
+            ItemUseRemove(new Part(PartType.Oil));
+            ItemUseRemove(new Part(PartType.Branch));
+            ItemUseRemove(new Part(PartType.Cloth));
 
 
 
-            ItemCreate(new Equipment(EquipmentType.TorchLight).ItemType());
+            ItemCreate(new Equipment(EquipmentType.TorchLight));
             ItemInfoUI("횃불 생성 ", Color.blue);
         }
         else
@@ -427,7 +443,7 @@ public class ItemSystem : MonoBehaviour
 
 
 
-        foreach (var item in items)
+        foreach (var item in ItemManager.Instance.itemList)
         {
            
             if(item.ItemType() == new Part(PartType.FireWood).ItemType())
@@ -445,19 +461,10 @@ public class ItemSystem : MonoBehaviour
             
             for(int i = 0; i < 3; i++)
             {
-                foreach(var item in items)
-                {
-                    
-                    if(item.ItemType() == new Part(PartType.FireWood).ItemType())
-                    {
+               
 
-                        ItemUseRemove(item);
-                        break;
-                    }
-
-
-                }
-
+               ItemUseRemove(new Part(PartType.FireWood));
+             
 
 
 
@@ -468,7 +475,7 @@ public class ItemSystem : MonoBehaviour
 
 
             ItemInfoUI("뗏목 생성 ", Color.blue);
-            ItemCreate(new Part(PartType.Raft).ItemType());
+            ItemCreate(new Part(PartType.Raft));
 
         }
         else
@@ -486,18 +493,18 @@ public class ItemSystem : MonoBehaviour
 
     public void OpenBox()
     {
-        List<string> trashitemnames = new List<string>();
+        List<Items> trashitemnames = new List<Items>();
         var itemsystem = ItemSystem.Instance;
         int randombox_cnt = 0;
         int ran = Random.Range(0, 10);
 
-        trashitemnames.Add("Nail");
-        trashitemnames.Add("Fkiller");
-        trashitemnames.Add("Bowl");
-        trashitemnames.Add("Rope");
+        trashitemnames.Add(new Part(PartType.Nail));
+        trashitemnames.Add(new Equipment(EquipmentType.Fkiller));
+        trashitemnames.Add(new Equipment(EquipmentType.Bowl));
+        trashitemnames.Add(new Part(PartType.Raft));
 
 
-        foreach(var item in items)
+        foreach(var item in ItemManager.Instance.itemList)
         {
 
             if(item.ItemType() == "RandomBox")
@@ -526,30 +533,14 @@ public class ItemSystem : MonoBehaviour
             int item_rancnt = Random.Range(0, trashitemnames.Count);
             var item_ranstr = trashitemnames[item_rancnt];
            
-            foreach (var item in prefebitems)
-            {
-                if (item.ItemType() == item_ranstr)
-                {
-                    ItemCreate(item.ItemType());
-                    ItemInfoUI(item.GetItemName() + "을 획득했습니다!!!", Color.blue);
-
-
-
-                    break;
-                }
-
-            }
-
-
+            ItemCreate(item_ranstr);
+            ItemInfoUI(item_ranstr.GetItemName() + "을 획득했습니다!!!", Color.blue);
 
         }
         else
         {
 
             itemsystem.ItemInfoUI("빈 상자 입니다..", Color.yellow);
-
-
-
         }
 
         
@@ -565,23 +556,15 @@ public class ItemSystem : MonoBehaviour
 
     public void ItemUseRemove<T>(T it ) where T: Items
     {
+
+       var  item = ItemManager.Instance.itemList.FindIndex(x => x.ItemType() == it.ItemType());
+
+     
+            ItemManager.Instance.itemList.RemoveAt(item);
+        
+
+
        
-        foreach(var item in items)
-        {
-         
-            if(item.ItemType() == it.ItemType())
-            {
-                Debug.Log("삭제"); 
-                items.Remove(item);
-                Destroy(item.gameObject);
-                break;
-            }
-
-
-        }
-
-
-
 
     }
 
@@ -596,7 +579,7 @@ public class ItemSystem : MonoBehaviour
         {
             if(element.GetItemelement() == item.ItemType())
             {
-                foreach (var it in items)
+                foreach (var it in ItemManager.Instance.itemList)
                 {
                     if (it.ItemType() == item.ItemType())
                     {

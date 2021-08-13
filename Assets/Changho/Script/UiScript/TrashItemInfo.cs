@@ -33,11 +33,11 @@ public class TrashItemInfo : MonoBehaviour
             {
                 if (item.ItemType() == item_ranstr)
                 {
-                    itemsystem.ItemCreate(item.ItemType());
+                    itemsystem.ItemCreate(item);
                     itemsystem.ItemInfoUI(item.GetItemName() + "을 획득했습니다!!!", Color.blue);
 
                     
-                    foreach(var invitem in itemsystem.items)
+                    foreach(var invitem in ItemManager.Instance.itemList)
                     {
                         if(invitem.ItemType() == item.ItemType())
                         {

@@ -380,7 +380,7 @@ public class TomatoGrow : MonoBehaviour
         foreach (var crop in crops_renderer)
         {
 
-            ItemSystem.Instance.ItemCreate(crop.GetComponent<Items>().ItemType());
+            ItemSystem.Instance.ItemCreate(crop.GetComponent<Items>());
             crop.gameObject.SetActive(false);
         }
         GetComponent<SphereCollider>().enabled = false;

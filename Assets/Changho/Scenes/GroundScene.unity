@@ -13224,7 +13224,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41076d1c5a8f0454e9c17563bd0c8e94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  items: []
+  itemCurrent: []
   randomboxAdd: 0
   trashAddPopup: 0
   prefebitems:
@@ -29372,6 +29372,46 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 7804b106a8d05324795ab08de371400a, type: 2}
+    - target: {fileID: 6090419453668064533, guid: 9ec5c1c07820fc2429ac21bcbb3eb07b, type: 3}
+      propertyPath: m_MaterialTemplate
+      value: 
+      objectReference: {fileID: 2100000, guid: c34e9b39a9465ca4985770b9dd3d7137, type: 2}
+    - target: {fileID: 6090419453668064533, guid: 9ec5c1c07820fc2429ac21bcbb3eb07b, type: 3}
+      propertyPath: m_ShadowCastingMode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090419453668064533, guid: 9ec5c1c07820fc2429ac21bcbb3eb07b, type: 3}
+      propertyPath: m_ReflectionProbeUsage
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090419453668064533, guid: 9ec5c1c07820fc2429ac21bcbb3eb07b, type: 3}
+      propertyPath: m_DrawHeightmap
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090419453668064533, guid: 9ec5c1c07820fc2429ac21bcbb3eb07b, type: 3}
+      propertyPath: m_DrawInstanced
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090419453668064533, guid: 9ec5c1c07820fc2429ac21bcbb3eb07b, type: 3}
+      propertyPath: m_HeightmapPixelError
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090419453668064533, guid: 9ec5c1c07820fc2429ac21bcbb3eb07b, type: 3}
+      propertyPath: m_SplatMapDistance
+      value: 4887
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090419453668064533, guid: 9ec5c1c07820fc2429ac21bcbb3eb07b, type: 3}
+      propertyPath: m_AllowAutoConnect
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090419453668064533, guid: 9ec5c1c07820fc2429ac21bcbb3eb07b, type: 3}
+      propertyPath: m_LightmapParameters
+      value: 
+      objectReference: {fileID: 15203, guid: 0000000000000000f000000000000000, type: 0}
+    - target: {fileID: 6090419453668064535, guid: 9ec5c1c07820fc2429ac21bcbb3eb07b, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6090419453962489770, guid: 9ec5c1c07820fc2429ac21bcbb3eb07b, type: 3}
       propertyPath: m_LocalPosition.x
       value: 679

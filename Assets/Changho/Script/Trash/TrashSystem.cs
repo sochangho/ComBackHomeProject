@@ -65,7 +65,9 @@ public class TrashSystem : MonoBehaviour
         StartCoroutine(TrashGameRoutin());
 
 
-        var items = ItemSystem.Instance.items;
+        var items = ItemManager.Instance.itemList;
+
+        Debug.Log("아이템 ///" + ItemManager.Instance.itemList.Count);
 
         foreach( var item in items)
         {
@@ -213,7 +215,7 @@ public class TrashSystem : MonoBehaviour
         }
         if(randombox_cnt > 0)
         {
-            itemsystem.trashs.Add("RandomBox", randombox_cnt);
+            itemsystem.trashs.Add(new Part(PartType.RandomBox).ItemType(), randombox_cnt);
         }
         
         if((nail_cnt > 0) || (fkiller_cnt > 0) || (rope_cnt > 0) || (watercan_cnt > 0) || (randombox_cnt > 0))
@@ -269,7 +271,7 @@ public class TrashSystem : MonoBehaviour
             FindObjectOfType<ShipDestroy>().ShipSlice();
 
 
-            var item = ItemSystem.Instance.items;
+            var item = ItemManager.Instance.itemList;
             for (int i =0; i < item.Count; i++)
             {
                 if (item[i].ItemType() == new Part(PartType.Raft).ItemType())

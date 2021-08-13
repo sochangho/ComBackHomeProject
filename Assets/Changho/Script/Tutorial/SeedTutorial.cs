@@ -43,10 +43,10 @@ public class SeedTutorial : Tutorials
 
         int seed_cnt = 0;
 
-        foreach (var item in ItemSystem.Instance.items)
+        foreach (var item in ItemManager.Instance.itemList)
         {
            
-            if(item.GetComponent<Seed>() != null)
+            if(item is Seed)
             {
                 seed_cnt++;
             }

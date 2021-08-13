@@ -240,7 +240,7 @@ public class TutorialSystem : MonoBehaviour
 
 
 
-        Invoke("DelayReturn", 6f);
+        Invoke("DelayReturn", 3f);
 
     }
 
@@ -254,7 +254,7 @@ public class TutorialSystem : MonoBehaviour
         var ui = FindObjectOfType<UISystem>().TutorialUICreate();
         ui.GetComponent<TutorialInfo>().trutorial_subscript.text = sub;
 
-        while (time < 10f)
+        while (time < 5f)
         {
 
             time += Time.deltaTime;
@@ -264,7 +264,11 @@ public class TutorialSystem : MonoBehaviour
         }
 
         Destroy(ui);
-        FindObjectOfType<UISystem>().CreateTrasitionUi();
+
+        if (tutorial_index != 3)
+        {
+            FindObjectOfType<UISystem>().CreateTrasitionUi();
+        }
     }
 
     IEnumerator NextTutorialDelay()

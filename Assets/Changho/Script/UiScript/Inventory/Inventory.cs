@@ -19,11 +19,14 @@ public class Inventory : Popup
 
     public GameObject[] button_objs;
 
+    public GameObject content;
 
+    public GameObject slot;
 
     private void OnEnable()
     {
         SoundPlay("Click");
+        PlayerStop();
     }
 
     private void Start()
@@ -31,12 +34,10 @@ public class Inventory : Popup
 
         item_panel.SetActive(false);
         PanelDestroy();
-        PlayerStop();
-        SetItem();
-
+        SetItem();     
         SoundPlay("Open");
     }
-    private void OnDestroy()
+    private void OnDisable()
     {
 
         SoundPlay("Close");
@@ -99,58 +100,100 @@ public class Inventory : Popup
     {
 
 
-        var itemslot = ItemSystem.Instance.items;
+        var itemslot = ItemManager.Instance.itemList;
+
+
+
 
         foreach (var item in itemslot)
-        {
+        { 
+           
             item.itemInfoSet();
           
         }
 
 
+        var itemsDic = new Dictionary<string, SettingItem>();
 
-
-        for (int i = 0; i < itemslot.Count; i++)
+        foreach (var item in itemslot)
         {
-
-            for (int j = 0; j < slots.Count; j++)
+            if (itemsDic.ContainsKey(item.ItemType()))
             {
+                itemsDic[item.ItemType()].itemCnt++;
 
-
-                if (slots[j].GetComponent<Slot>().SlotGet() == null)
-                {
-                   
-                    slots[j].GetComponent<Slot>().SlotSeting(itemslot[i]);
-                    
-                    break;
-                }
-                else
-                {
-                    if(slots[j].GetComponent<Slot>().SlotGet().ItemType() == itemslot[i].ItemType())
-                    {
-                        
-                     slots[j].GetComponent<Slot>().SlotCnt();
-                    
-                     break;
-                    }
-                    
-                }
             }
+            else
+            {
+                itemsDic.Add(item.ItemType(), new SettingItem());
+                itemsDic[item.ItemType()].item = item;
+                itemsDic[item.ItemType()].itemCnt++;
+            }
+
+
         }
+
+
+        foreach(var dic in itemsDic)
+        {
+            var s = Instantiate(slot);
+            s.transform.SetParent(content.transform);
+            s.transform.localScale = new Vector2(1, 1);
+            slots.Add(s);
+            s.GetComponent<Slot>().SlotSeting(dic.Value.item, dic.Value.itemCnt);
+
+        }
+
+
+
+        //for (int i = 0; i < itemslot.Count; i++)
+        //{
+
+        //    for (int j = 0; j < slots.Count; j++)
+        //    {
+
+
+        //        if (slots[j].GetComponent<Slot>().SlotGet().ItemType().Equals("Empty"))
+        //        {
+                   
+        //            slots[j].GetComponent<Slot>().SlotSeting(itemslot[i]);
+                    
+        //            break;
+        //        }
+        //        else
+        //        {
+        //            if(slots[j].GetComponent<Slot>().SlotGet().ItemType().Equals(itemslot[i].ItemType()))
+        //            {
+                        
+        //             slots[j].GetComponent<Slot>().SlotCnt();
+                    
+        //             break;
+        //            }
+                    
+        //        }
+        //    }
+        //}
 
 
     }
 
     public void InventoryUpdate()
     {
+
         foreach(var slot in slots)
         {
-
-            if (slot.GetComponent<Slot>().SlotGet() != null)
-            {
-                slot.GetComponent<Slot>().SlotNullSet();
-            }
+            Destroy(slot);
+            
         }
+        
+        slots = new List<GameObject>();
+        //foreach(var slot in slots)
+        //{
+
+        //    if (slot.GetComponent<Slot>().SlotGet().ItemType() != "Empty")
+        //    {
+        //        slot.GetComponent<Slot>().SlotNullSet();
+        //    }
+        //}
 
         SetItem();
     }

@@ -61,19 +61,21 @@ public class BaseScene : MonoBehaviour
             yield return null;
         }
 
-        var panel = new GameObject("Panel");
-        var panelImage = panel.AddComponent<Image>();
-        var color = Color.black;
-        color.a = 0;
-        panelImage.color = color;
-        var panelTransform = panel.GetComponent<RectTransform>();
-        panelTransform.anchorMin = new Vector2(0, 0);
-        panelTransform.anchorMax = new Vector2(1, 1);
-        panelTransform.pivot = new Vector2(0.5f, 0.5f);
-        panel.transform.SetParent(canvas.transform, false);
-        currentPanels.Push(panel);
-        StartCoroutine(FadeIn(panel.GetComponent<Image>(), 0.2f));
-
+      
+            var panel = new GameObject("Panel");
+            var panelImage = panel.AddComponent<Image>();
+            var color = Color.black;
+            color.a = 0;
+            panelImage.color = color;
+            var panelTransform = panel.GetComponent<RectTransform>();
+            panelTransform.anchorMin = new Vector2(0, 0);
+            panelTransform.anchorMax = new Vector2(1, 1);
+            panelTransform.pivot = new Vector2(0.5f, 0.5f);
+            panel.transform.SetParent(canvas.transform, false);
+        
+            currentPanels.Push(panel);
+            StartCoroutine(FadeIn(panel.GetComponent<Image>(), 0.2f));
+        
         var popup = Instantiate(request.asset) as GameObject;
         Assert.IsNotNull((popup));
         popup.transform.SetParent(canvas.transform, false);

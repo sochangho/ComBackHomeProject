@@ -160,8 +160,9 @@ public class BornfireStart : MonoBehaviour
 
         paticleobj.SetActive(false);
         bonfire_state = FireState.End;
-        smoke_paticleobj.SetActive(true);
+        smoke_paticleobj.SetActive(true);        
         BonfireEnd();
+        Destroy(ui);
 
     }
 

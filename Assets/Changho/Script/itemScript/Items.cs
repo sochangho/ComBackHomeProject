@@ -34,7 +34,7 @@ public class Items : MonoBehaviour
 
     virtual public string ItemType()
     {
-        return itemtype;
+        return "Empty";
     }
 
 

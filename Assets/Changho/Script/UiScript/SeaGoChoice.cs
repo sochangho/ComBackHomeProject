@@ -12,7 +12,7 @@ public class SeaGoChoice :Popup
         bool ok = false;
         var itemsystem = ItemSystem.Instance;
 
-        foreach(var item in itemsystem.items)
+        foreach(var item in ItemManager.Instance.itemList)
         {
 
             if(item.ItemType() == new Part(PartType.Raft).ItemType())
@@ -28,6 +28,7 @@ public class SeaGoChoice :Popup
 
             DaySystem.Instance.StopDaySystem();
             TutorialSystem.Instance.TransitionScene();
+            ItemSystem.Instance.TrashSaveItem();
             SceneManager.LoadScene("TrashScene");
 
         }

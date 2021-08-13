@@ -34,7 +34,7 @@ public class ShipCreateTutorial : Tutorials
 
         var raft = new Part(PartType.Raft).ItemType();
 
-        foreach(var item in ItemSystem.Instance.items)
+        foreach(var item in ItemManager.Instance.itemList)
         {
             if(item.ItemType() == raft)
             {
