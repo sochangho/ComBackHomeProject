@@ -2748,6 +2748,11 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   slots: []
+  buts:
+  - {fileID: 850529627246040561}
+  - {fileID: 8058501479266000082}
+  - {fileID: 7016050873228816101}
+  - {fileID: 2714334057941520018}
   item_panel: {fileID: 6456476041156969029}
   itemcreatepanel: {fileID: 8281440601709263072}
   button_objs:
@@ -2756,6 +2761,7 @@ MonoBehaviour:
   - {fileID: 5569444990781748481}
   content: {fileID: 5453334869699675013}
   slot: {fileID: 1793889210982576318, guid: 0e08cb127e808704ea7e5a33321b7d16, type: 3}
+  animatorController: {fileID: 9100000, guid: e6f0eaf36f5e7c74187035ed105bfeae, type: 2}
 --- !u!95 &1329565464932986381
 Animator:
   serializedVersion: 3

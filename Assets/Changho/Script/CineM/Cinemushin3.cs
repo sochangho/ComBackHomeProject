@@ -81,7 +81,7 @@ public class Cinemushin3 : MonoBehaviour
                 
         }
 
-        Application.Quit();
+        SceneManager.LoadScene("StartScene");
 
     }
 

@@ -1,7 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 public class GameOverPopup :Popup
 {
 
@@ -37,9 +36,11 @@ public class GameOverPopup :Popup
 
     public void GameEndButton()
     {
-        Application.Quit();
 
+        //Application.Quit();
+        SceneManager.LoadScene("StartScene");
 
+        
     }
 
 

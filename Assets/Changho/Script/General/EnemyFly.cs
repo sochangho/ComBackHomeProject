@@ -1,7 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
+﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 public class EnemyFly : MonoBehaviour
 {
     private PlayerControl player;
@@ -14,7 +12,11 @@ public class EnemyFly : MonoBehaviour
     {
 
         player = FindObjectOfType<PlayerControl>();
-        camaraShake =GameObject.Find("MainCamera(Clone)").GetComponent<CamaraShake>();
+
+        if (SceneManager.GetActiveScene().name == "GroundScene")
+        {
+            camaraShake = GameObject.Find("MainCamera(Clone)").GetComponent<CamaraShake>();
+        }
     }
 
 

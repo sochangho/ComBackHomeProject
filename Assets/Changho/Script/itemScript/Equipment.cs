@@ -174,7 +174,7 @@ public class Equipment : Items
         }
         else if (equipment_type == EquipmentType.Ston)
         {                         
-          player.stons.Shot();                            
+          //player.stons.Shot();                            
         }
         else if (equipment_type == EquipmentType.Bowl)
         {

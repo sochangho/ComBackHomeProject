@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using System;
 public class Inventory : Popup
 {
     public delegate void InvetoryUpdate();
@@ -13,6 +13,8 @@ public class Inventory : Popup
     //하위오브젝트 슬롯들
     public List<GameObject> slots;
 
+    public List<Button> buts;
+
     public GameObject item_panel;
 
     public ItemCreateInfo itemcreatepanel;
@@ -22,6 +24,8 @@ public class Inventory : Popup
     public GameObject content;
 
     public GameObject slot;
+
+    public RuntimeAnimatorController animatorController;
 
     private void OnEnable()
     {
@@ -34,7 +38,7 @@ public class Inventory : Popup
 
         item_panel.SetActive(false);
         PanelDestroy();
-        SetItem();     
+        StartCoroutine(SlotSettingDelay(SetItem()));  
         SoundPlay("Open");
     }
     private void OnDisable()
@@ -96,7 +100,7 @@ public class Inventory : Popup
     /// <summary>
     /// 인벤토리에 들어갈 아이템 개수를 초기화 시킵니다.
     /// </summary>
-    public void SetItem()
+    public Dictionary<string, SettingItem> SetItem()
     {
 
 
@@ -132,95 +136,87 @@ public class Inventory : Popup
 
         }
 
+ 
+        return itemsDic;
+    }
 
-        foreach(var dic in itemsDic)
+    public void InventoryUpdate()
+    {
+        var orin_slotdic = new Dictionary<string, int>();
+
+        foreach(var slot in slots)
         {
+            orin_slotdic.Add(slot.GetComponent<Slot>().SlotGet().ItemType(), slot.GetComponent<Slot>().SlotCntget());         
+        }
+        foreach(var slot in slots)
+        {            
+            Destroy(slot);            
+        }
+        
+
+
+        slots = new List<GameObject>();
+
+        var dicnew = SetItem();
+
+
+        foreach (var dic in dicnew)
+        {
+
             var s = Instantiate(slot);
             s.transform.SetParent(content.transform);
             s.transform.localScale = new Vector2(1, 1);
             slots.Add(s);
             s.GetComponent<Slot>().SlotSeting(dic.Value.item, dic.Value.itemCnt);
 
+            if (!orin_slotdic.ContainsKey(dic.Key))
+            {
+                s.AddComponent<Animator>().runtimeAnimatorController = animatorController;
+            }
+            else
+            {
+                if(orin_slotdic[dic.Key] < dic.Value.itemCnt)
+                {
+                    s.AddComponent<Animator>().runtimeAnimatorController = animatorController;
+
+                }
+
+
+            }
         }
 
 
-
-        //for (int i = 0; i < itemslot.Count; i++)
-        //{
-
-        //    for (int j = 0; j < slots.Count; j++)
-        //    {
-
-
-        //        if (slots[j].GetComponent<Slot>().SlotGet().ItemType().Equals("Empty"))
-        //        {
-                   
-        //            slots[j].GetComponent<Slot>().SlotSeting(itemslot[i]);
-                    
-        //            break;
-        //        }
-        //        else
-        //        {
-        //            if(slots[j].GetComponent<Slot>().SlotGet().ItemType().Equals(itemslot[i].ItemType()))
-        //            {
-                        
-        //             slots[j].GetComponent<Slot>().SlotCnt();
-                    
-        //             break;
-        //            }
-                    
-        //        }
-        //    }
-        //}
-
-
-    }
-
-    public void InventoryUpdate()
-    {
-
-        foreach(var slot in slots)
-        {
-            Destroy(slot);
-            
-        }
-        
-        slots = new List<GameObject>();
-        //foreach(var slot in slots)
-        //{
-
-        //    if (slot.GetComponent<Slot>().SlotGet().ItemType() != "Empty")
-        //    {
-        //        slot.GetComponent<Slot>().SlotNullSet();
-        //    }
-        //}
-
-        SetItem();
     }
 
 
     public void OpenBoxButton()
     {
         SoundPlay("Click");
-        ItemSystem.Instance.OpenBox();
+        if (ItemSystem.Instance.OpenBox())
+        {
 
-        InventoryUpdate();
+            InventoryUpdate();
+        }
 
     }
 
     public void ClickBornfireCreate()
     {
         SoundPlay("Click");
-        ItemSystem.Instance.BonfireAdd();
-        InventoryUpdate();
+        if (ItemSystem.Instance.BonfireAdd())
+        {
+            InventoryUpdate();
+        }
     }
 
 
     public void ClickTorchLightCreate()
     {
         SoundPlay("Click");
-        ItemSystem.Instance.TorchLightAdd();
-        InventoryUpdate();
+        if (ItemSystem.Instance.TorchLightAdd())
+        {
+            InventoryUpdate();
+        }
 
     }
 
@@ -228,8 +224,10 @@ public class Inventory : Popup
     {
 
         SoundPlay("Click");
-        ItemSystem.Instance.RaftAdd();
-        InventoryUpdate();
+        if (ItemSystem.Instance.RaftAdd())
+        {
+            InventoryUpdate();
+        }
     }
 
 
@@ -246,6 +244,12 @@ public class Inventory : Popup
                 slot.GetComponent<Button>().interactable = false;
 
             }
+        }
+
+        foreach(var but in buts)
+        {
+
+            but.interactable = false;
         }
     }
 
@@ -264,7 +268,11 @@ public class Inventory : Popup
             }
         }
 
+        foreach (var but in buts)
+        {
 
+            but.interactable = true;
+        }
 
     }
 
@@ -316,6 +324,34 @@ public class Inventory : Popup
     {
 
         Sounds.Instance.SoundPlay(name);
+
+    }
+
+    System.Collections.IEnumerator SlotSettingDelay(Dictionary<string, SettingItem> i )
+    {
+
+        WaitForSeconds waitForSeconds = new WaitForSeconds(0.1f);
+        foreach (var dic in i)
+        {
+
+            var s = Instantiate(slot);
+            s.transform.SetParent(content.transform);
+            s.transform.localScale = new Vector2(1, 1);
+            slots.Add(s);
+            s.GetComponent<Slot>().SlotSeting(dic.Value.item, dic.Value.itemCnt);
+            s.GetComponent<Button>().enabled = false;
+            s.AddComponent<Animator>().runtimeAnimatorController = animatorController;
+            
+            yield return waitForSeconds;
+
+        }
+
+
+        foreach(var slot in slots)
+        {
+            slot.GetComponent<Button>().enabled = true;
+        }
+
 
     }
 

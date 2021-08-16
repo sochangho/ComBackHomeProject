@@ -319,7 +319,7 @@ public class ItemSystem : MonoBehaviour
 
   
 
-    public void BonfireAdd() // 모닥불 생성
+    public bool BonfireAdd() // 모닥불 생성
     {
         float fw_cnt = 0;
         float st_cnt = 0;
@@ -371,19 +371,20 @@ public class ItemSystem : MonoBehaviour
 
             ItemCreate(new Equipment(EquipmentType.Bonfire));
             ItemInfoUI("모닥불 생성 ", Color.blue);
+            return true;
         }
         else
         {
 
             ItemInfoUI("모닥불을 만들기에는 아이템 부족......", Color.red);
 
-            return;
+            return false;
         }
 
 
     }
 
-    public void TorchLightAdd()
+    public bool TorchLightAdd()
     {
         int oil_cnt = 0;
         int branch_cnt = 0;
@@ -425,11 +426,12 @@ public class ItemSystem : MonoBehaviour
 
             ItemCreate(new Equipment(EquipmentType.TorchLight));
             ItemInfoUI("횃불 생성 ", Color.blue);
+            return true;
         }
         else
         {
             ItemInfoUI("횃불을 만들기에는 아이템 부족....", Color.red);
-            return;
+            return false;
 
         }
 
@@ -437,7 +439,7 @@ public class ItemSystem : MonoBehaviour
     }
 
 
-    public void RaftAdd()
+    public bool RaftAdd()
     {
         int fw_cnt = 0;
 
@@ -477,11 +479,12 @@ public class ItemSystem : MonoBehaviour
             ItemInfoUI("뗏목 생성 ", Color.blue);
             ItemCreate(new Part(PartType.Raft));
 
+            return true;
         }
         else
         {
             ItemInfoUI("뗏목을 만들기에는 아이템 부족......", Color.red);
-            return;
+            return false;
         }
 
 
@@ -491,7 +494,7 @@ public class ItemSystem : MonoBehaviour
 
 
 
-    public void OpenBox()
+    public bool OpenBox()
     {
         List<Items> trashitemnames = new List<Items>();
         var itemsystem = ItemSystem.Instance;
@@ -521,7 +524,7 @@ public class ItemSystem : MonoBehaviour
         if(randombox_cnt == 0)
         {
             ItemInfoUI("인벤토리 창에 랜덤 박스가 없습니다", Color.yellow);
-            return;
+            return false;
         }
 
 
@@ -535,12 +538,14 @@ public class ItemSystem : MonoBehaviour
            
             ItemCreate(item_ranstr);
             ItemInfoUI(item_ranstr.GetItemName() + "을 획득했습니다!!!", Color.blue);
+            return true;
 
         }
         else
         {
 
             itemsystem.ItemInfoUI("빈 상자 입니다..", Color.yellow);
+            return false;
         }
 
         
@@ -646,7 +651,7 @@ public class ItemSystem : MonoBehaviour
 
               
                 go.gameObject.AddComponent<Rigidbody>().velocity = GetVelocity(pos,
-                new Vector3(pos.x + distance[Random.Range(0,distance.Length)] , pos.y , pos.z + distance[Random.Range(0, distance.Length)]), 45f);
+                new Vector3(pos.x + ((Vector3)Random.insideUnitCircle).x, pos.y , pos.z + ((Vector3)Random.insideUnitCircle).y), 45f);
 
                 
 
