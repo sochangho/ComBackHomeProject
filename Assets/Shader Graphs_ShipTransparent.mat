@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Shader Graphs_Electricity_shader
-  m_Shader: {fileID: -6465566751694194690, guid: eaf2a1b680432e448983c7fcac088cd7, type: 3}
+  m_Name: Shader Graphs_ShipTransparent
+  m_Shader: {fileID: -6465566751694194690, guid: 3ce6ee04bd98d74448f2709a28fb703d, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -19,12 +19,6 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs: []
-    m_Floats:
-    - Vector1_A5589A71: 1
-    - Vector1_AA9BFF76: 10
-    - Vector1_C8D51171: 40
-    m_Colors:
-    - Color_4B0DEBCF: {r: 1.8182937, g: 3.7174006, b: 7.7176466, a: 0}
-    - Vector2_14721C49: {r: 0.1, g: -0.5, b: 0, a: 0}
-    - Vector2_3FED980: {r: 0, g: 0.5, b: 0, a: 0}
+    m_Floats: []
+    m_Colors: []
   m_BuildTextureStacks: []

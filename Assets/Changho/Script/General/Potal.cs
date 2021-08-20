@@ -20,17 +20,10 @@ public class Potal : MonoBehaviour
     {
       if(other.tag == "Player")
         {
-            if (TutorialSystem.Instance.tutorial_index == 4)
-            {
+            
 
                 ui.GoChoice();
-            }
-            else
-            {
-
-                ItemSystem.Instance.ItemInfoUI("입장 불가 ...!", Color.red);
-
-            }
+     
         }
       
     }

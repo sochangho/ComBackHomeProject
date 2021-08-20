@@ -106,7 +106,7 @@ public class DaySystem : MonoBehaviour
     private void Start()
     {
         player = FindObjectOfType<PlayerControl>();
-        daylight.intensity = 2;
+        daylight.intensity = 2f;
         dayType = DayType.Morning;
         dayroutin = StartCoroutine(DayRoutin());
        
@@ -329,7 +329,7 @@ public class DaySystem : MonoBehaviour
 
                 daylight.intensity += 0.05f;
 
-                if (daylight.intensity >= 2)
+                if (daylight.intensity >= 2f)
                 {
 
                     dayType = DayType.Morning;
@@ -361,7 +361,7 @@ public class DaySystem : MonoBehaviour
 
                 daylight.intensity -= 0.05f;
 
-                if (daylight.intensity <= 1.2)
+                if (daylight.intensity <= 1f)
                 {
 
                     dayType = DayType.Night;
