@@ -361,7 +361,7 @@ public class DaySystem : MonoBehaviour
 
                 daylight.intensity -= 0.05f;
 
-                if (daylight.intensity <= 1f)
+                if (daylight.intensity <= 0.5f)
                 {
 
                     dayType = DayType.Night;

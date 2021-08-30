@@ -31,5 +31,5 @@ Material:
     - _CropGrow: -0.35
     - _CutOff: 1
     m_Colors:
-    - Color_2B254756: {r: 0, g: 0, b: 0, a: 0}
+    - Color_2B254756: {r: 0.07938299, g: 0.4811321, b: 0, a: 1}
   m_BuildTextureStacks: []

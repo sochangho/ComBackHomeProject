@@ -22,6 +22,7 @@ public class Seed : Items
     public Seed(SeedType st)
     {
         seed_type = st;
+        layer = 21;
         itemInfoSet();
     }
 
@@ -108,26 +109,24 @@ public class Seed : Items
     {
         var sp = FindObjectOfType<PlayerControl>().spwan_point;
 
-        RaycastHit ray;
+  
 
-        if (Physics.Raycast(sp.transform.position, Vector3.down, out ray, 10f, layer))
-        {
-
+        if (ItemManager.Instance.seedtry) {
             var seedobj = Resources.Load<GameObject>("Ganeral/Seed/" + seed_type.ToString()) as GameObject;
             var go = Instantiate(seedobj);
             go.AddComponent<SeedCollider>();
             go.transform.position = sp.transform.position;
 
-            
+
 
             ItemSystem.Instance.ItemUseRemove(this);
-            
+
+
         }
         else
         {
-            ItemSystem.Instance.ItemInfoUI("이 곳에는 농장물을 기를 수 없습니다 .", Color.red);
+
+            ItemSystem.Instance.ItemInfoUI("이곳에는 씨앗을 뿌릴 수 없습니다. ", Color.red );
         }
-
-
     }
 }
