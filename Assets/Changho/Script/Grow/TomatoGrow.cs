@@ -31,10 +31,10 @@ public class TomatoGrow : MonoBehaviour
     private float temp = 0.03f;
 
     [SerializeField]
-    private float crop_wait = 0.1f;
+    private float crop_wait = 0.01f;
 
     [SerializeField]
-    private float crop_temp = 0.08f;
+    private float crop_temp = 0.001f;
 
     [SerializeField]
     private GameObject paticle;
@@ -83,6 +83,7 @@ public class TomatoGrow : MonoBehaviour
 
             crop.material.SetTexture("_MainTex", crop_tex);
             crop.material.SetFloat("_CutOff", cutoff);
+            crop.gameObject.SetActive(false);
         }
 
 
@@ -90,8 +91,7 @@ public class TomatoGrow : MonoBehaviour
         mainCamera = FindObjectOfType<CamaraShake>().gameObject;
         
         player_ = FindObjectOfType<PlayerControl>();
-       
-        
+              
     }
 
 
@@ -111,9 +111,7 @@ public class TomatoGrow : MonoBehaviour
 
         if(canvas == null)
         {
-            canvas = FindObjectsOfType<Canvas>();
-
-                       
+            canvas = FindObjectsOfType<Canvas>();                       
         }
 
         foreach(var cv in canvas)
@@ -146,9 +144,12 @@ public class TomatoGrow : MonoBehaviour
        else if (growstate == GrowState.Step3)
        {
             
+            foreach(var crop in crops_renderer)
+            {
+                crop.gameObject.SetActive(true);
+            }
 
-
-                StartCoroutine(CropStep());
+            StartCoroutine(CropStep());
                
       
         }

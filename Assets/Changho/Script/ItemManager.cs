@@ -10,9 +10,9 @@ public class ItemManager : SlngletonGeneral<ItemManager>
     public List<string> saveItemList = new List<string>();
 
 
+    public bool isSeed = false;
 
-
-
+    
 
 
 

@@ -27,9 +27,10 @@ Material:
     - Print: 0
     - Vector1_386C6BEE: 1
     - Vector1_9EC8016A: -0.1
+    - Vector1_A70E80A5: -0.32
     - Vector1_B75CA44E: 0.65
     - _CropGrow: -0.35
-    - _CutOff: 1
+    - _CutOff: 0.15
     m_Colors:
     - Color_2B254756: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []

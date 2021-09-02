@@ -106,13 +106,10 @@ public class Seed : Items
 
     private void SeedSprinkle()
     {
-        var sp = FindObjectOfType<PlayerControl>().spwan_point;
-
-        RaycastHit ray;
-
-        if (Physics.Raycast(sp.transform.position, Vector3.down, out ray, 10f, layer))
+       
+        if (ItemManager.Instance.isSeed)
         {
-
+            var sp = FindObjectOfType<PlayerControl>().spwan_point;
             var seedobj = Resources.Load<GameObject>("Ganeral/Seed/" + seed_type.ToString()) as GameObject;
             var go = Instantiate(seedobj);
             go.AddComponent<SeedCollider>();

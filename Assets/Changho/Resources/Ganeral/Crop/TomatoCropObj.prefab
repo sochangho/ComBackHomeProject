@@ -181,7 +181,7 @@ PrefabInstance:
       objectReference: {fileID: 7353735875779023176}
     - target: {fileID: 1125569788, guid: d536c47ec71ba514b9eebd8af05f17b5, type: 3}
       propertyPath: cutoff
-      value: 0.67
+      value: 0.15
       objectReference: {fileID: 0}
     - target: {fileID: 1125569788, guid: d536c47ec71ba514b9eebd8af05f17b5, type: 3}
       propertyPath: grow_speed

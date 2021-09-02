@@ -29,7 +29,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - Vector1_186F9365: 1
-    - Vector1_2081906: -0.1
+    - Vector1_2081906: -0.48
     - Vector1_D31EBA6E: 1
     - _StemGrow: 0
     m_Colors: []

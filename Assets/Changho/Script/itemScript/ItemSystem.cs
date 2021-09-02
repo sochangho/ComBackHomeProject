@@ -67,8 +67,10 @@ public class ItemSystem : MonoBehaviour
 
        var player_equ =  FindObjectOfType<PlayerControl>().equipitem;
 
-
-        
+        for (int i = 0; i < 4; i++)
+        {
+            ItemCreate(new Seed(SeedType.TomatoSeed));
+        }
         ItemCreate(new Equipment(EquipmentType.Axe));
         ItemCreate(new Fruit(FuritType.Banana));
         ItemCreate(new Equipment(EquipmentType.Bowl));
