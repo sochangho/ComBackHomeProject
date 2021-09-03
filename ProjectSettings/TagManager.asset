@@ -27,6 +27,7 @@ TagManager:
   - CropPlace
   - UiCollider
   - FishingZone
+  - Fence
   layers:
   - Default
   - TransparentFX
@@ -51,7 +52,7 @@ TagManager:
   - SeedPlace
   - CropPlace
   - Arrow
-  - 
+  - cactus
   - 
   - 
   - 

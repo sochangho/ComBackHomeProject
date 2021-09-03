@@ -100,7 +100,8 @@ public class PlayerControl : MonoBehaviour
     private PlayerAnimaterMgr player_anim;
 
     private bool playerRun;
-  
+
+   
     public PlayerAnimaterMgr Anim
     {
 
@@ -299,7 +300,7 @@ public class PlayerControl : MonoBehaviour
 
 
 
-            if (PlayerRun())
+            if (PlayerRun() )
             {
 
 
@@ -311,11 +312,12 @@ public class PlayerControl : MonoBehaviour
             }
 
 
-            FollowCamera();
-            player_camera.transform.LookAt(this.transform);
+         
 
         }
 
+        FollowCamera();
+        player_camera.transform.LookAt(this.transform);
     }
 
 
@@ -328,7 +330,6 @@ public class PlayerControl : MonoBehaviour
     {
         var distance = Vector3.Distance(transform.position, target);
 
- 
 
 
     
@@ -375,8 +376,8 @@ public class PlayerControl : MonoBehaviour
         var distance = Vector3.Distance(transform.position, target);
         var dir = target - transform.position;
         var dirXZ = new Vector3(dir.x, 0f, dir.z);
-     
 
+   
 
         if (!(dir.x ==0 && dir.z==0))
         {
@@ -654,6 +655,54 @@ public class PlayerControl : MonoBehaviour
 
     }
 
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.transform.tag == "Fence" || collision.gameObject.layer == 19 || collision.gameObject.layer == 23)
+        {
+            Debug.Log("dd");
+            StopRun();
+            player_anim.RunAnimation(false);
+            playerRun = false;
+
+            var vec = ( transform.position - collision.contacts[0].point).normalized;
+           
+            StartCoroutine(Add(0.5f ,()=> { }, () => {
+
+                
+                transform.position += new Vector3(vec.x , 0 , vec.z) * Time.deltaTime *2f;
+
+            },()=> { playerRun = true; }));
+
+        }
+    }
+
+
+    IEnumerator Add(float limitTime , Action frontaction = null , Action action = null , Action afteraction = null)
+    {
+
+        if(frontaction != null)
+        {
+            frontaction();
+        }
+        
+        float time = 0;
+        while ( time < limitTime) 
+        {
+            time += Time.deltaTime;
+
+            if (action != null)
+            {
+                action();
+            }
+            yield return null;
+        }
+
+        if(afteraction != null)
+        {
+            afteraction();
+        }
+
+    }
 
     private Vector3 DontMoveUpItem(Vector3 p)
     {

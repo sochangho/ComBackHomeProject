@@ -6,9 +6,9 @@ public class UISystem : MonoBehaviour
 {
     [HideInInspector]
     public TreeUI ui_tree;
-    public GameObject tree_pos;
-    public GameObject tutorial_pos;
-    public GameObject active_pos;
+    //public GameObject tree_pos;
+    //public GameObject tutorial_pos;
+    //public GameObject active_pos;
     public ForceUI ui_forec;
 
     public GameObject fishingGageUi;
@@ -24,9 +24,12 @@ public class UISystem : MonoBehaviour
     {
 
         var tree_ui = Instantiate(Resources.Load<GameObject>("UI/Popup/TreeUI") as GameObject);
-        tree_ui.transform.parent = tree_pos.transform;
-        tree_ui.GetComponent<RectTransform>().localPosition = new Vector3(0f, 0f, 0f);
-       
+        tree_ui.transform.parent = canvas.transform;
+        tree_ui.GetComponent<RectTransform>().anchorMin = new Vector2(1, 1);
+        tree_ui.GetComponent<RectTransform>().anchorMax = new Vector2(1, 1);
+        tree_ui.GetComponent<RectTransform>().pivot = new Vector2(0.5f, 0.5f);
+        tree_ui.GetComponent<RectTransform>().anchoredPosition = new Vector3(-204.65f, -53.64998f, 0f);
+        
         ui_tree = tree_ui.GetComponent<TreeUI>();
 
         return tree_ui;
@@ -36,8 +39,11 @@ public class UISystem : MonoBehaviour
     public GameObject TutorialUICreate()
     {
         var tutorial_ui = Instantiate(Resources.Load<GameObject>("UI/Popup/Tutorialinfo"));
-        tutorial_ui.transform.parent = tutorial_pos.transform;
-        tutorial_ui.GetComponent<RectTransform>().localPosition = new Vector3(0f, 0f, 0f);
+        tutorial_ui.transform.parent = canvas.transform;
+        tutorial_ui.GetComponent<RectTransform>().anchorMin = new Vector2(1, 1);
+        tutorial_ui.GetComponent<RectTransform>().anchorMax = new Vector2(1, 1);
+        tutorial_ui.GetComponent<RectTransform>().pivot = new Vector2(0.5f, 0.5f);
+        tutorial_ui.GetComponent<RectTransform>().anchoredPosition = new Vector2(-236.83f, -184.27f);
 
         return tutorial_ui;
     }
@@ -48,7 +54,7 @@ public class UISystem : MonoBehaviour
     {
         var cropui = Instantiate(Resources.Load<GameObject>("UI/Popup/cropstart"));
         cropui.transform.parent = canvas.transform;
-        cropui.GetComponent<RectTransform>().localPosition = new Vector3(0f, 0f, 0f);
+        cropui.GetComponent<RectTransform>().anchoredPosition = new Vector3(0f, 0f, 0f);
 
         return cropui;
 
@@ -57,8 +63,8 @@ public class UISystem : MonoBehaviour
     public GameObject ActiveStartCreate()
     {
         var asui = Instantiate(Resources.Load<GameObject>("UI/Popup/ActiveStartPopup"));
-        asui.transform.parent = active_pos.transform;
-        asui.GetComponent<RectTransform>().localPosition = new Vector3(0f, 0f, 0f);
+        asui.transform.parent = canvas.transform;
+        asui.GetComponent<RectTransform>().anchoredPosition = new Vector3(0f, 0f, 0f);
 
         return asui;
 
