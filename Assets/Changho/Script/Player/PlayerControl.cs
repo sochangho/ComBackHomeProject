@@ -154,6 +154,7 @@ public class PlayerControl : MonoBehaviour
        
     }
 
+
     private void FixedUpdate()
     {
         if (playerRun)
@@ -336,7 +337,7 @@ public class PlayerControl : MonoBehaviour
         if (distance >= targetToplayer && (player_anim.WalkState()|| player_anim.RunState()))
         {
           
-            transform.localPosition = Vector3.MoveTowards(transform.position, target , player_speed * Time.deltaTime);
+            transform.localPosition = Vector3.MoveTowards(transform.position, target , player_speed * Time.fixedDeltaTime);
 
           
             return true;
@@ -382,7 +383,7 @@ public class PlayerControl : MonoBehaviour
         if (!(dir.x ==0 && dir.z==0))
         {
             var targetRotation = Quaternion.LookRotation(dirXZ);
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation,10* Time.deltaTime);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation,10* Time.fixedDeltaTime);
 
           
 
@@ -398,7 +399,7 @@ public class PlayerControl : MonoBehaviour
 
         Vector3 cameraTarget = new Vector3(transform.position.x  - distanceX, transform.position.y + distanceY, transform.position.z - distanceZ );
 
-        player_camera.transform.position = Vector3.Lerp(player_camera.transform.position, cameraTarget, Time.deltaTime * player_speed);
+        player_camera.transform.position = Vector3.Lerp(player_camera.transform.position, cameraTarget, Time.fixedDeltaTime * player_speed);
 
              
     }
@@ -474,7 +475,7 @@ public class PlayerControl : MonoBehaviour
         equUI.ImageNone();
         while (time < 1.7f)
         {
-            time += Time.deltaTime;
+            time += Time.fixedDeltaTime;
 
             if(time > 1.19f && !lifingbool)
             {

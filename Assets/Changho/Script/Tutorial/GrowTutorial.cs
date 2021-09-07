@@ -11,7 +11,7 @@ public class GrowTutorial : Tutorials
 
         name = "농작물 키우기";
         suscript = "HP를 채우기 위해서 농작물을 키우세요" + "\r\n"
-            + "조건 - 농작물 2개";
+            + "조건 - 농작물 1개";
 
     }
 
@@ -37,7 +37,7 @@ public class GrowTutorial : Tutorials
         }
 
         crop = complete_cnt;
-        if(crop >= 2)
+        if(crop >= 1)
         {
 
             tutorialState = TutorialState.Complete;
@@ -55,7 +55,7 @@ public class GrowTutorial : Tutorials
         tutorialState = TutorialState.Go;
         name = "농작물 키우기";
         suscript = "HP를 채우기 위해서 농작물을 키우세요" + "\r\n" 
-            + "조건 - 농작물 2개";
+            + "조건 - 농작물 1개";
         PlayerPrefs.SetString("name", name);
         PlayerPrefs.SetString("subs", suscript);
     }
